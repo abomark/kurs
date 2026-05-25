@@ -1,0 +1,1 @@
+Det er en **LLM-drevet assistent** som kobler seg til Snowflake-kontoen din, kan **utføre handlinger i flere steg inne i den** (ikke bare foreslå kode), og **respekterer rollene og det eksisterende oppsettet ditt** mens den gjør dataarbeid.

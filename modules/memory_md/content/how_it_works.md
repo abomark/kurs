@@ -1,0 +1,5 @@
+- **Aktiveres** med `CORTEX_ENABLE_MEMORY=1` (env-variabel) — opt-in, ikke på som default
+- **Lagres** i `~/.snowflake/cortex/memory/` — én eller flere markdown-filer
+- **Operasjoner** agenten utfører selv: `view`, `create`, `str_replace`, `insert`, `delete`, `rename`
+- **Lesing** skjer typisk ved sesjon-start; agenten henter inn relevante filer som kontekst
+- **Skriving** kan skje når agenten lærer noe verdt å huske — enten på eget initiativ, eller fordi du sier "husk dette"

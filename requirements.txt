@@ -1,0 +1,7 @@
+streamlit>=1.40
+supabase>=2.9
+wordcloud>=1.9
+matplotlib>=3.8
+streamlit-autorefresh>=1.0
+plotly>=5.20
+streamlit-extras>=0.4

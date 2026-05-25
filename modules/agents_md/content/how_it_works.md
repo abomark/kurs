@@ -1,0 +1,2 @@
+- Innholdet auto-injiseres som systemkontekst i alle samtaler i prosjektet
+- Du trenger ikke nevne den i prompts. Den er der hver gang.

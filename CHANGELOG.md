@@ -1,0 +1,254 @@
+# CHANGELOG
+
+Referert av [DESIGN_GUIDE.md](DESIGN_GUIDE.md) — oppdateres ved hver design- eller modul-endring.
+
+For detaljerte krav-endringer, se PRD.md §8.
+
+---
+
+## 2026-05-24 (sent) — memory.md (modul 8) + Gruppeoppgave 3 (9–10)
+
+Tre nye moduler om Cortex Codes persistent-memory-mekanisme, plassert rett etter skills.md (modul 7). Speiler etablerte mønstre: konsept-modul (som agents_md/skills_md) + interaktiv gruppeoppgave med par-diskusjon (som gruppeoppgave_1) + offentlig resultater-side (som gruppeoppgave_1_resultater).
+
+**Hvorfor:** Cortex Code har et opt-in Memory-tool (`CORTEX_ENABLE_MEMORY=1`) som persisterer på tvers av sesjoner i `~/.snowflake/cortex/memory/`. Det er et viktig kompetanse-gap for bank-analytikere: memory er bruker-scope (ikke prosjekt-scope som AGENTS.md), og GDPR-/compliance-vinklingen rundt hva som bør lagres lokalt fortjener egen modul.
+
+**Endringer:**
+- Ny mappe `modules/memory_md/` (konsept, kategori K) med `app_logic.py` + åtte content-filer (`what_is_it`, `how_it_works`, `where_to_place`, `vs_agents_md`, `why_not_skill`, `what_to_store`, `example`, `transition`). Innhold er drafted basert på research mot Snowflake-docs; Andre redigerer.
+- Ny mappe `modules/gruppeoppgave_3/` (interaktiv, kategori G) med `app_logic.py`, `admin_logic.py`, `db.py`, `config.py`, `views.py`, `reducer.py`, `supabase_schema.sql`, `content/intro.md`. Fire spørsmål: Q1/Q2/Q4 fritekst, Q3 valg (bank-risiko). Ny tabell `kurs.gruppeoppgave_3_responses` (per DM-5.2).
+- Ny mappe `modules/gruppeoppgave_3_resultater/` (read-only, kategori G) med `app_logic.py` som gjenbruker `render_results` fra `gruppeoppgave_3.views`.
+- Wrappers: `m08_memory_md.py`, `m09_gruppeoppgave_3.py`, `m10_gruppeoppgave_3_resultater.py`.
+- Moduler 8–18 skjøvet ned til 11–21 i `data/moduler.py`. Wrapper-filer i `pages_content/modules/` renamet tilsvarende.
+- Captions/crumbs oppdatert i 11 `modules/<slug>/app_logic.py`-filer.
+- `DESIGN_GUIDE.md` §11: "18 moduler" → "21 moduler".
+- PRD changelog: v0.26.
+
+**Manuelt steg:** Kjør `modules/gruppeoppgave_3/supabase_schema.sql` i Supabase SQL Editor for å opprette tabellen.
+
+**`viz`-gjenbruk:** `gruppeoppgave_3/views.py` importerer `render_wordcloud`/`render_barchart` direkte fra `modules.gruppeoppgave_1.viz` — ingen duplisering av Plotly-/wordcloud-koden. Hvis Gruppeoppgave 1 senere flytter eller forandrer signatur, må Gruppeoppgave 3 oppdateres.
+
+---
+
+## 2026-05-24 — Gruppeoppgave 2 lagt til som modul 8
+
+Ny modul innsatt rett etter skills.md (modul 7) — praktisk oppfølger der gruppene selv skriver en `SKILL.md`-fil. Skill-temaet er datakvalitets-sjekk: input er en tabell, output en rapport om duplikater, NULL-rater, kardinalitet og outliers. Universell, testbar, og direkte anvendelig på bank-tabeller.
+
+**Hvorfor:** PRD §FR-3.11. Etter skills.md (konseptuell) er det pedagogisk naturlig å la deltakerne lage sin egen skill umiddelbart. Alle gruppene jobber med samme spec slik at plenums-runden blir lettere å gjennomføre.
+
+**Endringer:**
+- Ny mappe `modules/gruppeoppgave_2/` med `app_logic.py` + tre placeholder-content-filer (`oppgave.md`, `steg.md`, `forventet.md`). Layout speiler `individuell_oppgave_2`-mønsteret (callout + to subheaders).
+- `pages_content/modules/m08_gruppeoppgave_2.py` — wrapper.
+- Moduler 8–17 skjøvet ned til 9–18 i `data/moduler.py`. Wrapper-filer i `pages_content/modules/` renamet tilsvarende (`m08_individuell_oppgave_2` → `m09_individuell_oppgave_2`, …, `m17_avslutning` → `m18_avslutning`).
+- `crumb()`- og `st.caption()`-tekster i 10 `modules/<slug>/app_logic.py`-filer + `gruppeoppgave_1_resultater/app_logic.py` oppdatert til nye modul-numre.
+- `DESIGN_GUIDE.md` §11: "17 moduler" → "18 moduler".
+- PRD changelog: v0.25.
+
+**Ren presentasjon — ingen datainnsamling.** Refleksjon skjer muntlig i plenum, ingen Supabase-tabell, ingen resultatside.
+
+---
+
+## 2026-05-24 — Bli kjent: segmentert Likert-kontroll
+
+Ren UX-redesign av Modul 0 (`modules/oppvarming/app_logic.py`). Backend, datalagring og state-håndtering uendret.
+
+**Hvorfor:** dagens layout ga spørsmålene for lite plass (uunødvendig wrap), Likert-knappene fløt løst uten visuell sammenheng, og skalaretningen var kun synlig i toppbanneret.
+
+**Endringer:**
+- Kolonneforhold flippet fra `[3, 5]` til `[3, 2]` — spørsmålsteksten får mest plass.
+- Spørsmålsnummer som mono-badge (`Q1`, `Q2`, …) i stedet for `1.`-prefix.
+- `st.radio(horizontal=True)` restylet via scoped CSS (`stylable_container`) som én sammenhengende segmentert bar: 36×30px segmenter, Vann-fyll på valgt segment, hvit tekst.
+- Endepunkt-labels (`uenig` / `enig`) duplisert på hver rad — ikke kun i toppbanneret.
+- Skala-hint krympet fra fullt `callout()` til kompakt inline pille med Frost venstrekant.
+- `st.divider()` mellom rader erstattet av subtil 1px border-bottom; padding strammet til `14px 16px`.
+- Besvarte rader får svak Vann-tint via CSS `:has(input:checked)` (ingen rerun).
+
+PRD uendret — FR-3.14 spesifiserer ikke UI-detaljer for radio-layout.
+
+---
+
+## 2026-05-23 (sent) — Kategori-prikker i sidemenyen
+
+Stor refactoring av navigasjon: `st.navigation()` erstattet med custom sidebar som viser kategori-prikker per modul (DESIGN_GUIDE §11).
+
+**Hvorfor:** Med 17 moduler hvor individuelle oppgaver er flettet inn mellom konseptmoduler, gir tematisk gruppering motstrid med sekvensiell nummerering. Løsning: én sekvensiell liste 01–17 + farget prikk per modul.
+
+**Fem kategorier:**
+- **I** Innføring (Frost `#7EB5D2`) — Cortex Code, Snowsight vs CLI, Cortex i Snowsight, Første demo
+- **K** Konfigurasjon (Lavendel `#B197FC`) — AGENTS.md, skills.md, Tilgjengelige modeller
+- **P** Praksis (Mynt `#66D9A8`) — Individuelle oppgaver 1–5
+- **G** Gruppe (Korall `#FFAD80`) — Gruppeoppgave 1, Resultater
+- **F** Fordypning (Sky `#94A3B8`) — Demo 2, Autonomous loop, Avslutning
+
+**Nye filer:**
+- `app.py` — entry. Leser `?page=...` fra URL og dispatcher.
+- `data/moduler.py` — KANONISK modul-liste (17 moduler) + kategori-mapping.
+- `components/sidebar.py` — custom sidebar med prikker + scoped CSS.
+- `pages_content/` — 17 modul-wrappers (`mNN_<slug>.py`) + `forside.py`, `bli_kjent.py`, `resultater.py`, `admin.py`. Hver fil er en pass-through til eksisterende `modules.<slug>.app_logic.main`.
+
+**Slettet:**
+- `hub.py`, `home.py`, `pages/*.py` (19 filer). Erstattet av app.py + pages_content/.
+
+**URL-endringer:**
+- Tidligere `/cortex_code` → nå `?page=m01_cortex_code`
+- Tidligere `/agents_md` → nå `?page=m05_agents_md` (modul-nummer endret fra 10 → 5 i ny spec-rekkefølge)
+- Bokmerker fra tidligere kjøringer fungerer ikke lenger.
+
+**Modul-rekkefølge endret** til spec-orden (interleaved):
+1. Cortex Code, 2. Snowsight vs CLI, 3. Cortex i Snowsight, 4. Første demo,
+5. AGENTS.md (K), 6. Individuell 1 (P), 7. skills.md (K), 8. Individuell 2 (P),
+9. Gruppeoppgave 1 (G), 10. Resultater (G), 11. Individuell 3 (P), 12. Demo 2 (F),
+13. Individuell 4 (P), 14. Autonomous loop (F), 15. Individuell 5 (P),
+16. Tilgjengelige modeller (K), 17. Avslutning (F)
+
+**Endre i fremtiden:** kun `data/moduler.py`. Sidebaren og forsiden følger automatisk.
+
+**Kjør:** `streamlit run app.py` (ikke `hub.py` lenger).
+
+---
+
+## 2026-05-23 — Bli kjent: 5 → 10 Likert-påstander
+
+Oppvarmings-modulen ("Bli kjent") utvidet med fem nye Cortex Code-spesifikke påstander (ID 6–10). Totalt 10 påstander i Likert-griden, fortsatt én form med én submit.
+
+Q1–5 (uendret): generell teknisk bakgrunn — Snowflake-bruk, AI-verktøy, CLI-komfort, kodebakgrunn, holdning til AI-agenter.
+
+Q6–10 (nye): Cortex Code-modenhet:
+- 6: Jeg bruker Cortex Code regelmessig
+- 7: Jeg kjenner anbefalt praksis for bruk av Cortex Code
+- 8: Jeg forstår sentrale begreper som agent, modell og prompt
+- 9: Jeg forstår hva som driver kostnader ved bruk av Cortex Code
+- 10: Jeg vet hvordan jeg optimaliserer bruken av Cortex Code
+
+Pedagogisk: kursleder kan se "generell teknisk modenhet" (Q1–5) mot "Cortex Code-modenhet" (Q6–10) side ved side på resultatsiden.
+
+Endringer:
+- `modules/oppvarming/config.py` — `STATEMENTS` utvidet til 10 oppføringer
+- `modules/oppvarming/supabase_schema.sql` — CHECK-constraint `question_id between 1 and 10`
+- `PRD.md` §FR-3.14 oppdatert til 10 påstander, changelog v0.24
+
+**Manuelt steg:** kjør oppdatert `supabase_schema.sql` i Supabase SQL Editor. Det dropper og gjenoppretter `kurs.oppvarming_responses`-tabellen (eksisterende data slettes — var test).
+
+Ingen kode-endringer nødvendige i `app_logic.py`, `views.py`, `db.py` — alle itererer over `STATEMENTS` og håndterer variabel størrelse automatisk.
+
+---
+
+## 2026-05-23 — Modul 16: Tilgjengelige modeller
+
+Ny modul lagt til som UTKAST (FR-3.11, FR-3.12) — Andre skriver innholdet selv.
+
+- Ny mappe: `modules/tilgjengelige_modeller/` med `__init__.py`, `app_logic.py` og 4 tomme placeholder-content (intro, oversikt, valg, eksempel)
+- Ny wrapper: `pages/tilgjengelige_modeller.py` (URL: `/tilgjengelige_modeller`)
+- `hub.py`: ny `st.Page` mellom Autonomous loop og Avslutning
+- `home.py`: ny `MODULES`-entry med eksplisitt placeholder-beskrivelse
+- Modul-rekkefølge: Avslutning flyttet fra 16 → 17 (tittel, caption, crumb, page_title oppdatert)
+- `modules/autonomous_loop/app_logic.py`: CTA-kort peker nå til Tilgjengelige modeller (var Avslutning)
+
+URL-er uendret for alle eksisterende moduler.
+
+---
+
+## 2026-05-23 — DESIGN_GUIDE v2: hierarki og container-system
+
+Stor revisjon: skifter fra brand-disiplin (v1) til produkt-design (v2).
+Bakgrunn er ikke lenger Fjell heldekkende, men nær-svart canvas med
+elevation-trinn. Brand-farger reserveres for aksenter og containere.
+
+### Tema og farger
+- `.streamlit/config.toml`: `backgroundColor #002776 → #0A0F1F`, `secondaryBackgroundColor #0A3494 → #0F1729`, `textColor #F8E9DD → #F4F6FB`, `codeBackgroundColor #001A52 → #131C33`
+- Font: `Arial → Inter, Arial, sans-serif` (Inter primær, Arial fallback). `[[theme.fontFaces]]` blokk for å laste Inter fra Google Fonts.
+- Sidebar-tekst: Syrin → Text-secondary `#A8B3C7`.
+- Border: solid Frost → semi-transparent `rgba(126, 181, 210, 0.10)`.
+
+### Shared UI (`modules/shared/ui.py`)
+- Eksporterer fargekonstanter (`COLOR_*`, `TEXT_*`, `BORDER*`) som single source of truth.
+- `callout()` — nye kvadratiske ikoner (i / ! / ✓ / ·) i stedet for emojis. Bakgrunn-opacity senket fra 0.20 → 0.12 (info), 0.15 → 0.12 (warning). Bakoverkompatibel: `kind="highlight"` mappes til `"success"`, `kind="warning"` til `"warn"`.
+- `metric_card(label, value, sub)` — NY: KPI-kort med uppercase-label, 32px tabular verdi, Frost-farget sub-tekst.
+- `metric_row(metrics)` — NY: rad med flere metric-kort i `st.columns`.
+- `card(key, padding)` — NY: context manager som pakker innhold i kort med surface-1, border, radius.
+- `crumb(parts)` — NY: breadcrumb øverst på modul-side.
+- `next_module_cta(title, description, page)` — NY: erstatter "---" + tekstlinje med interaktivt CTA-kort.
+
+### Diagrammer (`modules/gruppeoppgave_1/viz.py`)
+- `render_barchart` migrert fra `plotly.express` til `plotly.graph_objects` for full akse-kontroll.
+- Y-akse: `dtick=1`, kun heltallsticks. Tidligere 0.2/0.4/0.6/0.8-ticks når N=2 var visuell støy.
+- Tomme kategorier: text-labels skjules ("0" rendres som tom streng), så hierarkiet 1–5 er klart men ikke dominerende.
+- Snitt-linje: nytt `mean` argument tegner stiplet vertikal Syrin-linje med annotasjon.
+- Likert-mode: nytt `likert=True` argument legger "uenig"/"nøytral"/"enig"-undertekster på tick 1/3/5.
+- Diagrammer wraps automatisk i `card()` — ingen flytende grafer på canvas lenger.
+
+### Sidebar (`hub.py`)
+- Modul-titler: to-sifret mono-prefix (`01 · Cortex Code` i stedet for `1. Cortex Code` + emoji-ikon).
+- Sidebar-ikoner fjernet fra `st.Page(...)`-kall (emojis renders inkonsistent på tvers av OS).
+- Seksjons-headers: `"👋 Oppvarming"`, `"📚 Kursmoduler"`, `"🔒 Administrasjon"` → `"Oversikt"`, `"Kursmoduler"`, `"Administrasjon"`.
+
+### Resultater Oppvarming
+- `oppvarming/views.py`: viktige tall (totalt antall svar, snitt-score, antall spørsmål) løftet til metric-kort på toppen.
+- Diagrammer bruker nå snitt-linje og Likert-ankere på x-aksen.
+- `oppvarming_resultater/app_logic.py`: crumb øverst, ny H1 "Resultater fra Oppvarming", refresh-kontroller i kompakt høyre-kolonne.
+
+### Hva er IKKE endret
+- 16 modulsider rører innholdet ikke (Andre eier innholdet — se CLAUDE.md).
+- Eksisterende `callout()`-kall i moduler fungerer som før via alias-mapping.
+- `gruppeoppgave_1/views.py` og `admin_logic.py` urørt — bruker fortsatt `render_barchart`/`render_wordcloud` med kompatibel API.
+
+---
+
+## 2026-05-23
+
+### Design system etablert
+- [DESIGN_GUIDE.md](DESIGN_GUIDE.md) opprettet som autoritativ kilde for visuell stil
+- Palett: Vann/Fjell/Sand/Frost/Syrin (se DESIGN_GUIDE §2)
+- Font: Arial gjennomgående
+- `.streamlit/config.toml` justert til kanonisk versjon fra guide
+- Emojis restaurert i H1/H2-overskrifter og callout-titler per guide §5
+- Sidebar-ikoner i `hub.py` restaurert
+- Tidligere "ingen ikoner"-regel overstyrt — emojis er nå en del av designet (kun i headers og callout-prefikser, ikke som tekst-dekorasjon)
+- `callout()`-helper i `modules/shared/ui.py` matcher guide §5.2–5.4
+- CLAUDE.md oppdatert: peker til DESIGN_GUIDE.md som single source of truth for stil
+
+### Modul-tillegg (separat fra design)
+- Modul 1 (Cortex Code) har lydklipp `Snowflake RBAC.mp3` via `st.audio`
+- Modul 6 (skills.md) — separat oppføring (utenfor scope for denne endringen)
+
+### Full migrasjon til callout() (siste runde)
+Alle gjenværende `st.info`/`st.warning`/`st.success`/`st.error` erstattet med `callout()` per DESIGN_GUIDE §6.
+
+Mapping:
+- `st.info` → `callout(kind="info")` (Vann)
+- `st.success` → `callout(kind="highlight")` (Frost)
+- `st.warning` → `callout(kind="warning")` (Syrin)
+- `st.error` → `callout(kind="warning")` (Syrin — guide §8 forbyr rødt)
+- Empty-state ("Venter på flere svar…") → `callout(kind="subtle")` (Sand-dempet)
+
+Migrerte filer: cortex_code, skills_md, alle individuell_oppgave_{1–5}, cortex_interaction, oppvarming, demo_1, demo_2, gruppeoppgave_1 (app_logic + admin_logic + views + viz).
+
+Form-toast (`st.toast`) er ikke migrert — guide nevner ikke toasts, og de er per natur transiente.
+
+### Modul-rekkefølge: hands-on før konsept
+
+Individuelle oppgaver 1–5 flyttet til posisjon 5–9 i Kursmoduler-seksjonen, rett etter Første demo. Konseptuelle og workshop-moduler skyves ned tilsvarende.
+
+Ny rekkefølge:
+
+| Posisjon | Modul |
+|---|---|
+| 1 | Cortex Code |
+| 2 | Snowsight vs CLI |
+| 3 | Cortex Code i Snowsight |
+| 4 | Første demo |
+| 5–9 | Individuelle oppgaver 1–5 |
+| 10 | AGENTS.md |
+| 11 | skills.md |
+| 12 | Gruppeoppgave 1 |
+| 13 | Resultater Gruppeoppgave 1 |
+| 14 | Demo 2 |
+| 15 | Autonomous loop i dybden |
+| 16 | Avslutning |
+
+Endringer:
+- `hub.py` — st.Page-blokker omordnet, title-prefikser renummerert
+- `home.py` — `MODULES`-lista omordnet og `number`-feltene oppdatert
+- Alle berørte `app_logic.py` — `st.caption("Modul N · …")` oppdatert + docstring-modul-numre
+- Alle berørte `pages/*.py` wrappers — `page_title` oppdatert
+- `PRD.md` §FR-3.10 sidemeny-eksempel oppdatert, changelog v0.22
+
+URL-er er uendret (slugs er beholdt).
