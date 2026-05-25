@@ -1,4 +1,4 @@
-"""AGENTS.md – modul 10.
+"""AGENTS.md – modul 7.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul), §FR-3.12 (innhold i
 markdown-filer) og §FR-3.15 (designsystem-helpers fra DESIGN_GUIDE v2).
@@ -17,9 +17,9 @@ from modules.shared.ui import callout, card, crumb, load_markdown, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "10 · AGENTS.md"])
+    crumb(["Kursmoduler", "07 · AGENTS.md"])
     st.title("📝 AGENTS.md")
-    st.caption("Modul 10 · Hva er AGENTS.md, og hvorfor trenger vi det?")
+    st.caption("Modul 7 · Hva er AGENTS.md, og hvorfor trenger vi det?")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---

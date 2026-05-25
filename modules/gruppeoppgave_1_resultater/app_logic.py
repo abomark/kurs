@@ -1,4 +1,4 @@
-"""Resultater Gruppeoppgave 1 – modul 14 (åpen for alle).
+"""Resultater Gruppeoppgave 1 – modul 15 (åpen for alle).
 
 Implementerer PRD §FR-3.13: offentlig, read-only visning av
 hovedresultatene fra Gruppeoppgave 1. Ingen passord-gate. Ingen
@@ -22,7 +22,7 @@ from modules.shared.ui import crumb, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "14 · Resultater Gruppeoppgave 1"])
+    crumb(["Kursmoduler", "09 · Resultater Gruppeoppgave 1"])
     st.title("Resultater · Gruppeoppgave 1")
     st.caption(
         "Live aggregerte svar fra Gruppeoppgave 1. Oppdateres automatisk. "
@@ -46,4 +46,6 @@ def main() -> None:
     render_results()
 
     st.divider()
-    next_module_cta_for("pages/demo_2.py")
+    # Etter Resultater Gruppeoppgave 1 går vi inn i skills.md-blokken
+    # (neste konsept i den nye pedagogiske rekkefølgen).
+    next_module_cta_for("skills_md")

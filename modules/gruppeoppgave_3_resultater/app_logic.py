@@ -1,4 +1,4 @@
-"""Resultater Gruppeoppgave 3 – modul 10 (åpen for alle).
+"""Resultater Gruppeoppgave 3 – modul 11 (åpen for alle).
 
 Implementerer PRD §FR-3.13: offentlig, read-only visning av
 hovedresultatene fra Gruppeoppgave 3 (memory.md). Ingen passord-gate.
@@ -24,7 +24,7 @@ from modules.shared.ui import crumb, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "10 · Resultater Gruppeoppgave 3"])
+    crumb(["Kursmoduler", "14 · Resultater Gruppeoppgave 3"])
     st.title("Resultater · Gruppeoppgave 3 — memory.md")
     st.caption(
         "Live aggregerte svar fra Gruppeoppgave 3. Oppdateres automatisk. "
@@ -48,4 +48,6 @@ def main() -> None:
     render_results()
 
     st.divider()
-    next_module_cta_for("gruppeoppgave_2")
+    # Etter Resultater Gruppeoppgave 3 går vi ut av memory.md-blokken
+    # og inn i Anvendt praksis-seksjonen.
+    next_module_cta_for("individuell_oppgave_2")

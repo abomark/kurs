@@ -15,9 +15,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "12 · Individuell oppgave 2"])
+    crumb(["Kursmoduler", "15 · Individuell oppgave 2"])
     st.title("🔍 Individuell oppgave 2")
-    st.caption("Modul 12 · Hands-on: beskrive en ukjent tabell med Cortex Code.")
+    st.caption("Modul 15 · Hands-on: beskrive en ukjent tabell med Cortex Code.")
     st.divider()
 
     callout(

@@ -1,4 +1,4 @@
-"""skills.md – modul 11.
+"""skills.md – modul 8.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Konseptuell innføring i skills.md-
@@ -17,9 +17,9 @@ from modules.shared.ui import callout, card, crumb, load_markdown, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "11 · skills.md"])
+    crumb(["Kursmoduler", "10 · skills.md"])
     st.title("🛠️ skills.md")
-    st.caption("Modul 11 · Hva er skills.md, og hvordan skiller den seg fra AGENTS.md?")
+    st.caption("Modul 10 · Hva er skills.md, og hvordan skiller den seg fra AGENTS.md?")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---
@@ -57,6 +57,7 @@ def main() -> None:
 
     st.divider()
 
-    # --- Seksjon 6: Overgang til Gruppeoppgave 1 ---
-    # CTA-kortet henter beskrivelsen fra MODULES i home.py — Andres tekst.
-    next_module_cta_for("pages/gruppeoppgave_1.py")
+    # --- Seksjon 6: Overgang til Gruppeoppgave 2 ---
+    # skills.md → Gruppeoppgave 2 (lag en datakvalitets-skill) er den
+    # naturlige neste øvelsen i ny modul-rekkefølge.
+    next_module_cta_for("gruppeoppgave_2")

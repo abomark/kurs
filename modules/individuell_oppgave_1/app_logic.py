@@ -1,4 +1,4 @@
-"""Individuell oppgave 1 – modul 5.
+"""Individuell oppgave 1 – modul 6.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Individuell hands-on oppgave:
@@ -15,9 +15,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "05 · Individuell oppgave 1"])
+    crumb(["Kursmoduler", "06 · Individuell oppgave 1"])
     st.title("✏️ Individuell oppgave 1")
-    st.caption("Modul 5 · Hands-on: hver deltaker gjør dette på egen maskin.")
+    st.caption("Modul 6 · Hands-on: hver deltaker gjør dette på egen maskin.")
     st.divider()
 
     callout(
@@ -33,4 +33,4 @@ def main() -> None:
     st.markdown(load_markdown(__file__, "instructions"))
 
     st.divider()
-    next_module_cta_for("pages/individuell_oppgave_2.py")
+    next_module_cta_for("agents_md")

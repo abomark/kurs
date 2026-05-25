@@ -4,7 +4,7 @@ Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Ren presentasjon — ingen datainnsamling.
 Refleksjon skjer muntlig i plenum etterpå.
 
-Eksponerer `main()` som kalles fra `pages_content/modules/m11_gruppeoppgave_2.py`.
+Eksponerer `main()` som kalles fra `pages_content/modules/m12_gruppeoppgave_2.py`.
 """
 
 from __future__ import annotations

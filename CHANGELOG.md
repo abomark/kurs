@@ -6,6 +6,96 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-05-25 — Pedagogisk reorder: konsept → øvelse-blokker
+
+`MODULER` flyttet om så hver konsept-modul får sin tilhørende gruppeoppgave umiddelbart etterpå. `SECTIONS` utvidet fra 5 til 7 seksjoner basert på pedagogiske blokker — ikke modul-type.
+
+**Hvorfor:** Tidligere lå AGENTS.md (m07) men Gruppeoppgave 1 (m14), skills.md (m08) men Gruppeoppgave 2 (m12). Deltakeren måtte lære tre konsepter etter hverandre og «huske bakover» når øvelsene kom. Bryter prinsippet om at øvelse skal følge ferskt lært stoff.
+
+**Ny modul-rekkefølge:**
+1. **Introduksjon** (01–06): Cortex Code → CLI → Snowsight → Arkitektur → Demo → Individuell 1
+2. **AGENTS.md** (07–09): AGENTS.md → Gruppeoppgave 1 → Resultater 1
+3. **skills.md** (10–11): skills.md → Gruppeoppgave 2
+4. **memory.md** (12–14): memory.md → Gruppeoppgave 3 → Resultater 3
+5. **Anvendt praksis** (15–16): Individuell 2 → Individuell 3
+6. **Dybde** (17–20): Demo 2 → Individuell 4 → Autonomous loop → Individuell 5
+7. **Avslutning** (21–22): Tilgjengelige modeller → Avslutning
+
+**Hva som flyttet:**
+- Gruppeoppgave 1 + Resultater: m14, m15 → m08, m09
+- skills.md: m08 → m10
+- Gruppeoppgave 2: m12 → m11
+- memory.md: m09 → m12
+- Gruppeoppgave 3 + Resultater: m10, m11 → m13, m14
+- Individuell oppgave 2: m13 → m15
+
+Alle andre moduler beholdt nummer. Slugs uendret — DB-tabeller (`kurs.<slug>_responses`) uberørt.
+
+**Endringer:**
+- `data/moduler.py`: `MODULER` rerangert. `SECTIONS` skrevet om til 7 pedagogiske blokker.
+- `pages_content/modules/`: 8 wrapper-filer renamet (`m{NN}_<slug>.py`-prefiks oppdatert).
+- 8 `modules/<slug>/app_logic.py`-filer: `crumb()` + `st.caption("Modul N · ...")` oppdatert til nye nummer.
+- 3 `next_module_cta_for(...)`-kall oppdatert for ny pedagogisk sekvens:
+  - `skills_md` → `gruppeoppgave_2` (var: `gruppeoppgave_1`)
+  - `gruppeoppgave_1_resultater` → `skills_md` (var: `demo_2`)
+  - `gruppeoppgave_3_resultater` → `individuell_oppgave_2` (var: `gruppeoppgave_2`)
+
+**URL-endringer:** bokmerker til de 8 flyttede modulene fungerer ikke lenger (`?page=mXX_<slug>` har nytt XX). Sluggen er uendret, så lenker som bare bruker slug-formen ville fungert — men hele appen bruker `m{nr:02d}_<slug>`-formen.
+
+**Åpne avveininger flagget til Andre:**
+- Gruppeoppgave 2 (skills.md-blokken) mangler resultatside. Hvis det skal være konsistent med de to andre blokkene, må ny `gruppeoppgave_2_resultater`-modul opprettes (separat oppgave).
+- «Anvendt praksis»-seksjonen (m15–m16) er to placeholder-oppgaver uten innhold ennå. Kan ende opp i en av konsept-blokkene når innholdet kommer.
+
+---
+
+## 2026-05-25 — Individuell oppgave 1 flyttet inn i Innføring
+
+Bytter plass på `m06_agents_md` ↔ `m07_individuell_oppgave_1`. Individuell oppgave 1 hører nå hjemme i Innføring-seksjonen (etter Første demo), ikke i Konfigurasjon.
+
+**Hvorfor:** pedagogisk flyt — etter live-demoen (modul 5) er det naturlig at deltakerne får prøve selv før de går videre til de konseptuelle konfigurasjons-modulene. Plassering i Innføring matcher også tematisk: hands-on intro til verktøyet, ikke "konfigurasjon".
+
+**Endringer:**
+- `data/moduler.py`: `individuell_oppgave_1` til nr=6 (kategori P), `agents_md` til nr=7. `SECTIONS.innforing` får nytt medlem `m06_individuell_oppgave_1`; `SECTIONS.konfigurasjon` mister det og starter nå med `m07_agents_md`.
+- Wrapper-filer renamet: `m06_agents_md.py` → `m07_agents_md.py`, `m07_individuell_oppgave_1.py` → `m06_individuell_oppgave_1.py`.
+- Captions/crumbs oppdatert i begge `app_logic.py`-filene.
+- `next_module_cta_for` i individuell_oppgave_1 endret fra `individuell_oppgave_2` (langt unna i Gruppearbeid) til `agents_md` (neste i sekvens).
+
+---
+
+## 2026-05-25 — Sidebar: seksjonsgruppering med "Du er her"-badge
+
+Kursmodulene grupperes nå visuelt i fem seksjoner i sidemenyen (Innføring, Konfigurasjon, Gruppearbeid, Dybde, Avslutning). Den aktive seksjonen får 3px Vann-stripe til venstre og en kompakt "Du er her"-badge ved siden av seksjonsetiketten. De andre seksjonene har tynn dempet stripe.
+
+**Hvorfor:** med 22 moduler i én flat liste mistet brukeren raskt oversikt over hvor i kursforløpet de var. Seksjoner gir temporal gruppering uten å bryte den sekvensielle 01–22-nummereringen eller endre kategori-prikkenes betydning (modul-*type*, ikke seksjon).
+
+**Endringer:**
+- `data/moduler.py`: ny `SECTIONS`-konstant + `section_for_page()`-helper. Seksjoner refererer `page_id`-strenger (ikke nr), så stabil over om-nummerering.
+- `components/sidebar.py`: `render_sidebar` itererer nå over `SECTIONS` i stedet for flat modul-løkke. Hver seksjon rendres som én HTML-blob (kan ikke splittes — Streamlit lukker åpne div mellom markdown-kall). Aktiv modul-styling endret fra venstrekant til mykt bakgrunnsfyll så seksjons-stripen får være "den med kantlinjen".
+- Forside, "Bli kjent" og "Resultater" uberørt — seksjonsgruppering gjelder kun under "Kursmoduler".
+
+PRD uendret. Inndelingen avtalt med Andre (m04 Arkitekturoversikt i Innføring, m21 Tilgjengelige modeller i Avslutning som referanse-modul selv om kategori-kode er K).
+
+---
+
+## 2026-05-25 — Arkitekturoversikt (modul 4)
+
+Ny konsept-modul som forklarer Cortex Codes interne arkitektur som én tool-augmented LLM-agent. Plassert rett før Første demo (modul 5) i Innføring-kategorien.
+
+**Hvorfor:** Bank-analytikere får mer ut av demoen hvis de først forstår at "agenten" er én LLM med fem integrerte lag — ikke et flermodulsystem med separat planner/executor/validator. Demystifiserer hva som faktisk skjer under panseret før de ser den i bruk.
+
+**Endringer:**
+- Ny mappe `modules/arkitektur/` med `app_logic.py` + syv content-filer (`intro`, `system_prompt`, `tool_interface`, `skills_system`, `oppgavestyring`, `kontekstbevissthet`, `forbehold`).
+- Layout: intro-tekst + fem `st.expander`-blokker hvor brukeren klikker for å se detaljer. Hver ekspander dekker ett lag (System Prompt, Tool Interface, Skills-system, Oppgavestyring, Kontekstbevissthet) — innhold beskriver hva det er, hvordan det fungerer, og konkrete eksempler fra Cortex Code.
+- Ny wrapper `pages_content/modules/m04_arkitektur.py`.
+- Moduler 4–21 skjøvet ned til 5–22 i `data/moduler.py`. 18 wrapper-filer renamet tilsvarende.
+- Captions/crumbs oppdatert i 18 `modules/<slug>/app_logic.py`-filer.
+- `DESIGN_GUIDE.md` §11: "21 moduler" → "22 moduler".
+- PRD changelog: v0.27.
+
+**Innhold:** Drafted basert på det agenten selv kan observere av sin egen arkitektur (system-prompt, tilgjengelige verktøy, skills-mekanisme, TODO-listing, kontekst-verktøy). Forbehold-callout gjør det tydelig at det _ikke_ dekker Snowflakes backend-orkestrering rundt agenten.
+
+---
+
 ## 2026-05-24 (sent) — memory.md (modul 8) + Gruppeoppgave 3 (9–10)
 
 Tre nye moduler om Cortex Codes persistent-memory-mekanisme, plassert rett etter skills.md (modul 7). Speiler etablerte mønstre: konsept-modul (som agents_md/skills_md) + interaktiv gruppeoppgave med par-diskusjon (som gruppeoppgave_1) + offentlig resultater-side (som gruppeoppgave_1_resultater).

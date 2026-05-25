@@ -1,7 +1,13 @@
-"""Custom sidebar med kategori-prikker.
+"""Custom sidebar med kategori-prikker og seksjonsgruppering.
 
 Erstatter `st.navigation()` fordi vi trenger full kontroll over rendering
-av prikkene. Bruker query params (`?page=...`) for navigasjon mellom sider.
+av prikkene og seksjons-containerne. Bruker query params (`?page=...`) for
+navigasjon mellom sider.
+
+Modulene grupperes visuelt i seksjoner (Innføring, Konfigurasjon,
+Gruppearbeid, Dybde, Avslutning) per `data.moduler.SECTIONS`. Den aktive
+seksjonen får Vann-stripe og "DU ER HER"-badge. Modulnummereringen er
+fortsatt sekvensiell 01–22.
 
 Se DESIGN_GUIDE.md §11 for spec.
 """
@@ -10,7 +16,13 @@ from __future__ import annotations
 
 import streamlit as st
 
-from data.moduler import KATEGORI_FARGE, KATEGORI_NAVN, MODULER, page_id
+from data.moduler import (
+    KATEGORI_FARGE,
+    KATEGORI_NAVN,
+    MODULER,
+    SECTIONS,
+    page_id,
+)
 
 
 SIDEBAR_CSS = """
@@ -71,6 +83,7 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
     color: #6B7691; margin-top: 2px;
 }
 
+/* "Oversikt"-header over de faste sidene før Kursmoduler. */
 .sb-section {
     font-size: 10px; font-weight: 600;
     letter-spacing: 0.08em; text-transform: uppercase;
@@ -101,11 +114,13 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
     background: rgba(0, 90, 164, 0.10);
     color: #F4F6FB;
 }
+/* Aktiv modul: mykere fyll uten venstrekant — seksjons-stripa skal være
+   "den med kantlinjen", så modulen får bare bakgrunn. */
 .sb-item.active {
-    background: rgba(0, 90, 164, 0.18);
-    border-left-color: #005AA4;
+    background: rgba(0, 90, 164, 0.30);
+    border-radius: 3px;
     font-weight: 600;
-    padding-left: 13px;
+    /* Ingen border-left her; padding holdes stabil for å unngå layout-skift. */
 }
 
 .sb-num {
@@ -126,6 +141,44 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
     height: 1px;
     background: rgba(255, 255, 255, 0.06);
     margin: 8px 16px;
+}
+
+/* === Kursseksjoner (Innføring, Konfigurasjon, ...) === */
+
+.kurs-section {
+    border-left: 2px solid rgba(255, 255, 255, 0.06);
+    padding-left: 10px;
+    margin: 0 4px 14px 6px;
+}
+.kurs-section.active {
+    border-left: 3px solid #005AA4;   /* Vann */
+    padding-left: 9px;                 /* kompenser for tykkere border */
+}
+.kurs-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 0 6px;
+    gap: 8px;
+}
+.kurs-section-title {
+    font: 700 11px/1 Arial, sans-serif;
+    letter-spacing: 0.08em;
+    color: #888780;
+    text-transform: uppercase;
+}
+.kurs-section.active .kurs-section-title {
+    color: #7EB5D2;                    /* Frost */
+}
+.kurs-badge {
+    font: 700 9px/1 Arial, sans-serif;
+    letter-spacing: 0.05em;
+    background: #005AA4;
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 </style>
 """
@@ -150,15 +203,17 @@ def render_sidebar(active_slug: str | None = None) -> None:
         _render_link("Forside", "forside", active_slug)
         st.markdown('<div class="sb-divider"></div>', unsafe_allow_html=True)
 
-        # Oversikt
+        # Oversikt (uberørt av seksjonsgruppering)
         st.markdown('<div class="sb-section">Oversikt</div>', unsafe_allow_html=True)
         _render_link("Bli kjent", "bli_kjent", active_slug)
         _render_link("Resultater", "resultater", active_slug)
 
-        # Kursmoduler
+        # Kursmoduler — gruppert i seksjoner
         st.markdown('<div class="sb-section">Kursmoduler</div>', unsafe_allow_html=True)
-        for modul in MODULER:
-            _render_modul(modul, active_slug)
+        # Slå opp moduler ved page_id én gang så vi unngår O(n²)-loop.
+        moduler_by_page_id = {page_id(m): m for m in MODULER}
+        for seksjon in SECTIONS:
+            _render_seksjon(seksjon, moduler_by_page_id, active_slug)
 
         # Footer
         st.markdown('<div class="sb-divider"></div>', unsafe_allow_html=True)
@@ -181,18 +236,58 @@ def _render_link(
     )
 
 
-def _render_modul(modul: dict, active_slug: str | None) -> None:
+def _render_seksjon(
+    seksjon: dict,
+    moduler_by_page_id: dict[str, dict],
+    active_slug: str | None,
+) -> None:
+    """Render én seksjons-container (header + alle moduler) som én HTML-blob.
+
+    Vi MÅ bygge alt som én markdown-streng — Streamlit pakker hver
+    `st.markdown`-kall i sin egen `stMarkdownContainer`, så et "åpent" div
+    fra en kall vil auto-lukkes der og ikke wrappe påfølgende elementer.
+    Konsekvens: `.kurs-section`-stripen vil ikke spenne over modulene
+    hvis vi splitter på flere kall.
+    """
+    is_active = active_slug in seksjon["modules"]
+    klass = "kurs-section active" if is_active else "kurs-section"
+    badge = (
+        '<span class="kurs-badge">Du er her</span>' if is_active else ""
+    )
+
+    modul_links = []
+    for slug in seksjon["modules"]:
+        modul = moduler_by_page_id.get(slug)
+        if modul is None:
+            # Defensiv — page_id i SECTIONS som ikke matcher MODULER betyr
+            # at noen har endret slug eller nr uten å oppdatere SECTIONS.
+            continue
+        modul_links.append(_modul_html(modul, active_slug))
+
+    html = (
+        f'<div class="{klass}">'
+        f'<div class="kurs-section-head">'
+        f'<span class="kurs-section-title">{seksjon["label"]}</span>'
+        f'{badge}'
+        f'</div>'
+        f'{"".join(modul_links)}'
+        f'</div>'
+    )
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def _modul_html(modul: dict, active_slug: str | None) -> str:
+    """Returner HTML for én modul-lenke (uten å rendre den)."""
     slug = page_id(modul)
     is_active = (slug == active_slug)
     klass = "sb-item active" if is_active else "sb-item"
     farge = KATEGORI_FARGE[modul["kategori"]]
     href = f"?page={slug}"
     nr = f"{modul['nr']:02d}"
-    st.markdown(
+    return (
         f'<a class="{klass}" href="{href}" target="_self">'
         f'<span class="sb-dot" style="background: {farge};"'
         f' title="{KATEGORI_NAVN[modul["kategori"]]}"></span>'
         f'<span class="sb-num">{nr}</span>'
-        f'{modul["tittel"]}</a>',
-        unsafe_allow_html=True,
+        f'{modul["tittel"]}</a>'
     )

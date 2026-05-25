@@ -1,4 +1,4 @@
-"""Individuell oppgave 4 – modul 17 (Optimaliser treig query).
+"""Individuell oppgave 4 – modul 18 (Optimaliser treig query).
 
 Implementerer PRD §FR-3.11 og §FR-3.12. Hands-on: deltaker gir Cortex
 Code en bevisst dårlig SQL og ber om optimalisering. Demonstrerer
@@ -15,9 +15,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "17 · Individuell oppgave 4"])
+    crumb(["Kursmoduler", "18 · Individuell oppgave 4"])
     st.title("⚡ Individuell oppgave 4")
-    st.caption("Modul 17 · Hands-on: optimaliser en treig query med Cortex Code.")
+    st.caption("Modul 18 · Hands-on: optimaliser en treig query med Cortex Code.")
     st.divider()
 
     callout(

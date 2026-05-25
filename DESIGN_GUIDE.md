@@ -510,7 +510,7 @@ Innhold:
 
 ### Hvorfor
 
-Kurset har 21 moduler hvor noen typer (individuelle oppgaver, demoer) er flettet inn i sekvensen, ikke samlet i blokker. Ren tematisk gruppering ville sprett nummereringen rundt innenfor hver gruppe og ødelagt sekvensfølelsen. Vi løser det ved å beholde én sekvensiell liste (01–21) og legge til en farget prikk foran hver modul som angir kategori.
+Kurset har 22 moduler hvor noen typer (individuelle oppgaver, demoer) er flettet inn i sekvensen, ikke samlet i blokker. Ren tematisk gruppering ville sprett nummereringen rundt innenfor hver gruppe og ødelagt sekvensfølelsen. Vi løser det ved å beholde én sekvensiell liste (01–22) og legge til en farget prikk foran hver modul som angir kategori.
 
 ### Kategorier
 
