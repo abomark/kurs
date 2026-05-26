@@ -1,4 +1,4 @@
-"""Individuell oppgave 3 – modul 16 (Datakvalitetssjekk).
+"""Individuell oppgave 3 – modul 20 (Datakvalitetssjekk).
 
 Implementerer PRD §FR-3.11 og §FR-3.12. Hands-on: deltaker bruker
 Cortex Code til å finne duplikater, NULL-er eller andre kvalitetsfeil
@@ -15,9 +15,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "16 · Individuell oppgave 3"])
+    crumb(["Kursmoduler", "20 · Individuell oppgave 3"])
     st.title("🩺 Individuell oppgave 3")
-    st.caption("Modul 16 · Hands-on: datakvalitetssjekk med Cortex Code.")
+    st.caption("Modul 20 · Hands-on: datakvalitetssjekk med Cortex Code.")
     st.divider()
 
     callout(

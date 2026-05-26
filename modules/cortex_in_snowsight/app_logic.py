@@ -1,4 +1,4 @@
-"""Cortex Code i Snowsight – modul 3.
+"""Cortex Code i Snowsight – modul 4.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Layout her — innhold i `content/*.md`.
@@ -16,9 +16,9 @@ from modules.shared.ui import crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "03 · Cortex Code i Snowsight"])
+    crumb(["Kursmoduler", "04 · Cortex Code i Snowsight"])
     st.title("🌐 Cortex Code i Snowsight")
-    st.caption("Modul 3 · Hvordan bruke Cortex Code gjennom Snowflakes web-UI")
+    st.caption("Modul 4 · Hvordan bruke Cortex Code gjennom Snowflakes web-UI")
     st.divider()
 
     # --- Intro ---

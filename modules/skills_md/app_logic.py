@@ -1,4 +1,4 @@
-"""skills.md – modul 8.
+"""skills.md – modul 13.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Konseptuell innføring i skills.md-
@@ -17,9 +17,9 @@ from modules.shared.ui import callout, card, crumb, load_markdown, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "10 · skills.md"])
+    crumb(["Kursmoduler", "13 · skills.md"])
     st.title("🛠️ skills.md")
-    st.caption("Modul 10 · Hva er skills.md, og hvordan skiller den seg fra AGENTS.md?")
+    st.caption("Modul 13 · Hva er skills.md, og hvordan skiller den seg fra AGENTS.md?")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---

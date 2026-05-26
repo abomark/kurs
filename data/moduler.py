@@ -1,7 +1,7 @@
 """Kanonisk modul-liste for Cortex Code-kurset.
 
 Hver modul er en dict med felt:
-- nr:       int, 1–22. Sekvensnummer i kurset.
+- nr:       int, 1–26. Sekvensnummer i kurset.
 - slug:     str, matcher mappenavn under `modules/<slug>/` slik at
             wrapper-importene i `pages_content/modules/` finner riktig
             `main()` å aliasere som `render()`.
@@ -18,28 +18,32 @@ Se DESIGN_GUIDE.md §11 for kategori-betydning og fargevalg.
 from __future__ import annotations
 
 MODULER = [
-    {"nr":  1, "slug": "cortex_code",                "tittel": "Cortex Code",                "kategori": "I"},
-    {"nr":  2, "slug": "cortex_interaction",         "tittel": "Snowsight vs CLI",           "kategori": "I"},
-    {"nr":  3, "slug": "cortex_in_snowsight",        "tittel": "Cortex Code i Snowsight",    "kategori": "I"},
-    {"nr":  4, "slug": "arkitektur",                 "tittel": "Arkitekturoversikt",         "kategori": "I"},
-    {"nr":  5, "slug": "demo_1",                     "tittel": "Første demo",                "kategori": "I"},
-    {"nr":  6, "slug": "individuell_oppgave_1",      "tittel": "Individuell oppgave 1",      "kategori": "P"},
-    {"nr":  7, "slug": "agents_md",                  "tittel": "AGENTS.md",                  "kategori": "K"},
-    {"nr":  8, "slug": "gruppeoppgave_1",            "tittel": "Gruppeoppgave 1",            "kategori": "G"},
-    {"nr":  9, "slug": "gruppeoppgave_1_resultater", "tittel": "Resultater Gruppeoppgave 1", "kategori": "G"},
-    {"nr": 10, "slug": "skills_md",                  "tittel": "skills.md",                  "kategori": "K"},
-    {"nr": 11, "slug": "gruppeoppgave_2",            "tittel": "Gruppeoppgave 2",            "kategori": "G"},
-    {"nr": 12, "slug": "memory_md",                  "tittel": "memory.md",                  "kategori": "K"},
-    {"nr": 13, "slug": "gruppeoppgave_3",            "tittel": "Gruppeoppgave 3",            "kategori": "G"},
-    {"nr": 14, "slug": "gruppeoppgave_3_resultater", "tittel": "Resultater Gruppeoppgave 3", "kategori": "G"},
-    {"nr": 15, "slug": "individuell_oppgave_2",      "tittel": "Individuell oppgave 2",      "kategori": "P"},
-    {"nr": 16, "slug": "individuell_oppgave_3",      "tittel": "Individuell oppgave 3",      "kategori": "P"},
-    {"nr": 17, "slug": "demo_2",                     "tittel": "Demo 2",                     "kategori": "F"},
-    {"nr": 18, "slug": "individuell_oppgave_4",      "tittel": "Individuell oppgave 4",      "kategori": "P"},
-    {"nr": 19, "slug": "autonomous_loop",            "tittel": "Autonomous loop",            "kategori": "F"},
-    {"nr": 20, "slug": "individuell_oppgave_5",      "tittel": "Individuell oppgave 5",      "kategori": "P"},
-    {"nr": 21, "slug": "tilgjengelige_modeller",     "tittel": "Tilgjengelige modeller",     "kategori": "K"},
-    {"nr": 22, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
+    {"nr":  1, "slug": "evolusjon",                  "tittel": "Fra Google til spesifikasjon", "kategori": "I"},
+    {"nr":  2, "slug": "cortex_code",                "tittel": "Cortex Code",                "kategori": "I"},
+    {"nr":  3, "slug": "cortex_interaction",         "tittel": "Snowsight vs CLI",           "kategori": "I"},
+    {"nr":  4, "slug": "cortex_in_snowsight",        "tittel": "Cortex Code i Snowsight",    "kategori": "I"},
+    {"nr":  5, "slug": "arkitektur",                 "tittel": "Arkitekturoversikt",         "kategori": "I"},
+    {"nr":  6, "slug": "demo_1",                     "tittel": "Første demo",                "kategori": "I"},
+    {"nr":  7, "slug": "individuell_oppgave_1",      "tittel": "Individuell oppgave 1",      "kategori": "P"},
+    {"nr":  8, "slug": "agents_md",                  "tittel": "AGENTS.md",                  "kategori": "K"},
+    {"nr":  9, "slug": "gruppeoppgave_1",            "tittel": "Gruppeoppgave 1",            "kategori": "G"},
+    {"nr": 10, "slug": "gruppeoppgave_1_resultater", "tittel": "Resultater Gruppeoppgave 1", "kategori": "G"},
+    {"nr": 11, "slug": "tilgjengelige_modeller",     "tittel": "Tilgjengelige modeller",     "kategori": "K"},
+    {"nr": 12, "slug": "individuell_oppgave_modellvalg", "tittel": "Individuell oppgave: Modellvalg", "kategori": "P"},
+    {"nr": 13, "slug": "skills_md",                  "tittel": "skills.md",                  "kategori": "K"},
+    {"nr": 14, "slug": "gruppeoppgave_2",            "tittel": "Gruppeoppgave 2",            "kategori": "G"},
+    {"nr": 15, "slug": "memory_md",                  "tittel": "memory.md",                  "kategori": "K"},
+    {"nr": 16, "slug": "gruppeoppgave_3",            "tittel": "Gruppeoppgave 3",            "kategori": "G"},
+    {"nr": 17, "slug": "gruppeoppgave_3_resultater", "tittel": "Resultater Gruppeoppgave 3", "kategori": "G"},
+    {"nr": 18, "slug": "prompt_engineering",         "tittel": "Prompt engineering",         "kategori": "K"},
+    {"nr": 19, "slug": "individuell_oppgave_2",      "tittel": "Individuell oppgave 2",      "kategori": "P"},
+    {"nr": 20, "slug": "individuell_oppgave_3",      "tittel": "Individuell oppgave 3",      "kategori": "P"},
+    {"nr": 21, "slug": "demo_2",                     "tittel": "Demo 2",                     "kategori": "F"},
+    {"nr": 22, "slug": "individuell_oppgave_4",      "tittel": "Individuell oppgave 4",      "kategori": "P"},
+    {"nr": 23, "slug": "autonomous_loop",            "tittel": "Autonomous loop",            "kategori": "F"},
+    {"nr": 24, "slug": "individuell_oppgave_5",      "tittel": "Individuell oppgave 5",      "kategori": "P"},
+    {"nr": 25, "slug": "kostnader",                  "tittel": "Kostnader",                  "kategori": "F"},
+    {"nr": 26, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
 ]
 
 KATEGORI_NAVN = {
@@ -79,64 +83,80 @@ SECTIONS = [
         "id": "introduksjon",
         "label": "Introduksjon",
         "modules": [
-            "m01_cortex_code",
-            "m02_cortex_interaction",
-            "m03_cortex_in_snowsight",
-            "m04_arkitektur",
-            "m05_demo_1",
-            "m06_individuell_oppgave_1",
+            "m01_evolusjon",
+            "m02_cortex_code",
+            "m03_cortex_interaction",
+            "m04_cortex_in_snowsight",
+            "m05_arkitektur",
+            "m06_demo_1",
+            "m07_individuell_oppgave_1",
         ],
     },
     {
         "id": "agents_md",
         "label": "AGENTS.md",
         "modules": [
-            "m07_agents_md",
-            "m08_gruppeoppgave_1",
-            "m09_gruppeoppgave_1_resultater",
+            "m08_agents_md",
+            "m09_gruppeoppgave_1",
+            "m10_gruppeoppgave_1_resultater",
+        ],
+    },
+    {
+        "id": "modellvalg",
+        "label": "Modellvalg",
+        "modules": [
+            "m11_tilgjengelige_modeller",
+            "m12_individuell_oppgave_modellvalg",
         ],
     },
     {
         "id": "skills_md",
         "label": "skills.md",
         "modules": [
-            "m10_skills_md",
-            "m11_gruppeoppgave_2",
+            "m13_skills_md",
+            "m14_gruppeoppgave_2",
         ],
     },
     {
         "id": "memory_md",
         "label": "memory.md",
         "modules": [
-            "m12_memory_md",
-            "m13_gruppeoppgave_3",
-            "m14_gruppeoppgave_3_resultater",
+            "m15_memory_md",
+            "m16_gruppeoppgave_3",
+            "m17_gruppeoppgave_3_resultater",
+        ],
+    },
+    {
+        "id": "prompt_engineering",
+        "label": "Prompt engineering",
+        "modules": [
+            "m18_prompt_engineering",
         ],
     },
     {
         "id": "anvendt_praksis",
         "label": "Anvendt praksis",
         "modules": [
-            "m15_individuell_oppgave_2",
-            "m16_individuell_oppgave_3",
+            "m19_individuell_oppgave_2",
+            "m20_individuell_oppgave_3",
         ],
     },
     {
         "id": "dybde",
         "label": "Dybde",
         "modules": [
-            "m17_demo_2",
-            "m18_individuell_oppgave_4",
-            "m19_autonomous_loop",
-            "m20_individuell_oppgave_5",
+            "m21_demo_2",
+            "m22_individuell_oppgave_4",
+            "m23_autonomous_loop",
+            "m24_individuell_oppgave_5",
         ],
     },
     {
         "id": "avslutning",
         "label": "Avslutning",
         "modules": [
-            "m21_tilgjengelige_modeller",
-            "m22_avslutning",
+            "m25_kostnader",
+            "m26_avslutning",
         ],
     },
 ]

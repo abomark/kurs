@@ -16,10 +16,21 @@ import streamlit as st
 from components.sidebar import render_sidebar
 from data.moduler import find_by_page_id, page_id
 
+# Sider som trenger full skjermbredde (typisk resultatsider med diagrammer
+# som ellers blir trange i 'centered'-layout). Slug uten m{NN}_-prefiks
+# håndteres egne if-er under.
+WIDE_LAYOUT_PAGES = {
+    "m09_gruppeoppgave_1_resultater",
+}
+
+# Må leses FØR set_page_config siden layout-valget avhenger av aktiv side.
+# `st.query_params` er trygg å bruke før set_page_config (URL-metadata, ikke UI).
+_active_slug = st.query_params.get("page", "forside")
+
 st.set_page_config(
     page_title="Cortex Code Kurs 2026",
     page_icon="❄",
-    layout="centered",
+    layout="wide" if _active_slug in WIDE_LAYOUT_PAGES else "centered",
     initial_sidebar_state="expanded",
 )
 
@@ -47,8 +58,8 @@ def _load_page(slug: str):
 
 
 def main() -> None:
-    # Hent gjeldende side fra URL — default til forsiden.
-    active_slug = st.query_params.get("page", "forside")
+    # Gjenbruk slug lest øverst for layout-valg — én kilde til sannhet per kjøring.
+    active_slug = _active_slug
 
     # Sidebar rendres alltid, før innholdet.
     render_sidebar(active_slug=active_slug)

@@ -1,4 +1,4 @@
-"""memory.md – modul 9.
+"""memory.md – modul 15.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Konseptuell innføring i Cortex Codes
@@ -18,9 +18,9 @@ from modules.shared.ui import callout, card, crumb, load_markdown, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "12 · memory.md"])
+    crumb(["Kursmoduler", "15 · memory.md"])
     st.title("📓 memory.md")
-    st.caption("Modul 12 · Hvordan Cortex Code husker ting på tvers av sesjoner.")
+    st.caption("Modul 15 · Hvordan Cortex Code husker ting på tvers av sesjoner.")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---

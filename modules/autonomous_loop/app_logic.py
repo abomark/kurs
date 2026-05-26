@@ -1,4 +1,4 @@
-"""Autonomous loop i dybden – modul 19.
+"""Autonomous loop i dybden – modul 23.
 
 Implementerer PRD §FR-3.11 og §FR-3.12. Konseptuell utdyping av sløyfen
 som ble nevnt kort i modul 1 (Cortex Code) — Planning → Action →
@@ -27,9 +27,9 @@ LOOP_STEPS = [
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "19 · Autonomous loop i dybden"])
+    crumb(["Kursmoduler", "23 · Autonomous loop i dybden"])
     st.title("🌀 Autonomous loop i dybden")
-    st.caption("Modul 19 · Hva skjer egentlig inne i agenten?")
+    st.caption("Modul 23 · Hva skjer egentlig inne i agenten?")
     st.divider()
 
     # --- Intro ---
@@ -59,4 +59,4 @@ def main() -> None:
         st.markdown(load_markdown(__file__, "example"))
 
     st.divider()
-    next_module_cta_for("pages/tilgjengelige_modeller.py")
+    next_module_cta_for("individuell_oppgave_5")

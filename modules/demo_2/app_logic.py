@@ -1,4 +1,4 @@
-"""Demo 2 – modul 17 (Realistisk bank-use-case).
+"""Demo 2 – modul 21 (Realistisk bank-use-case).
 
 Implementerer PRD §FR-3.11 og §FR-3.12. Presentatør-runbook for live
 walkthrough av en realistisk bank-case (kredittscoring/churn/etc.) —
@@ -27,9 +27,9 @@ DEMO_FILES = [
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "17 · Demo 2"])
+    crumb(["Kursmoduler", "21 · Demo 2"])
     st.title("🎬 Demo 2")
-    st.caption("Modul 17 · Live-demo: realistisk bank-use-case med Cortex Code.")
+    st.caption("Modul 21 · Live-demo: realistisk bank-use-case med Cortex Code.")
     st.divider()
 
     callout(

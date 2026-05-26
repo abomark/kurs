@@ -1,4 +1,4 @@
-"""Snowsight vs CLI – modul 2.
+"""Snowsight vs CLI – modul 3.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Layout her — innhold i `content/*.md`.
@@ -14,9 +14,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "02 · Snowsight vs CLI"])
+    crumb(["Kursmoduler", "03 · Snowsight vs CLI"])
     st.title("🔀 Snowsight vs CLI")
-    st.caption("Modul 2 · To måter å samhandle med Cortex Code på")
+    st.caption("Modul 3 · To måter å samhandle med Cortex Code på")
     st.divider()
 
     st.markdown(load_markdown(__file__, "intro"))

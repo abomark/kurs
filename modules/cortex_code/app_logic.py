@@ -1,4 +1,4 @@
-"""Cortex Code – modul 1.
+"""Cortex Code – modul 2.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Layout her — innhold i `content/*.md`.
@@ -37,9 +37,9 @@ RBAC_AUDIO = _REPO_ROOT / "Snowflake RBAC.mp3"
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "01 · Cortex Code"])
+    crumb(["Kursmoduler", "02 · Cortex Code"])
     st.title("❄️ Cortex Code")
-    st.caption("Modul 1 · Hva er Cortex Code egentlig?")
+    st.caption("Modul 2 · Hva er Cortex Code egentlig?")
     st.divider()
 
     # --- Seksjon 1: Dokumentasjonssitatet ---

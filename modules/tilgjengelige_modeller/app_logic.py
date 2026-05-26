@@ -1,4 +1,4 @@
-"""Tilgjengelige modeller – modul 21.
+"""Tilgjengelige modeller – modul 11.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Layout her — innhold i `content/*.md`
@@ -15,9 +15,9 @@ from modules.shared.ui import crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "21 · Tilgjengelige modeller"])
+    crumb(["Kursmoduler", "11 · Tilgjengelige modeller"])
     st.title("🧠 Tilgjengelige modeller")
-    st.caption("Modul 21 · Hvilke modeller står til rådighet, og når velger du hvilken?")
+    st.caption("Modul 11 · Hvilke modeller står til rådighet, og når velger du hvilken?")
     st.divider()
 
     # --- Intro ---
@@ -43,4 +43,4 @@ def main() -> None:
         st.markdown(load_markdown(__file__, "eksempel"))
 
     st.divider()
-    next_module_cta_for("pages/avslutning.py")
+    next_module_cta_for("individuell_oppgave_modellvalg")

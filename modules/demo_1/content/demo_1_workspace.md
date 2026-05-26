@@ -22,3 +22,4 @@ Vis hvor vi faktisk jobber — Snowsight-miljøet med worksheet, database, rolle
 - Dette er Snowsight — vårt utgangspunkt for resten av kurset
 - Rollen avgjør hva agenten kan se og gjøre — kommer tilbake til det
 - Worksheet = vår 'kladd' for SQL og senere Cortex Code-interaksjoner
+- **Metadata kommer fra Horizon Catalog — ikke dbt-katalogen vår.** Agenten leser tabell-/kolonnebeskrivelser fra Snowflakes Horizon, så modelldokumentasjon vi har skrevet i `dbt docs` er *ikke* synlig for agenten med mindre den også eksponeres via Horizon. Konsekvens: agenten kan «se mindre» enn det vi som dbt-brukere ser.

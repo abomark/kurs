@@ -77,6 +77,34 @@ def load_titled_markdown(module_file: str, name: str) -> tuple[str, str]:
     return ("", raw)
 
 
+def load_split_markdown(
+    module_file: str,
+    name: str,
+    splitter: str = "## ",
+) -> dict[str, str]:
+    """Last markdown og split på `##`-headere (eller annet prefix).
+
+    Returnerer ordnet dict `{seksjonstittel: body}`. Innhold før første
+    splitter-header havner under nøkkelen `""`. Brukes f.eks. til å
+    rendere `## Før` og `## Etter` i to kolonner uten å duplisere filer.
+    """
+    raw = load_markdown(module_file, name)
+    sections: dict[str, str] = {}
+    current_title = ""
+    current_lines: list[str] = []
+    for line in raw.splitlines():
+        if line.startswith(splitter):
+            if current_lines or current_title:
+                sections[current_title] = "\n".join(current_lines).strip()
+            current_title = line[len(splitter):].strip()
+            current_lines = []
+        else:
+            current_lines.append(line)
+    if current_lines or current_title:
+        sections[current_title] = "\n".join(current_lines).strip()
+    return sections
+
+
 # --- Callout (FR-3.15 / DESIGN_GUIDE v2 §7) ---
 
 # (border-color, background, icon-text, kind-class)

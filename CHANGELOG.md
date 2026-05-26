@@ -6,6 +6,74 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-05-25 — Tre nye moduler (UTKAST): Evolusjon, Prompt engineering, Kostnader
+
+Tre nye presentasjonsmoduler (FR-3.11) lagt til som UTKAST. Strukturen er på plass — innholdet (`.md`-filer) er placeholders med `_Andre skriver: ..._`-markører.
+
+**Hvorfor:**
+- **Evolusjon** (m01): rammer hele kurset med historisk perspektiv (Google → AI-assistanse → spesifikasjon). Motiverende intro, ikke teknisk.
+- **Prompt engineering** (m18): broen fra konsept-modulene (AGENTS/skills/memory) til praktisk dagligbruk. Anatomi, SQL-mønstre, anti-patterns, før/etter-sammenligning.
+- **Kostnader** (m25): operasjonell forberedelse før Avslutning. Kostnadsmodell, intern sporing, resource monitors, best practices.
+
+**Ny modul-rekkefølge (26 moduler, 9 seksjoner):**
+1. **Introduksjon** (m01–m07): Evolusjon (NY) → Cortex Code → CLI → Snowsight → Arkitektur → Demo → Individuell 1
+2. **AGENTS.md** (m08–m10)
+3. **Modellvalg** (m11–m12)
+4. **skills.md** (m13–m14)
+5. **memory.md** (m15–m17)
+6. **Prompt engineering** (m18) — NY seksjon
+7. **Anvendt praksis** (m19–m20)
+8. **Dybde** (m21–m24)
+9. **Avslutning** (m25–m26): Kostnader (NY) → Avslutning
+
+**Pedagogisk reorder er bevart:** konsept→gruppeoppgave-blokker (AGENTS, skills, memory) ligger fortsatt umiddelbart etter hverandre. Prompt engineering plassert etter hele memory.md-blokken — bygger på konseptene og leder inn i anvendt praksis.
+
+**Endringer:**
+- Tre nye mapper: `modules/{evolusjon,prompt_engineering,kostnader}/` med `__init__.py`, `app_logic.py` og placeholder-content-filer (5/7/6 stk respektivt).
+- Tre nye wrappers: `pages_content/modules/m01_evolusjon.py`, `m18_prompt_engineering.py`, `m25_kostnader.py`.
+- 23 eksisterende wrappers renamet med ny `m{NN}_<slug>`-prefiks (cascade via tmp-suffix).
+- 23 eksisterende `modules/<slug>/app_logic.py`-filer: docstring header, `crumb()` og `st.caption("Modul N · ...")` oppdatert til nye nummer.
+- `data/moduler.py`: `MODULER` utvidet 23→26, `SECTIONS` utvidet 8→9 (ny `prompt_engineering`-seksjon, `kostnader` lagt til Avslutning-seksjon).
+- `modules/shared/ui.py`: ny `load_split_markdown(module_file, name, splitter="## ")`-helper som returnerer dict over `##`-seksjoner. Brukes av Prompt engineering for to-kolonners Før/Etter-eksempel.
+- 2 `next_module_cta_for(...)`-kall oppdatert for å ikke hoppe over de nye modulene:
+  - `gruppeoppgave_3_resultater` → `prompt_engineering` (var: `individuell_oppgave_2`)
+  - `individuell_oppgave_5` → `kostnader` (var: `avslutning`)
+
+**Kostnader-modulen har en placeholder-URL:** `KOSTNADS_DASHBOARD_URL` øverst i `modules/kostnader/app_logic.py` peker på `https://placeholder.intern.bank/cortex-code-kostnader`. Andre erstatter med faktisk URL til internt Streamlit-dashboard.
+
+**URL-endringer:** bokmerker til alle 23 eksisterende moduler fungerer ikke lenger — `?page=mXX_<slug>` har nytt XX. Slugs uendret, så DB-tabeller uberørt.
+
+**Innhold Andre må fylle ut:**
+- `modules/evolusjon/content/{intro,era_1_googling,era_2_assistanse,era_3_spesifikasjon,hvor_er_du}.md`
+- `modules/prompt_engineering/content/{intro,anatomi,sql_spesifikt,anti_patterns,iterativ,agents_vs_inline,eksempel_sammenligning}.md` (sistnevnte med `## Før` og `## Etter`)
+- `modules/kostnader/content/{intro,kostnadsmodell,kostnadsdrivere,spore_forbruk,resource_monitors,best_practices}.md` + sett faktisk `KOSTNADS_DASHBOARD_URL`.
+
+---
+
+## 2026-05-25 — Modellvalg-seksjon mellom AGENTS.md og skills.md
+
+Ny seksjon "Modellvalg" lagt inn mellom AGENTS.md-blokken og skills.md-blokken. Seksjonen inneholder to moduler: `tilgjengelige_modeller` (flyttet fra Avslutning) og en ny `individuell_oppgave_modellvalg`.
+
+**Hvorfor:** modellvalg er sentralt for bank-analytikere (kostnad/kvalitet/regulatorisk avveining) og fortjente egen plass i konseptrekka, ikke som referanse-modul på slutten. Plassert etter AGENTS.md fordi modellvalg ofte styres _via_ AGENTS.md-konfigurasjonen.
+
+**Endringer:**
+- Ny mappe `modules/individuell_oppgave_modellvalg/` med `app_logic.py` + tre placeholder-content-filer (`oppgave`, `steg`, `forventet`). Andre fyller inn innhold.
+- `tilgjengelige_modeller` flyttet fra m21 (Avslutning) til m10 (Modellvalg-seksjon).
+- Ny `individuell_oppgave_modellvalg` ved m11.
+- Moduler m10–m20 skjøvet ned 2 plasser til m12–m22. Avslutning flyttet fra m22 til m23.
+- `data/moduler.py`: ny `Modellvalg`-seksjon i `SECTIONS`. `Avslutning`-seksjonen står nå alene med kun `m23_avslutning`.
+- 13 wrapper-filer renamet, 12 `app_logic.py`-filer fikk captions/crumbs/docstrings oppdatert.
+- 5 `next_module_cta_for`-kall justert:
+  - `gruppeoppgave_1_resultater` → `tilgjengelige_modeller` (var: `skills_md`)
+  - `tilgjengelige_modeller` → `individuell_oppgave_modellvalg` (var: `avslutning` — gammel pages/-format)
+  - `individuell_oppgave_modellvalg` → `skills_md` (ny modul, ny CTA)
+  - `autonomous_loop` → `individuell_oppgave_5` (var: `tilgjengelige_modeller` — brutt etter flyttingen)
+  - `individuell_oppgave_5` → `avslutning` (var: `agents_md` — sløyfe-CTA tilbake til start, ikke ønskelig her)
+
+**URL-endringer:** bokmerker til 13 flyttede moduler fungerer ikke lenger — `?page=mXX_<slug>` har nytt XX. Slugs uendret, så DB-tabeller uberørt.
+
+---
+
 ## 2026-05-25 — Pedagogisk reorder: konsept → øvelse-blokker
 
 `MODULER` flyttet om så hver konsept-modul får sin tilhørende gruppeoppgave umiddelbart etterpå. `SECTIONS` utvidet fra 5 til 7 seksjoner basert på pedagogiske blokker — ikke modul-type.

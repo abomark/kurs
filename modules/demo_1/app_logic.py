@@ -1,4 +1,4 @@
-"""Første demo – modul 5.
+"""Første demo – modul 6.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Layout her — innhold i `content/*.md`.
@@ -30,9 +30,9 @@ DEMO_FILES = [
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "05 · Første demo"])
+    crumb(["Kursmoduler", "06 · Første demo"])
     st.title("🎬 Første demo")
-    st.caption("Modul 5 · Live-demo: workspace, Cortex Code, og bokstavspørsmålet")
+    st.caption("Modul 6 · Live-demo: workspace, Cortex Code, og bokstavspørsmålet")
     st.divider()
 
     # --- Oversikt ---

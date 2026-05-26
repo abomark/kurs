@@ -108,7 +108,7 @@ def main() -> None:
     if not _participant_gate():
         return
 
-    crumb(["Kursmoduler", "13 · Gruppeoppgave 3"])
+    crumb(["Kursmoduler", "16 · Gruppeoppgave 3"])
     st.title("🧑‍🤝‍🧑 Gruppeoppgave 3 — memory.md")
     st.caption(
         "Gå sammen to og to. Diskuter åpent — svarene er anonyme. "
