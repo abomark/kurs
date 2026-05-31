@@ -1,15 +1,15 @@
 """Konfigurasjon for Oppvarming-modulen (Bli kjent).
 
-PRD §FR-3.1 (variant for Likert-skala): fem påstander som hver vurderes
+PRD §FR-3.1 (variant for Likert-skala): elleve påstander som hver vurderes
 på en 1–5-skala (1 = uenig, 5 = enig). Alle besvares samtidig i én form
 og lagres som heltall i `kurs.oppvarming_responses.answer_value`.
 
 Brukes til å kalibrere kursleders forventninger til deltakergruppen.
 """
 
-# Stabile ID-er 1–10. Endre ordlyd, men ikke flytt rundt på ID-ene
+# Stabile ID-er 1–11. Endre ordlyd, men ikke flytt rundt på ID-ene
 # (de er lagret i databasen for tidligere svar).
-# Q1–5: generell teknisk bakgrunn. Q6–10: Cortex Code-modenhet.
+# Q1–5: generell teknisk bakgrunn. Q6–11: Cortex Code-modenhet.
 STATEMENTS = {
     1: "Jeg bruker Snowflake regelmessig",
     2: "Jeg er erfaren med AI-assistenter i koding (Copilot, Claude, Cursor, ChatGPT, etc.)",
@@ -21,6 +21,7 @@ STATEMENTS = {
     8: "Jeg forstår sentrale begreper som agent, modell og prompt",
     9: "Jeg forstår hva som driver kostnader ved bruk av Cortex Code",
     10: "Jeg vet hvordan jeg optimaliserer bruken av Cortex Code",
+    11: "Jeg vet hvordan jeg avveier modellvalg for en gitt oppgave",
 }
 
 # Skala-anker. 1 = lav enighet, 5 = høy enighet.

@@ -1,4 +1,4 @@
-"""Prompt engineering – modul 18.
+"""Prompt engineering – modul 20.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Bygger bro fra konsept-blokkene
@@ -9,7 +9,7 @@ Layout per DESIGN_GUIDE v2 §8: crumb, H1+intro, expanders for hvert tema,
 warn-callout for anti-patterns, og to-kolonners eksempel-sammenligning
 (Før/Etter) som splittes ut av én markdown-fil via `load_split_markdown`.
 
-Eksponerer `main()` som kalles fra `pages_content/modules/m18_prompt_engineering.py`.
+Eksponerer `main()` som kalles fra `pages_content/modules/m20_prompt_engineering.py`.
 """
 
 from __future__ import annotations
@@ -27,11 +27,11 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "18 · Prompt engineering"])
+    crumb(["Kursmoduler", "21 · Prompt engineering"])
 
     title, intro_body = load_titled_markdown(__file__, "intro")
     st.title(title or "✍️ Prompt engineering")
-    st.caption("Modul 18 · Anatomi, mønstre og iterativ forbedring av prompts")
+    st.caption("Modul 21 · Anatomi, mønstre og iterativ forbedring av prompts")
     st.divider()
     st.markdown(intro_body)
 

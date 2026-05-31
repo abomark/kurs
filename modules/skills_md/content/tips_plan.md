@@ -1,0 +1,1 @@
+Kombiner gjerne med **Plan Mode** (`Ctrl+P` / `/plan`) når du anvender en skill på kjernetabeller. Da holder Cortex Code seg read-only mens den tenker, og returnerer en strukturert flertrinnsplan til godkjenning før noe utføres.

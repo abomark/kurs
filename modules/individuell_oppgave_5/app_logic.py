@@ -1,4 +1,4 @@
-"""Individuell oppgave 5 – modul 24 (Refleksjon).
+"""Individuell oppgave 5 – modul 26 (Refleksjon).
 
 Implementerer PRD §FR-3.11 og §FR-3.12. Refleksjons-oppgave (ikke
 handlings-oppgave): deltaker sammenligner Cortex Codes output med
@@ -18,9 +18,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "24 · Individuell oppgave 5"])
+    crumb(["Kursmoduler", "27 · Individuell oppgave 5"])
     st.title("🪞 Individuell oppgave 5")
-    st.caption("Modul 24 · Refleksjon: sammenlign agentens output med din egen.")
+    st.caption("Modul 27 · Refleksjon: sammenlign agentens output med din egen.")
     st.divider()
 
     callout(

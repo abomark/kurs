@@ -1,0 +1,1 @@
+Du kan skrive en skill selv, men Cortex Code har også en innebygd arbeidsflyt — **skill-development** — som hjelper deg å scaffolde nye skills. Når du definerer en ny skill, beskriv: når den skal brukes, hvilke inputs den forventer, og de eksakte outputene den alltid skal returnere.

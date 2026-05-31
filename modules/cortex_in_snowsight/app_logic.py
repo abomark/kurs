@@ -55,4 +55,4 @@ def main() -> None:
     st.markdown(load_markdown(__file__, "section_5_tips"))
 
     st.divider()
-    next_module_cta_for("pages/demo_1.py")
+    next_module_cta_for("at_mentions")

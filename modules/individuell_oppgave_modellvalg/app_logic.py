@@ -1,4 +1,4 @@
-"""Individuell oppgave: Modellvalg – modul 12.
+"""Individuell oppgave: Modellvalg – modul 14.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Hands-on i Modellvalg-seksjonen: deltaker
@@ -16,9 +16,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "12 · Individuell oppgave: Modellvalg"])
+    crumb(["Kursmoduler", "15 · Individuell oppgave: Modellvalg"])
     st.title("🎚️ Individuell oppgave: Modellvalg")
-    st.caption("Modul 12 · Hands-on: velg riktig modell for oppgaven din.")
+    st.caption("Modul 15 · Hands-on: velg riktig modell for oppgaven din.")
     st.divider()
 
     callout(

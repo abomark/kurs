@@ -37,8 +37,8 @@ Kurset er rettet mot **analytikere og data scientists i norske banker**. Det for
 **Du genererer ikke innhold på modulsider uten eksplisitt forespørsel.**
 
 Når Andre ber om en ny modul eller side, bygger du KUN strukturen:
-- Mappestruktur (`modules/<navn>/`, `pages/<navn>.py`)
-- Navigasjon (oppføring i `hub.py` og `home.py`)
+- Mappestruktur (`modules/<navn>/`, `pages_content/modules/m{nr:02d}_{slug}.py`)
+- Navigasjon (oppføring i `data/moduler.py`: `MODULER` + `SECTIONS`)
 - Seksjons-headere og layout (`st.subheader`, `st.container`, `st.columns`, ...)
 - Tomme/eksplisitt merkede placeholder-felt der innhold skal inn
 
@@ -84,40 +84,50 @@ MIN_RESPONSES_BEFORE_REVEAL = 3
 
 ## Repo-orientering
 
-Entry point: `streamlit run hub.py` fra repo-rot.
+Entry point: `streamlit run app.py` fra repo-rot.
+
+Appen er **ikke** Streamlit-multipage. `app.py` leser `?page=<slug>` fra URL-en
+og dispatcher til riktig side. Navigasjon styres av en custom sidebar
+(`components/sidebar.py`) med kategori-prikker og seksjoner. `data/moduler.py`
+er den kanoniske modul-lista som både sidebaren og forsiden leser fra.
 
 ```
 kurs/
 ├── PRD.md # ← single source of truth
 ├── CLAUDE.md # ← denne fila
-├── hub.py # Forside (URL: /)
-├── pages/ # Streamlit multipage – URL per fil
-│ ├── cortex_code.py # Modul 1
-│ ├── cortex_interaction.py # Modul 2
-│ ├── cortex_in_snowsight.py # Modul 3
-│ ├── demo_1.py # Modul 4
-│ ├── agents_md.py # Modul 5 (presentasjon)
-│ ├── skills_md.py # Modul 6 (presentasjon)
-│ ├── gruppeoppgave_1.py # Modul 7 (interaktiv workshop)
-│ └── admin_gruppeoppgave_1.py # Admin for gruppeoppgave_1
+├── DESIGN_GUIDE.md # ← visuell stil-autoritet
+├── CHANGELOG.md
+├── app.py # Entry point: leser ?page=… og dispatcher til side
+├── components/
+│ └── sidebar.py # Custom sidebar (kategori-prikker + seksjoner)
+├── data/
+│ └── moduler.py # ← kanonisk modul-liste: MODULER, SECTIONS, page_id()
+├── pages_content/ # Sideinnhold (IKKE Streamlit-multipage)
+│ ├── forside.py # Forside (?page=forside)
+│ ├── bli_kjent.py # Oppvarming/Bli kjent (?page=bli_kjent)
+│ ├── resultater.py # Samle-resultatside
+│ ├── admin.py # Admin
+│ └── modules/ # Tynne wrappers, én per modul, navngitt m{nr:02d}_{slug}
+│   ├── m01_evolusjon.py # → modules.evolusjon.app_logic.main as render
+│   ├── m12_gruppeoppgave_1.py
+│   ├── m13_gruppeoppgave_1_resultater.py
+│   └── … # 29 wrappers totalt
 ├── modules/
-│ ├── agents_md/ # Modul 5 – konseptuell presentasjon
-│ │ ├── app_logic.py
+│ ├── <slug>/ # Én mappe per modul (slug matcher data/moduler.py)
+│ │ ├── app_logic.py # main() – KUN layout (FR-3.12)
 │ │ └── content/ # Markdown-blokker (FR-3.12)
-│ ├── skills_md/ # Modul 6 – konseptuell presentasjon
-│ │ ├── app_logic.py
-│ │ └── content/ # Markdown-blokker (FR-3.12)
-│ ├── gruppeoppgave_1/ # Modul 7 – interaktiv workshop
+│ ├── gruppeoppgave_1/ # Interaktiv workshop (eksempel på full modul)
 │ │ ├── app_logic.py # main() for deltaker
 │ │ ├── admin_logic.py # main() for admin
+│ │ ├── views.py # Delt resultatvisning (PRD §FR-3.13)
 │ │ ├── db.py # Supabase-klient (schema=kurs)
 │ │ ├── reducer.py # PRD §FR-3.5
-│ │ ├── viz.py # PRD §FR-3.4
+│ │ ├── viz.py # PRD §FR-3.4 (ordsky + barchart)
 │ │ ├── config.py # QUESTIONS, STOPWORDS
 │ │ ├── claude_answers.py # PRD §FR-3.6
 │ │ └── supabase_schema.sql # PRD §DM-5.1
 │ └── shared/
-│ └── ui.py # Felles loader-helpers (FR-3.12)
+│ └── ui.py # Felles helpers: load_markdown, callout, card …
 ├── .streamlit/secrets.toml # IKKE commit (gitignored)
 ├── requirements.txt # PRD §7
 └── README.md # Praktisk oppsett
@@ -125,9 +135,9 @@ kurs/
 
 ## Konvensjoner
 
-- **Imports:** filer inne i `modules/<navn>/` bruker relative imports (`from .config import …`). Wrappers i `pages/` og `hub.py` bruker absolutt (`from modules.gruppeoppgave_1.app_logic import main`).
-- **Set page config:** kalles én gang i hver `pages/*.py` wrapper, *ikke* i `app_logic.py` eller `admin_logic.py`.
-- **Streamlit multipage:** filnavn i `pages/` blir URL-en automatisk. Ikke endre filnavn uten å oppdatere PRD §FR-3.8 og lenker i `hub.py`.
+- **Imports:** filer inne i `modules/<navn>/` bruker relative imports (`from .config import …`). Wrappers i `pages_content/modules/` bruker absolutt og eksponerer `render` (ikke `main`): `from modules.<slug>.app_logic import main as render`.
+- **Set page config:** kalles én gang sentralt i `app.py` (layout velges via `WIDE_LAYOUT_PAGES`), *ikke* i wrapperne, `app_logic.py` eller `admin_logic.py`.
+- **Navigasjon:** `app.py` leser `?page=<slug>`. Faste sider (`forside`, `bli_kjent`, `resultater`, `admin`) ligger i `pages_content/`. Modul-sider rutes via `page_id()` → `pages_content/modules/m{nr:02d}_{slug}.py`. Ikke endre wrapper-filnavn uten å oppdatere `nr`/`slug` i `data/moduler.py` tilsvarende (og PRD §FR-3.8).
 - **Secrets:** alltid via `st.secrets[...]`. Aldri hardkod, aldri legg i config.py.
 - **Språk:** UI og kommentarer i koden på norsk (matcher målgruppen). PRD og denne fila også på norsk.
 
@@ -139,7 +149,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
 # Kjør
-streamlit run hub.py
+streamlit run app.py
 ```
 
 ## Når du legger til en ny modul
@@ -151,9 +161,9 @@ Sjekk PRD §FR-3.8 og §FR-3.12 først. Deretter:
    - `app_logic.py` (KUN layout, ingen prosa-strenger – jf. §FR-3.12)
    - `content/` (mappe med `.md`-filer for all prosa)
    - Evt. `admin_logic.py`, `db.py`, `config.py` for interaktive moduler
-2. Lag `pages/<navn>.py` (og evt. `pages/admin_<navn>.py`) som tynne wrappers.
+2. Lag `pages_content/modules/m{nr:02d}_{slug}.py` som tynn wrapper: `from modules.<slug>.app_logic import main as render`.
 3. Bruk `load_markdown(__file__, name)` og `load_titled_markdown(__file__, name)` fra `modules/shared/ui.py` for å hente innhold inn i layout.
-4. Legg modul til som `st.Page` i `hub.py` og til `MODULES` i `home.py`.
+4. Registrer modulen i `data/moduler.py`: ny dict i `MODULER` (`nr`, `slug`, `tittel`, `kategori`) og legg `page_id()` i riktig seksjon i `SECTIONS`. Både sidebaren og forsiden leser herfra.
 5. Hvis ny DB-tabell: lag `kurs.<navn>_responses` i det felles `kurs`-schemaet (PRD §DM-5.2). Definer `SCHEMA = "kurs"` og `TABLE = "<navn>_ responses"` som konstanter i `db.py`. Ingen Supabase dashboard-endring nødvendig — `kurs` er allerede i "Exposed schemas".
 6. Oppdater PRD §8 endringslogg.
 

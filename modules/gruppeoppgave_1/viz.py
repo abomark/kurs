@@ -10,9 +10,10 @@ Implementerer PRD §FR-3.4. Stil per DESIGN_GUIDE v2 §5:
 
 from __future__ import annotations
 
+import base64
 from collections import Counter
+from io import BytesIO
 
-import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import streamlit as st
 from wordcloud import WordCloud
@@ -59,16 +60,23 @@ def render_wordcloud(tokens: list[str], title: str, max_words: int = 10) -> None
         max_words=max_words,
     ).generate_from_frequencies(freq)
 
-    fig, ax = plt.subplots(figsize=(16, 9), dpi=120)
-    fig.patch.set_facecolor("white")
-    ax.imshow(wc, interpolation="bilinear")
-    ax.axis("off")
-    fig.tight_layout(pad=0)
     with card(key=f"wc_card_{title}"):
-        st.pyplot(fig, use_container_width=True)
+        # PRD §FR-3.4: render rasteret i full kort-bredde, lesbart i plenum.
+        # Både st.pyplot og st.image(width="stretch") kollapset bildet til en
+        # miniklump inne i kortet (stylable_container) og krevde fullskjerm-
+        # klikk for å vises. Vi embedder derfor 1600×900-PNG-en direkte som en
+        # <img> med width:100% — fyller bredden uten fullskjerm-avhengighet.
+        buf = BytesIO()
+        wc.to_image().save(buf, format="PNG")
+        b64 = base64.b64encode(buf.getvalue()).decode("ascii")
+        st.markdown(
+            f'<img src="data:image/png;base64,{b64}" '
+            'style="width:100%;height:auto;display:block;border-radius:6px;" '
+            f'alt="Ordsky: {title}" />',
+            unsafe_allow_html=True,
+        )
         ranked = ", ".join(f"{w} ({c})" for w, c in top)
         st.caption(f"Topp {len(top)}: {ranked}")
-    plt.close(fig)
 
 
 def render_barchart(

@@ -16,7 +16,7 @@ from modules.shared.ui import callout, load_markdown
 
 def main() -> None:
     st.title("🧑‍🤝‍🧑 Gruppeoppgave 2")
-    st.caption("Modul 14 · Lag en skill: datakvalitets-sjekk")
+    st.caption("Modul 17 · Lag en skill: datakvalitets-sjekk")
     st.divider()
 
     callout(

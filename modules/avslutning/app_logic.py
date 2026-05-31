@@ -1,4 +1,4 @@
-"""Avslutning – modul 26 (Hva nå?).
+"""Avslutning – modul 28 (Hva nå?).
 
 Implementerer PRD §FR-3.11 og §FR-3.12. Siste modul i kursrekken:
 oppsummering av kjernepunkter, konkrete neste steg, og evt. en kobling
@@ -15,9 +15,9 @@ from modules.shared.ui import crumb, load_markdown
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "26 · Avslutning"])
+    crumb(["Kursmoduler", "29 · Avslutning"])
     st.title("🏁 Avslutning")
-    st.caption("Modul 26 · Hva nå? — oppsummering og veien videre.")
+    st.caption("Modul 29 · Hva nå? — oppsummering og veien videre.")
     st.divider()
 
     st.subheader("💡 Oppsummering")

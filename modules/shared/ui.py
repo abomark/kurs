@@ -282,6 +282,59 @@ def card(key: str | None = None, padding: str = "24px") -> Iterator[None]:
         yield
 
 
+# --- Nummererte steg / sjekkpunkter (DESIGN_GUIDE v2 §4) ---
+
+
+def numbered_steps(
+    items: Sequence[str | tuple[str, str]],
+    *,
+    key: str | None = None,
+    accent: str | None = None,
+) -> None:
+    """Render en nummerert liste med runde badge-tall (1, 2, 3 …) i ett kort.
+
+    Brukes til steg-for-steg-prosesser og sjekklister der rekkefølgen eller
+    antallet er poenget. Hvert element er enten:
+
+    - `str` — kun en tittel-linje, eller
+    - `(tittel, beskrivelse)` — tittel i fet + dempet beskrivelse under.
+
+    Args:
+        items: sekvens av strenger eller (tittel, body)-tupler.
+        key: unik nøkkel for kort-containeren. Auto-avledet hvis None.
+        accent: badge-farge. Default Vann.
+    """
+    accent = accent or COLOR_VANN
+    last = len(items) - 1
+    rows: list[str] = []
+    for i, item in enumerate(items):
+        if isinstance(item, (tuple, list)):
+            title, body = item[0], (item[1] if len(item) > 1 else "")
+        else:
+            title, body = item, ""
+        border = "none" if i == last else f"1px solid {BORDER}"
+        body_html = (
+            f"<div style='font-size:14px;color:{TEXT_SECONDARY};"
+            f"margin-top:3px;line-height:1.5;'>{body}</div>"
+            if body
+            else ""
+        )
+        rows.append(
+            f"<div style='display:flex;gap:14px;align-items:flex-start;"
+            f"padding:13px 0;border-bottom:{border};'>"
+            f"<div style='flex:none;width:30px;height:30px;border-radius:8px;"
+            f"background:{accent};color:#FFFFFF;font-weight:700;font-size:14px;"
+            f"display:flex;align-items:center;justify-content:center;'>{i + 1}</div>"
+            f"<div style='padding-top:3px;'>"
+            f"<div style='font-weight:700;font-size:15px;color:{TEXT_PRIMARY};"
+            f"line-height:1.4;'>{title}</div>{body_html}</div>"
+            f"</div>"
+        )
+    html = "".join(rows)
+    with card(key=key or f"steps_{abs(hash(html)) % 100000}", padding="4px 22px"):
+        st.markdown(html, unsafe_allow_html=True)
+
+
 # --- Crumb / breadcrumb (DESIGN_GUIDE v2 §8) ---
 
 

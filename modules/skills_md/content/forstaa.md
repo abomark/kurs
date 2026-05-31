@@ -1,0 +1,1 @@
+God praksis er å la Cortex Code **forklare skill-en før du anvender den** på et levende objekt. Da vet du hva du faktisk setter i gang. Spør om hva den gjør, når den bør brukes, hvilke inputs den forventer og hvilke outputs den returnerer:

@@ -1,4 +1,4 @@
-"""Arkitekturoversikt – modul 5.
+"""Arkitekturoversikt – modul 7.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Visuell oversikt over Cortex Codes
@@ -15,9 +15,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "05 · Arkitekturoversikt"])
+    crumb(["Kursmoduler", "08 · Arkitekturoversikt"])
     st.title("🏗️ Arkitekturoversikt")
-    st.caption("Modul 5 · Hvordan Cortex Code er bygget — én LLM med fem integrerte lag.")
+    st.caption("Modul 8 · Hvordan Cortex Code er bygget — én LLM med fem integrerte lag.")
     st.divider()
 
     # --- Intro ---

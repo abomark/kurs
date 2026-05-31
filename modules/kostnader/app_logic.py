@@ -1,4 +1,4 @@
-"""Kostnader – modul 25.
+"""Kostnader – modul 27.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Operasjonell forberedelse før Avslutning:
@@ -9,7 +9,7 @@ Layout per DESIGN_GUIDE v2 §8: crumb, H1+intro, expanders for konsepter,
 en praktisk seksjon med SQL-eksempel og dashboard-lenke, info-callout for
 resource monitors, best-practices-expander, CTA til Avslutning.
 
-Eksponerer `main()` som kalles fra `pages_content/modules/m25_kostnader.py`.
+Eksponerer `main()` som kalles fra `pages_content/modules/m27_kostnader.py`.
 """
 
 from __future__ import annotations
@@ -31,11 +31,11 @@ KOSTNADS_DASHBOARD_URL = "https://placeholder.intern.bank/cortex-code-kostnader"
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "25 · Kostnader"])
+    crumb(["Kursmoduler", "28 · Kostnader"])
 
     title, intro_body = load_titled_markdown(__file__, "intro")
     st.title(title or "💰 Kostnader")
-    st.caption("Modul 25 · Kostnadsmodell, sporing og produksjonskontroller")
+    st.caption("Modul 28 · Kostnadsmodell, sporing og produksjonskontroller")
     st.divider()
     st.markdown(intro_body)
 

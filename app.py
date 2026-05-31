@@ -14,13 +14,16 @@ import importlib
 import streamlit as st
 
 from components.sidebar import render_sidebar
-from data.moduler import find_by_page_id, page_id
+from data.moduler import MODULER, find_by_page_id, page_id
 
 # Sider som trenger full skjermbredde (typisk resultatsider med diagrammer
-# som ellers blir trange i 'centered'-layout). Slug uten m{NN}_-prefiks
-# håndteres egne if-er under.
+# som ellers blir trange i 'centered'-layout). Vi nøkler på slug og utleder
+# page_id via MODULER, så settet ikke drifter når moduler renummereres.
+_WIDE_LAYOUT_SLUGS = {
+    "gruppeoppgave_1_resultater",
+}
 WIDE_LAYOUT_PAGES = {
-    "m09_gruppeoppgave_1_resultater",
+    page_id(m) for m in MODULER if m["slug"] in _WIDE_LAYOUT_SLUGS
 }
 
 # Må leses FØR set_page_config siden layout-valget avhenger av aktiv side.

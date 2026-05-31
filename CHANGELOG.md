@@ -6,6 +6,81 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-05-30 — Bugfix (oppfølging): ordsky kollapset fortsatt til en miniklump
+
+Den forrige fiksen (`st.image(width="stretch")`) løste ikke problemet i praksis: inne i `card()`/`stylable_container` kollapset bildet til en liten klump i hjørnet, og ordskyen var bare lesbar via fullskjerm-overlayet. Ordskyene rendres nå korrekt i full bredde uten fullskjerm-avhengighet.
+
+**Hvorfor:** Resultatsidene projiseres i plenum. Bildet må fylle kortet med en gang — fullskjerm-knappen skal ikke være nødvendig.
+
+**Endringer:**
+- `render_wordcloud` i `modules/gruppeoppgave_1/viz.py` (delt av begge gruppeoppgavene) bytter fra `st.image` til å embedde 1600×900-PNG-en direkte som en `<img style="width:100%">` (base64 data-URI via `st.markdown`). Dette omgår container-sizing-buggen i `st.image` og fjerner fullskjerm-knappen helt. Oppløsning uendret (PRD §FR-3.4).
+
+---
+
+## 2026-05-30 — Bugfix: ordskyer på resultatsider vises i full bredde by default
+
+Ordskyene på resultatsidene for Gruppeoppgave 1 og 3 ble rendret i et lite format som krevde fullskjerm-klikk for å være lesbare i plenum. De vises nå i full kort-bredde med en gang.
+
+**Hvorfor:** Resultatsidene projiseres for hele gruppen. En ordsky som må åpnes i fullskjerm for å leses bryter flyten i gjennomgangen.
+
+**Endringer:**
+- `render_wordcloud` i `modules/gruppeoppgave_1/viz.py` (delt av begge gruppeoppgavene) bytter fra `st.pyplot` til `st.image(wc.to_array(), width="stretch")`. `width="stretch"` brukes i stedet for den utdaterte `use_container_width=True` (deprecated i Streamlit 1.50). Selve ordsky-oppløsningen er uendret (1600×900, jf. PRD §FR-3.4).
+- Fjernet nå ubrukt `import matplotlib.pyplot as plt` fra `viz.py` (matplotlib er fortsatt en transitiv avhengighet av `wordcloud`).
+
+---
+
+## 2026-05-29 — Plan Mode lagt til som egen seksjon (modul 7, etter @-mentions)
+
+Ny konsept-modul **Plan Mode** lagt inn rett etter @-mentions-seksjonen. Forklarer Cortex Codes tre kjøremoduser (Interaktiv, Plan Mode, Automatisert), hvordan man aktiverer Plan Mode, livssyklusen, og når man bør bruke den. Innhold levert av Andre (HTML-utkast), portet til kursets mørke designsystem.
+
+**Hvorfor:** Plan Mode er den trygge, read-only-først-kjøremodusen som er særlig relevant for et risikoavers bank-publikum — agenten legger fram en plan til godkjenning før den rører kjernetabeller. Plassert tidlig (etter @-mentions) så deltakerne kjenner modusen før de gjør hands-on-oppgaver. Knyttes til skills (Plan Mode + bundled skill på levende objekt).
+
+**Endringer:**
+- Ny mappe `modules/plan_mode/` (kategori I) med `app_logic.py` + sju content-filer (`intro`, `moduser`, `aktiver`, `flyt`, `flyt_steg`, `naar`, `kobling`). Layout: intro-callout, tre-modus-kort (Plan Mode framhevet med Vann-aksent + "Denne modulen"-merke og spektrum-etikett), to aktiverings-kort, `numbered_steps`-livssyklus, to "når"-kort + kobling-til-skills-callout.
+- Ny wrapper `pages_content/modules/m07_plan_mode.py`.
+- Ny seksjon `Plan Mode` i `SECTIONS` (mellom `@-mentions` og `Komme i gang`).
+- Eksisterende moduler 7–28 (arkitektur … avslutning) skjøvet ned til 8–29. 22 wrapper-filer renamet (`m07…m28` → `m08…m29`); 22 `app_logic.py`-filer fikk crumb/caption-nummer bumpet.
+- `individuell_oppgave_at_mentions` CTA endret: `arkitektur` → `plan_mode`. Plan Mode-CTA peker videre til `arkitektur`.
+
+**URL-endringer:** bokmerker til de 22 flyttede modulene fungerer ikke lenger. Slugs og DB-tabeller uberørt.
+
+---
+
+## 2026-05-29 — skills.md (modul 15) fylt med innhold om Cortex Code-skills
+
+Modul 15 (skills.md) gikk fra tomme placeholder-filer til et fullt innholdt oppslag om Cortex Codes skill-mekanisme. Innhold levert av Andre (HTML-utkast) og portet til kursets mørke designsystem — ikke AI-fabrikkert.
+
+**Hvorfor:** Andre hadde et ferdig HTML-utkast om skills (hva en skill er, anatomi, bundled vs. custom, plassering/presedens, når lage en, beste praksis) og ba om å få det inn i skills-seksjonen med kursets UI og nummererte "1, 2, 3"-bokser.
+
+**Endringer:**
+- Ny helper `numbered_steps()` i `modules/shared/ui.py` (DESIGN_GUIDE v2 §4): nummerert liste med runde badge-tall i ett kort. Tar `str` (kun tittel) eller `(tittel, body)`-tupler. Brukes til steg-prosesser og sjekklister.
+- `modules/skills_md/app_logic.py` omskrevet til åtte seksjoner: hva en skill er + fire-delt anatomi-grid, SKILL.md-kort, bundled vs. custom i to kolonner, plassering (tabell) + presedens-callout, når lage en (numbered_steps), forstå før bruk (eksempel-prompt + Plan Mode-tips), lage en ny (eksempel-prompt), beste praksis (numbered_steps).
+- Content-filer: seks tomme placeholders fjernet; tretten nye `.md`-filer med Andres innhold (`intro`, `anatomi_deler`, `skill_md`, `typer`, `hvor`, `precedence`, `naar`, `naar_steg`, `forstaa`, `forstaa_prompt`, `tips_plan`, `lage`, `lage_prompt`, `beste_praksis`).
+- Tittel/caption oppdatert: "🛠️ Skills i Cortex Code" (nav-label `skills.md` uendret).
+
+**URL-endringer:** ingen. Slug og modulnummer (15) uberørt.
+
+---
+
+## 2026-05-26 — @-mentions-seksjon mellom Snowsight-intro og Komme i gang
+
+Ny seksjon "@-mentions" lagt inn rett etter cortex_in_snowsight. Inneholder en konsept-modul som forklarer hvordan `@`-tegnet binder katalog-referanser strukturelt (vs. tekst-inferens), og en individuell oppgave hvor deltakeren sammenligner samme prompt med og uten `@`-mention.
+
+**Hvorfor:** @-mentions er en sentral produktivitetsfeature i Snowsight som mange undervurderer — det er forskjellen mellom at agenten ser eksakte kolonner/tags/masking policies som strukturerte data, vs. å måtte gjette via inferens i Horizon Catalog. Bank-relevant pga. masking policies og PII-tags.
+
+**Endringer:**
+- Ny mappe `modules/at_mentions/` (konsept, kategori I) med `app_logic.py` + fire content-filer (`what_is_it`, `what_agent_sees`, `with_vs_without`, `why_it_matters`). Innhold drafted basert på Andres beskrivelse.
+- Ny mappe `modules/individuell_oppgave_at_mentions/` (kategori P) med `app_logic.py` + tre content-filer (`oppgave`, `steg`, `forventet`). Oppgaven ber deltaker kjøre samme prompt med og uten `@`.
+- Wrappers: `m05_at_mentions.py`, `m06_individuell_oppgave_at_mentions.py`.
+- Eksisterende moduler 5–26 skjøvet ned til 7–28. 22 wrapper-filer renamet.
+- 22 `app_logic.py`-filer fikk captions/crumbs/docstrings oppdatert.
+- `cortex_in_snowsight` CTA endret: `pages/demo_1.py` → `at_mentions` (var stale `pages/`-form fra før).
+- `SECTIONS` utvidet med to nye seksjoner: `@-mentions` (m05–m06) og `Komme i gang` (m07–m09, arkitektur/demo_1/individuell_oppgave_1 som tidligere lå i Introduksjon). Introduksjon-seksjonen krymper til m01–m04.
+
+**URL-endringer:** bokmerker til 22 flyttede moduler fungerer ikke lenger. Slugs og DB-tabeller uberørt.
+
+---
+
 ## 2026-05-25 — Tre nye moduler (UTKAST): Evolusjon, Prompt engineering, Kostnader
 
 Tre nye presentasjonsmoduler (FR-3.11) lagt til som UTKAST. Strukturen er på plass — innholdet (`.md`-filer) er placeholders med `_Andre skriver: ..._`-markører.
