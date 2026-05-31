@@ -31,28 +31,28 @@ KOSTNADS_DASHBOARD_URL = "https://placeholder.intern.bank/cortex-code-kostnader"
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "28 · Kostnader"])
+    crumb(["Kursmoduler", "31 · Kostnader"])
 
     title, intro_body = load_titled_markdown(__file__, "intro")
-    st.title(title or "💰 Kostnader")
-    st.caption("Modul 28 · Kostnadsmodell, sporing og produksjonskontroller")
+    st.title(title or "Kostnader")
+    st.caption("Modul 31 · Kostnadsmodell, sporing og produksjonskontroller")
     st.divider()
     st.markdown(intro_body)
 
     st.divider()
 
     # --- Kostnadsmodell ---
-    with st.expander("📐 Kostnadsmodellen"):
+    with st.expander("Kostnadsmodellen"):
         st.markdown(load_markdown(__file__, "kostnadsmodell"))
 
     # --- Drivere ---
-    with st.expander("⚡ Hva driver kostnaden?"):
+    with st.expander("Hva driver kostnaden?"):
         st.markdown(load_markdown(__file__, "kostnadsdrivere"))
 
     st.divider()
 
     # --- Praktisk: slik sporer vi forbruk ---
-    st.subheader("🔎 Slik sporer vi forbruk")
+    st.subheader("Slik sporer vi forbruk")
     st.markdown(load_markdown(__file__, "spore_forbruk"))
 
     with card(key="kostnader_sql"):
@@ -68,7 +68,7 @@ order by credits desc;""",
         )
 
     st.link_button(
-        "📊 Åpne kostnads-dashboard",
+        "Åpne kostnads-dashboard",
         url=KOSTNADS_DASHBOARD_URL,
         help="Internt Streamlit-dashboard som viser nåværende forbruk per bruker/modell.",
     )
@@ -79,12 +79,12 @@ order by credits desc;""",
     callout(
         load_markdown(__file__, "resource_monitors"),
         kind="info",
-        title="🛡️ Resource monitors",
+        title="Resource monitors",
         key="kostnader_resource_monitors",
     )
 
     # --- Best practices ---
-    with st.expander("✅ Best practices for kostnadskontroll"):
+    with st.expander("Best practices for kostnadskontroll"):
         st.markdown(load_markdown(__file__, "best_practices"))
 
     st.divider()

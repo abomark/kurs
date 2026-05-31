@@ -17,37 +17,37 @@ from modules.shared.ui import callout, card, crumb, load_markdown, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "11 · AGENTS.md"])
-    st.title("📝 AGENTS.md")
-    st.caption("Modul 11 · Hva er AGENTS.md, og hvorfor trenger vi det?")
+    crumb(["Kursmoduler", "12 · AGENTS.md"])
+    st.title("AGENTS.md")
+    st.caption("Modul 12 · Hva er AGENTS.md, og hvorfor trenger vi det?")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---
-    st.subheader("📍 Hva er AGENTS.md?")
+    st.subheader("Hva er AGENTS.md?")
     callout(load_markdown(__file__, "what_is_it"), kind="info", key="agents_what")
 
     st.divider()
 
     # --- Seksjon 2: Hvordan fungerer den? ---
-    st.subheader("⚙️ Hvordan fungerer den?")
+    st.subheader("Hvordan fungerer den?")
     st.markdown(load_markdown(__file__, "how_it_works"))
 
     st.divider()
 
     # --- Seksjon 3: Hvor plasserer man den? ---
-    st.subheader("📂 Hvor plasserer man den?")
+    st.subheader("Hvor plasserer man den?")
     st.markdown(load_markdown(__file__, "where_to_place"))
 
     st.divider()
 
     # --- Seksjon 4: Hva skjer uten? ---
-    st.subheader("❌ Hva skjer uten?")
+    st.subheader("Hva skjer uten?")
     callout(load_markdown(__file__, "without_it"), kind="warn", key="agents_without")
 
     st.divider()
 
     # --- Seksjon 5: Eksempel-fil (i kort for å elevere det) ---
-    st.subheader("📄 Eksempel-fil")
+    st.subheader("Eksempel-fil")
     with card(key="agents_example"):
         st.markdown(load_markdown(__file__, "example"))
 

@@ -31,7 +31,7 @@ DEMO_FILES = [
 
 def main() -> None:
     crumb(["Kursmoduler", "18 · Demo: Bundled skill"])
-    st.title("🎬 Demo: Bundled skill (lineage)")
+    st.title("Demo: Bundled skill (lineage)")
     st.caption("Modul 18 · Live-demo: forstå en bundled skill, så anvend den på et levende objekt.")
     st.divider()
 
@@ -56,7 +56,7 @@ def main() -> None:
 
         st.divider()
 
-        st.subheader("🤔 Diskusjon etter demoen")
+        st.subheader("Diskusjon etter demoen")
         st.markdown(load_markdown(__file__, "diskusjon"))
     else:
         callout(

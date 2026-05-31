@@ -27,9 +27,9 @@ LOOP_STEPS = [
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "26 · Autonomous loop i dybden"])
-    st.title("🌀 Autonomous loop i dybden")
-    st.caption("Modul 26 · Hva skjer egentlig inne i agenten?")
+    crumb(["Kursmoduler", "29 · Autonomous loop i dybden"])
+    st.title("Autonomous loop i dybden")
+    st.caption("Modul 29 · Hva skjer egentlig inne i agenten?")
     st.divider()
 
     # --- Intro ---
@@ -38,7 +38,7 @@ def main() -> None:
     st.divider()
 
     # --- De fire fasene ---
-    st.subheader("🌀 De fire fasene")
+    st.subheader("De fire fasene")
     show_all = st.toggle(
         "Vis alle fasene",
         value=False,
@@ -54,7 +54,7 @@ def main() -> None:
     st.divider()
 
     # --- Konkret eksempel ---
-    st.subheader("🎯 Konkret eksempel")
+    st.subheader("Konkret eksempel")
     with st.container(border=True):
         st.markdown(load_markdown(__file__, "example"))
 

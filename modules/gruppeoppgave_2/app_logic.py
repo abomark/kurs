@@ -15,23 +15,23 @@ from modules.shared.ui import callout, load_markdown
 
 
 def main() -> None:
-    st.title("🧑‍🤝‍🧑 Gruppeoppgave 2")
-    st.caption("Modul 17 · Lag en skill: datakvalitets-sjekk")
+    st.title("Gruppeoppgave 2")
+    st.caption("Modul 20 · Lag en skill: datakvalitets-sjekk")
     st.divider()
 
     callout(
         load_markdown(__file__, "oppgave"),
         kind="info",
-        title="🎯 Oppgave",
+        title="Oppgave",
         key="g2_oppgave",
     )
 
     st.divider()
 
-    st.subheader("🪜 Steg")
+    st.subheader("Steg")
     st.markdown(load_markdown(__file__, "steg"))
 
     st.divider()
 
-    st.subheader("✅ Forventet resultat")
+    st.subheader("Forventet resultat")
     st.markdown(load_markdown(__file__, "forventet"))

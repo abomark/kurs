@@ -92,7 +92,7 @@ def _render_forgotten() -> None:
 
 
 def _render_moderation() -> None:
-    st.subheader("🧹 Moderering")
+    st.subheader("Moderering")
     st.caption("Slett enkeltsvar hvis noe upassende dukker opp.")
 
     rows = _cached_all_responses()
@@ -137,7 +137,7 @@ def _render_export() -> None:
 
 
 def _render_danger_zone() -> None:
-    st.subheader("⚠️ Nullstill runde")
+    st.subheader("Nullstill runde")
     callout(
         "Sletter ALLE svar. Bruk før ny kurssesjon.",
         kind="warning",

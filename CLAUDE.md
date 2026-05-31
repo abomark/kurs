@@ -24,9 +24,7 @@ Kurset er rettet mot **analytikere og data scientists i norske banker**. Det for
 - Font: Arial gjennomgående (ikke Inter, ikke Roboto)
 - Tema: [`.streamlit/config.toml`](.streamlit/config.toml) — kanonisk versjon i DESIGN_GUIDE §6
 - Callouts: `callout()`-helper i `modules/shared/ui.py` matcher guide §5.2–5.4
-- Emojis: påkrevd i H1/H2-overskrifter og callout-titler. IKKE som dekorasjon i brødtekst. Maks 2 emojis per overskrift.
-
-**Tidligere "ingen ikoner"-regel er overstyrt.** Emojis er nå en del av designet — i headers og callouts, ikke som tekst-dekorasjon.
+- **Ingen emojis eller ikoner** (DESIGN_GUIDE §1.7): overskrifter, `st.subheader`, `st.expander`-labels, callout-titler, crumbs og brødtekst er ren tekst. Eneste unntak: den kvadratiske callout-badgen (`i`/`!`/`✓`/`·`, settes automatisk av `callout()` ut fra `kind`) og typografiske piler (`→`/`←`) i prosa.
 
 **Når du legger til/endrer en modul:** gå gjennom sjekklista i DESIGN_GUIDE §10 før du sier "ferdig".
 

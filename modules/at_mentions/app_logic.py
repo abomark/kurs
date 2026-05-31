@@ -18,29 +18,29 @@ from modules.shared.ui import callout, card, crumb, load_markdown, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "05 · @-mentions"])
-    st.title("📌 @-mentions")
-    st.caption("Modul 5 · Hvordan @-tegnet endrer hva agenten faktisk ser.")
+    crumb(["Kursmoduler", "08 · @-mentions"])
+    st.title("@-mentions")
+    st.caption("Modul 8 · Hvordan @-tegnet endrer hva agenten faktisk ser.")
     st.divider()
 
     # --- Seksjon 1: Hva er @-mentions? ---
     callout(
         load_markdown(__file__, "what_is_it"),
         kind="info",
-        title="📍 Hva er @-mentions?",
+        title="Hva er @-mentions?",
         key="atmen_what",
     )
 
     st.divider()
 
     # --- Seksjon 2: Hva agenten ser ---
-    st.subheader("👁️ Hva agenten faktisk ser")
+    st.subheader("Hva agenten faktisk ser")
     st.markdown(load_markdown(__file__, "what_agent_sees"))
 
     st.divider()
 
     # --- Seksjon 3: Med vs. uten @-mention ---
-    st.subheader("⚖️ Med @-mention vs. uten")
+    st.subheader("Med @-mention vs. uten")
     with card(key="atmen_compare"):
         st.markdown(load_markdown(__file__, "with_vs_without"))
 
@@ -50,7 +50,7 @@ def main() -> None:
     callout(
         load_markdown(__file__, "why_it_matters"),
         kind="warn",
-        title="⚠️ Hvorfor det betyr noe",
+        title="Hvorfor det betyr noe",
         key="atmen_why",
     )
 

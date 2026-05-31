@@ -25,7 +25,7 @@ def _participant_gate() -> bool:
     if st.session_state.get("participant_ok"):
         return True
 
-    st.title("🧑‍🤝‍🧑 Gruppeoppgave 3 — memory.md")
+    st.title("Gruppeoppgave 3 — memory.md")
     st.write("Skriv inn deltakerkoden du fikk ved kursstart.")
     code = st.text_input("Deltakerkode", type="password")
     if st.button("Fortsett", type="primary"):
@@ -108,8 +108,8 @@ def main() -> None:
     if not _participant_gate():
         return
 
-    crumb(["Kursmoduler", "19 · Gruppeoppgave 3"])
-    st.title("🧑‍🤝‍🧑 Gruppeoppgave 3 — memory.md")
+    crumb(["Kursmoduler", "22 · Gruppeoppgave 3"])
+    st.title("Gruppeoppgave 3 — memory.md")
     st.caption(
         "Gå sammen to og to. Diskuter åpent — svarene er anonyme. "
         "Ikke skriv navn, bedriftshemmeligheter eller PII."

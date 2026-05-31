@@ -15,20 +15,20 @@ from modules.shared.ui import crumb, load_markdown
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "29 · Avslutning"])
-    st.title("🏁 Avslutning")
-    st.caption("Modul 29 · Hva nå? — oppsummering og veien videre.")
+    crumb(["Kursmoduler", "32 · Avslutning"])
+    st.title("Avslutning")
+    st.caption("Modul 32 · Hva nå? — oppsummering og veien videre.")
     st.divider()
 
-    st.subheader("💡 Oppsummering")
+    st.subheader("Oppsummering")
     st.markdown(load_markdown(__file__, "oppsummering"))
 
     st.divider()
 
-    st.subheader("➡️ Neste steg")
+    st.subheader("Neste steg")
     st.markdown(load_markdown(__file__, "neste_steg"))
 
     st.divider()
 
-    st.subheader("🔁 Holdning — har den flyttet seg?")
+    st.subheader("Holdning — har den flyttet seg?")
     st.markdown(load_markdown(__file__, "holdning_revisit"))

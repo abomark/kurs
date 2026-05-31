@@ -20,10 +20,10 @@ fremdrift** på komplekse oppgaver.
 Agenten lager:
 
 ```
-✅ Undersøk eksisterende prosjektstruktur
-🔄 Skriv dbt-modellen
-⬜ Legg til tester
-⬜ Kjør dbt build
+[x] Undersøk eksisterende prosjektstruktur   (completed)
+[~] Skriv dbt-modellen                         (in_progress)
+[ ] Legg til tester                            (pending)
+[ ] Kjør dbt build                             (pending)
 ```
 
 **Det er ikke:**

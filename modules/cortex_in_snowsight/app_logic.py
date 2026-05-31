@@ -17,7 +17,7 @@ from modules.shared.ui import crumb, load_markdown, next_module_cta_for
 
 def main() -> None:
     crumb(["Kursmoduler", "04 · Cortex Code i Snowsight"])
-    st.title("🌐 Cortex Code i Snowsight")
+    st.title("Cortex Code i Snowsight")
     st.caption("Modul 4 · Hvordan bruke Cortex Code gjennom Snowflakes web-UI")
     st.divider()
 
@@ -27,32 +27,32 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 1: Hvor finner du den ---
-    st.subheader("📍 Hvor finner du Cortex Code")
+    st.subheader("Hvor finner du Cortex Code")
     st.markdown(load_markdown(__file__, "section_1_location"))
 
     st.divider()
 
     # --- Seksjon 2: Grensesnittet ---
-    st.subheader("🖥️ Grensesnittet")
+    st.subheader("Grensesnittet")
     st.markdown(load_markdown(__file__, "section_2_interface"))
 
     st.divider()
 
     # --- Seksjon 3: Typiske oppgaver ---
-    st.subheader("💬 Hva kan du be om")
+    st.subheader("Hva kan du be om")
     st.markdown(load_markdown(__file__, "section_3_tasks"))
 
     st.divider()
 
     # --- Seksjon 4: Eksempel-flyt ---
-    st.subheader("🎯 Eksempel-flyt")
+    st.subheader("Eksempel-flyt")
     st.markdown(load_markdown(__file__, "section_4_example"))
 
     st.divider()
 
     # --- Seksjon 5: Tips og fallgruver ---
-    st.subheader("⚠️ Tips og fallgruver")
+    st.subheader("Tips og fallgruver")
     st.markdown(load_markdown(__file__, "section_5_tips"))
 
     st.divider()
-    next_module_cta_for("at_mentions")
+    next_module_cta_for("arkitektur")

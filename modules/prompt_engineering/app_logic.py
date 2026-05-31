@@ -27,44 +27,44 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "21 · Prompt engineering"])
+    crumb(["Kursmoduler", "24 · Prompt engineering"])
 
     title, intro_body = load_titled_markdown(__file__, "intro")
-    st.title(title or "✍️ Prompt engineering")
-    st.caption("Modul 21 · Anatomi, mønstre og iterativ forbedring av prompts")
+    st.title(title or "Prompt engineering")
+    st.caption("Modul 24 · Anatomi, mønstre og iterativ forbedring av prompts")
     st.divider()
     st.markdown(intro_body)
 
     st.divider()
 
     # --- Anatomi ---
-    with st.expander("🧬 Anatomi av en god prompt"):
+    with st.expander("Anatomi av en god prompt"):
         st.markdown(load_markdown(__file__, "anatomi"))
 
     # --- SQL-spesifikt ---
-    with st.expander("❄️ SQL- og Snowflake-spesifikke mønstre"):
+    with st.expander("SQL- og Snowflake-spesifikke mønstre"):
         st.markdown(load_markdown(__file__, "sql_spesifikt"))
 
     # --- Anti-patterns som warn-callout ---
     callout(
         load_markdown(__file__, "anti_patterns"),
         kind="warn",
-        title="🚫 Anti-patterns",
+        title="Anti-patterns",
         key="pe_anti_patterns",
     )
 
     # --- Iterativ ---
-    with st.expander("🔁 Iterativ forbedring – pingpong med agenten"):
+    with st.expander("Iterativ forbedring – pingpong med agenten"):
         st.markdown(load_markdown(__file__, "iterativ"))
 
     # --- AGENTS.md vs skills.md vs inline ---
-    with st.expander("⚖️ AGENTS.md vs skills.md vs inline prompt"):
+    with st.expander("AGENTS.md vs skills.md vs inline prompt"):
         st.markdown(load_markdown(__file__, "agents_vs_inline"))
 
     st.divider()
 
     # --- Eksempel-sammenligning: én fil, to ## -seksjoner, to kolonner ---
-    st.subheader("🔍 Før og etter")
+    st.subheader("Før og etter")
     sections = load_split_markdown(__file__, "eksempel_sammenligning")
     col_for, col_etter = st.columns(2, gap="medium")
     with col_for:

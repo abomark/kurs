@@ -1,5 +1,5 @@
-<!-- UTKAST – Andre verifiserer -->
 # 3 · Kombiner med Plan Mode
+<!-- UTKAST – Andre verifiserer -->
 
 Vis det trygge mønsteret for kjernetabeller: skru på Plan Mode (`Ctrl + P` /
 `/plan`) før du lar en skill endre noe. Da holder Cortex Code seg read-only mens

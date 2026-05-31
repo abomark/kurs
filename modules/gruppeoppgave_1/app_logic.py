@@ -26,7 +26,7 @@ def _participant_gate() -> bool:
     if st.session_state.get("participant_ok"):
         return True
 
-    st.title("🧑‍🤝‍🧑 Gruppeoppgave 1 – AGENTS.md")
+    st.title("Gruppeoppgave 1 – AGENTS.md")
     st.write("Skriv inn deltakerkoden du fikk ved kursstart.")
     code = st.text_input("Deltakerkode", type="password")
     if st.button("Fortsett", type="primary"):
@@ -109,8 +109,8 @@ def main() -> None:
     if not _participant_gate():
         return
 
-    crumb(["Kursmoduler", "12 · Gruppeoppgave 1"])
-    st.title("🧑‍🤝‍🧑 Gruppeoppgave 1 – AGENTS.md")
+    crumb(["Kursmoduler", "13 · Gruppeoppgave 1"])
+    st.title("Gruppeoppgave 1 – AGENTS.md")
     # PRD §NFR-4.1: eksplisitt påminnelse om at deltakere ikke skal lekke PII.
     st.caption(
         "Svarene er anonyme. Vennligst ikke skriv navn, bedriftshemmeligheter "

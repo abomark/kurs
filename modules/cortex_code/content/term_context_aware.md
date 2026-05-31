@@ -1,4 +1,4 @@
-# 🧭 Context-aware interface
+# Context-aware interface
 
 Agenten **vet ting om ditt spesifikke miljø uten at du må forklare på nytt**:
 

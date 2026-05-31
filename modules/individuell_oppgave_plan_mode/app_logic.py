@@ -17,27 +17,27 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "08 · Individuell oppgave: Plan Mode"])
-    st.title("🗺️ Individuell oppgave: Plan Mode")
-    st.caption("Modul 8 · Hands-on: skru på Plan Mode og les planen før utførelse.")
+    crumb(["Kursmoduler", "11 · Individuell oppgave: Plan Mode"])
+    st.title("Individuell oppgave: Plan Mode")
+    st.caption("Modul 11 · Hands-on: skru på Plan Mode og les planen før utførelse.")
     st.divider()
 
     callout(
         load_markdown(__file__, "oppgave"),
         kind="info",
-        title="🎯 Oppgave",
+        title="Oppgave",
         key="ind_planmode_oppgave",
     )
 
     st.divider()
 
-    st.subheader("🪜 Steg")
+    st.subheader("Steg")
     st.markdown(load_markdown(__file__, "steg"))
 
     st.divider()
 
-    st.subheader("✅ Forventet resultat")
+    st.subheader("Forventet resultat")
     st.markdown(load_markdown(__file__, "forventet"))
 
     st.divider()
-    next_module_cta_for("arkitektur")
+    next_module_cta_for("agents_md")

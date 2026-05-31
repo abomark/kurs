@@ -30,18 +30,18 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "16 · skills.md"])
+    crumb(["Kursmoduler", "17 · skills.md"])
 
     title, intro_body = load_titled_markdown(__file__, "intro")
-    st.title(title or "🛠️ Skills i Cortex Code")
+    st.title(title or "Skills i Cortex Code")
     st.caption(
-        "Modul 16 · Gjenbrukbare arbeidsflyter som forteller Cortex Code "
+        "Modul 17 · Gjenbrukbare arbeidsflyter som forteller Cortex Code "
         "hvordan en Snowflake-oppgave skal håndteres"
     )
     st.divider()
 
     # --- Seksjon 1: Hva er en skill? + de fire delene ---
-    st.subheader("📍 Hva er en skill?")
+    st.subheader("Hva er en skill?")
     st.markdown(intro_body)
     st.caption("En skill leverer fire ting:")
     _anatomy_grid(load_split_markdown(__file__, "anatomi_deler"))
@@ -49,14 +49,14 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 2: Anatomien — SKILL.md ---
-    st.subheader("🧩 Anatomien: SKILL.md")
+    st.subheader("Anatomien: SKILL.md")
     with card(key="skills_skillmd"):
         st.markdown(load_markdown(__file__, "skill_md"))
 
     st.divider()
 
     # --- Seksjon 3: Bundled vs. custom skills (to kolonner) ---
-    st.subheader("⚖️ Bundled vs. custom skills")
+    st.subheader("Bundled vs. custom skills")
     typer = load_split_markdown(__file__, "typer")
     titles = [t for t in typer if t]  # dropp evt. pre-header-blokk
     col_bundled, col_custom = st.columns(2, gap="medium")
@@ -68,19 +68,19 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 4: Hvor bor skills? + presedens ---
-    st.subheader("📂 Hvor bor skills?")
+    st.subheader("Hvor bor skills?")
     st.markdown(load_markdown(__file__, "hvor"))
     callout(
         load_markdown(__file__, "precedence"),
         kind="info",
-        title="🥇 Presedens",
+        title="Presedens",
         key="skills_precedence",
     )
 
     st.divider()
 
     # --- Seksjon 5: Når bør du lage en custom skill? ---
-    st.subheader("🧭 Når bør du lage en custom skill?")
+    st.subheader("Når bør du lage en custom skill?")
     st.markdown(load_markdown(__file__, "naar"))
     steg = [t for t in load_split_markdown(__file__, "naar_steg") if t]
     numbered_steps(steg, key="skills_naar_steg")
@@ -88,21 +88,21 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 6: Forstå en skill før du bruker den ---
-    st.subheader("🔍 Forstå en skill før du bruker den")
+    st.subheader("Forstå en skill før du bruker den")
     st.markdown(load_markdown(__file__, "forstaa"))
     st.caption("Eksempel-prompt")
     st.code(load_markdown(__file__, "forstaa_prompt"), language="text")
     callout(
         load_markdown(__file__, "tips_plan"),
         kind="success",
-        title="💡 Tips: kombiner med Plan Mode",
+        title="Tips: kombiner med Plan Mode",
         key="skills_tips_plan",
     )
 
     st.divider()
 
     # --- Seksjon 7: Lage en ny skill ---
-    st.subheader("🏗️ Lage en ny skill")
+    st.subheader("Lage en ny skill")
     st.markdown(load_markdown(__file__, "lage"))
     st.caption("Eksempel-prompt")
     st.code(load_markdown(__file__, "lage_prompt"), language="text")
@@ -110,7 +110,7 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 8: Beste praksis (nummererte sjekkpunkter) ---
-    st.subheader("✅ Beste praksis for pålitelige custom skills")
+    st.subheader("Beste praksis for pålitelige custom skills")
     st.caption("Hold en custom skill smal og forutsigbar:")
     praksis = load_split_markdown(__file__, "beste_praksis")
     numbered_steps(
@@ -120,16 +120,15 @@ def main() -> None:
 
     st.divider()
 
-    # skills.md → Gruppeoppgave 2 (lag en datakvalitets-skill) er den
-    # naturlige neste øvelsen i modul-rekkefølgen.
-    next_module_cta_for("gruppeoppgave_2")
+    # skills.md → demo av en bundled skill (lineage) før hands-on.
+    next_module_cta_for("demo_bundled_skill")
 
 
 def _anatomy_grid(deler: dict[str, str]) -> None:
     """Render de fire delene en skill leverer som fire små kort i én rad.
 
     `deler` er `{tittel: body}` fra `load_split_markdown` der tittelen
-    inkluderer ledende emoji (f.eks. "🧭 Domenekontekst").
+    inkluderer ledende emoji (f.eks. "Domenekontekst").
     """
     items = [(t, body) for t, body in deler.items() if t]
     if not items:

@@ -15,7 +15,7 @@ v1 var en brand-disiplinguide. v2 er en *produkt*-design guide. Forskjellen:
 | Komponenter | Custom HTML inline | Kort med tydelig struktur |
 | Tall i diagrammer | Y-akse 0–1 med decimalticks | Heltallsticks, snitt visualisert |
 | Tomme kategorier | "0" tall som visuell støy | Diskrete tick-merker |
-| Font | Arial obligatorisk | Inter foreslått, Arial tillatt |
+| Font | Arial obligatorisk | Arial obligatorisk (ingen webfonter) |
 | Sidebar | Flat liste med emojis | Seksjonert med headers + venstrekant-aktiv |
 
 ---
@@ -28,6 +28,7 @@ v1 var en brand-disiplinguide. v2 er en *produkt*-design guide. Forskjellen:
 4. **Tilbakeholdenhet i farge.** En side skal ha ett dominerende farget element, ikke fem.
 5. **Tall fortjener sin egen plass.** Antall svar, snitt, prosent — disse er kongene, ikke fotnoter.
 6. **Norsk språk, men engelske tekniske termer.**
+7. **Ingen emojis eller ikoner.** Overskrifter (H1/H2/H3), `st.subheader`, `st.expander`-labels, callout-titler, crumbs og brødtekst skal være ren tekst — ingen 📌🎯⚠️-dekorasjon. Eneste tillatte unntak er den kvadratiske callout-badgen (`i` / `!` / `✓` / `·`, se §7) og typografiske piler (`→`, `←`) der de bærer mening i prosa. Hvorfor: emojier renders inkonsistent på tvers av OS-er (Apple vs Windows vs Linux) og trekker tonen i en uønsket retning for et bank-publikum.
 
 ---
 
@@ -83,21 +84,19 @@ Bruk *aldri* Sand `#F8E9DD` som hovedtekstfarge. Sand er for varmt — gir et no
 
 ## 3. Typografi — REVIDERT
 
-### Primær: Inter
+### Primær: Arial
 
 ```css
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+font-family: Arial, Helvetica, sans-serif;
 ```
 
-**Hvorfor:** Arial får produktet til å se ut som 90-tallets intranett. Inter er gratis, moderne, og har samme tekniske egenskaper som Arial (sans-serif, neutral, god lesbarhet). Last den fra Google Fonts.
+**Hvorfor:** Arial er obligatorisk i kurset. Den er forhåndsinstallert overalt (ingen webfont-lasting, ingen avhengighet av Google Fonts), renders konsistent på tvers av OS-er, og samsvarer med bankenes skrifttype-policy. Ingen eksterne fonter (ikke Inter, ikke Roboto).
 
-### Fallback: Arial (hvis policy krever)
+For å unngå et "tungt/90-talls" inntrykk med Arial:
 
-Hvis banken har strikt skrifttype-policy, fungerer Arial som fallback. Du må da:
-
-- Øke `font-weight` ett trinn for headings (700 → 800)
-- Øke `letter-spacing: -0.02em` på H1/H2 for å unngå "feit" inntrykk
-- Bruk `font-feature-settings: "tnum"` på alle tall
+- Bruk negativ `letter-spacing` på headings (`-0.01em` til `-0.02em`)
+- Hold headings på vekt 700 (ikke gå tyngre uten grunn)
+- Bruk `font-feature-settings: "tnum"` / `font-variant-numeric: tabular-nums` på alle tall
 
 ### Skala (uendret fra v1)
 
@@ -227,7 +226,7 @@ fig.add_vline(
 fig.update_layout(
     plot_bgcolor="rgba(0,0,0,0)",
     paper_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Inter, Arial, sans-serif", color="#F4F6FB"),
+    font=dict(family="Arial, Helvetica, sans-serif", color="#F4F6FB"),
     margin=dict(l=40, r=20, t=40, b=40),
     height=280,
     showlegend=False,
@@ -351,6 +350,8 @@ pg.run()
 
 Ikon-spec: 28×28px kvadrat, border-radius 6px, brand-farge bakgrunn, hvit eller Fjell-farget tekst.
 
+**Dette er det eneste tillatte "ikonet" i appen** (jf. §1.7). Bokstav-/tegn-badgen (`i` / `!` / `✓` / `·`) settes av `callout()`-helperen selv ut fra `kind` — `title`-argumentet skal være ren tekst uten emoji.
+
 ### Streamlit-implementasjon
 
 Lag en `components.py` med helpers:
@@ -428,16 +429,10 @@ secondaryBackgroundColor = "#0F1729"   # ← NY: surface-1
 textColor = "#F4F6FB"                  # ← NY: text-primary, ikke Sand
 linkColor = "#7EB5D2"
 codeBackgroundColor = "#131C33"
-font = "Inter, Arial, sans-serif"
+font = "Arial, Helvetica, sans-serif"
 baseFontSize = 16
 baseRadius = "10px"
 borderColor = "rgba(126, 181, 210, 0.10)"
-
-[[theme.fontFaces]]
-family = "Inter"
-url = "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2"
-weight = "400 700"
-style = "normal"
 
 [theme.sidebar]
 backgroundColor = "#0F1729"
@@ -475,8 +470,8 @@ plotly>=5.18
 Visuelt:
 - [ ] Canvas er nær-svart, ikke Fjell
 - [ ] Alle komponenter er inni kort
-- [ ] Maks 2 emojis per side (helst null i sidebar)
-- [ ] Inter eller Arial — ingen andre fonter
+- [ ] Ingen emojis/ikoner noe sted (jf. §1.7) — eneste unntak er callout-badgen (`i`/`!`/`✓`/`·`) og typografiske piler i prosa
+- [ ] Arial gjennomgående — ingen andre fonter (ingen Inter/webfonter)
 - [ ] Tre callout-typer brukt korrekt (info/warn/success)
 
 Hierarki:
@@ -529,7 +524,7 @@ Fem kategorier, hver med en dedikert farge. Disse fargene brukes KUN til prikker
 - Prikk: 7×7px sirkel i sidebaren, 10×10px i forsidens grid
 - Plassering: 16px fra venstre, 10px før modul-nummer
 - Modul-nummer: 2 siffer, mono-font, `#6B7691` (active: `#7EB5D2`)
-- Tittel: 13px, Inter/system-sans, `#F4F6FB`
+- Tittel: 13px, Arial/system-sans, `#F4F6FB`
 - Aktiv tilstand: bakgrunn `rgba(0, 90, 164, 0.18)`, venstrekant `#005AA4` 3px
 - Hover: bakgrunn `rgba(0, 90, 164, 0.10)`
 - Tooltip på prikk: viser kategorinavnet (via `title`-attributt)

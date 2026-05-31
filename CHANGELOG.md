@@ -6,6 +6,73 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-05-31 — Tre nye hands-on-moduler (Plan Mode-oppgave + bundled skill) + to placeholdere fylt
+
+Kurset hadde konsepter for Plan Mode og skills, men manglet hands-on for flere av dem. Tre nye moduler lagt til, og to eksisterende tomme oppgaver fylt med UTKAST-innhold (merket `<!-- UTKAST – Andre verifiserer -->`, jf. eksplisitt avtale om draft denne gangen).
+
+**Hvorfor:** Konsept-modulene (plan_mode modul 10, skills_md modul 17) forklarte allerede mønstrene — inkludert eksempel-promptene for `@(serverSkill:lineage)` og `skill-development` — men deltakerne fikk aldri øvd dem. Demoen på «levende objekt» er presentatør-styrt fordi det er tryggere enn at alle kjører mot egne kjernetabeller.
+
+**Endringer:**
+- Ny modul **Individuell oppgave: Plan Mode** (`modules/individuell_oppgave_plan_mode/`, modul 11, kategori P) i Plan Mode-seksjonen etter konseptet. Speiler P-oppgave-mønsteret (oppgave/steg/forventet).
+- Ny modul **Demo: Bundled skill (lineage)** (`modules/demo_bundled_skill/`, modul 18, kategori I) i skills.md-seksjonen. Runbook med agenda + tre segmenter + diskusjon (speiler `demo_1`/`demo_2`). Presentatør-tips: `BASELINE_ACTIVE_KUNDE_TRUST` som levende objekt.
+- Ny modul **Individuell oppgave: Bundled skill** (`modules/individuell_oppgave_bundled_skill/`, modul 19, kategori P) i skills.md-seksjonen.
+- Pedagogisk progresjon i skills.md-seksjonen: konsept → demo → individuell oppgave → gruppeoppgave.
+- Fylt `individuell_oppgave_2` (metadata-sjekk av ukjent tabell) og `gruppeoppgave_2` (lag datakvalitets-skill via `skill-development`-workflow).
+- Renummerering: modul 11–29 → 12–32. 19 wrapper-filer under `pages_content/modules/` renamet, 3 nye lagt til, crumb/caption-numre bumpet. `data/moduler.py` `MODULER` + `SECTIONS` oppdatert (32 moduler).
+- CTA-kjede rekoblet: `plan_mode`→`individuell_oppgave_plan_mode`→`agents_md`; `skills_md`→`demo_bundled_skill`→`individuell_oppgave_bundled_skill`→`gruppeoppgave_2`.
+
+**URL-endringer:** bokmerker til de 19 flyttede modulene fungerer ikke lenger. Slugs og DB-tabeller uberørt.
+
+---
+
+## 2026-05-31 — Font byttet fra Inter til Arial gjennomgående
+
+Appen brukte Inter (lastet fra Google Fonts) som primærfont, med Arial som fallback. Nå er **Arial** primær og eneste UI-font.
+
+**Hvorfor:** Ønske fra Andre. Arial er forhåndsinstallert overalt (ingen webfont-lasting, ingen avhengighet av Google Fonts), renders konsistent på tvers av OS-er, og samsvarer med bankenes skrifttype-policy.
+
+**Endringer:**
+- `.streamlit/config.toml`: `font = "Arial, Helvetica, sans-serif"`; `[[theme.fontFaces]]`-blokken som lastet Inter er fjernet.
+- `modules/gruppeoppgave_1/viz.py`: Plotly-font satt til Arial-stacken.
+- `DESIGN_GUIDE.md` §3 omskrevet (Arial primær i stedet for Inter), + oppdatert §0-tabell, §9-config-eksempel, §10-sjekkliste og §11. `PRD.md` §6/§7-fontlinje oppdatert.
+- Mono/kode forblir JetBrains Mono (uendret).
+
+---
+
+## 2026-05-31 — Fjernet alle emojis/ikoner (ny designregel)
+
+Emoji-dekorasjonen i overskrifter, `st.subheader`, `st.expander`-labels, callout-titler, crumbs og markdown-headere er fjernet i hele appen. Designet er nå ren tekst.
+
+**Hvorfor:** Ønske fra Andre. Emojier renders inkonsistent på tvers av OS-er og treffer feil tone for et bank-publikum. (Reverserer den mellomliggende «emojis påkrevd»-perioden.)
+
+**Beholdt med vilje:**
+- Den kvadratiske callout-badgen (`i` / `!` / `✓` / `·`) — settes automatisk av `callout()` ut fra `kind`. Dette er det eneste tillatte «ikonet».
+- Typografiske piler (`→`, `←`) i prosa/flyt-etiketter, og box-drawing (`├──`, `└──`) i mappe-trær — tekst, ikke ikoner.
+- Browser-fanens favicon (`page_icon="❄"` i `app.py`) — branding i fanen, ikke sideinnhold. Flagget for Andre; lett å fjerne hvis ønskelig.
+
+**Endringer:**
+- Kalibrert sweep fjernet emoji fra ~45 `app_logic.py`- og `content/*.md`-filer (titler, subheaders, expander-labels, callout-`title=`, md-headere).
+- TODO-list-eksemplet i `modules/arkitektur/content/oppgavestyring.md` byttet fra status-emoji (✅🔄⬜) til tekstmarkører (`[x]`/`[~]`/`[ ]`) som bevarer betydningen.
+- **Designregel lagt til:** `DESIGN_GUIDE.md` §1.7 (nytt kjerneprinsipp «Ingen emojis eller ikoner») + presisering i §7 (callout-badge er eneste unntak) + oppdatert §10-sjekkliste. `CLAUDE.md`-sammendraget oppdatert tilsvarende.
+
+---
+
+## 2026-05-31 — «Komme i gang» flyttet til rett etter Introduksjon
+
+Seksjonen **Komme i gang** (Arkitekturoversikt, Første demo, Individuell oppgave 1) er flyttet opp slik at den kommer rett etter **Introduksjon**, foran **@-mentions** og **Plan Mode**.
+
+**Ny seksjonsrekkefølge:** Introduksjon → Komme i gang → @-mentions → Plan Mode → AGENTS.md → …
+
+**Hvorfor:** Ønske fra Andre om at deltakerne kommer raskere i gang med verktøyet (arkitektur + første demo + hands-on) før konsept-fordypningen i @-mentions og Plan Mode.
+
+**Endringer:**
+- `data/moduler.py`: `SECTIONS` reordnet og modul 5–10 renummerert (arkitektur=5, demo_1=6, individuell_oppgave_1=7, at_mentions=8, individuell_oppgave_at_mentions=9, plan_mode=10) så sidebar-numrene forblir sekvensielle.
+- Seks wrapper-filer under `pages_content/modules/` renamet (`m05`–`m10`); crumb- og caption-numre i de seks modulenes `app_logic.py` oppdatert.
+- «Fortsett →»-CTA-kjeden rekoblet til ny rekkefølge: `cortex_in_snowsight`→`arkitektur`, `individuell_oppgave_1`→`at_mentions`, `plan_mode`→`agents_md`. (CTA-ene slår opp nr dynamisk via slug, så kun de tre hopp-punktene måtte endres.)
+- Slugs og DB-tabeller uberørt; URL-ene (`?page=mNN_<slug>`) for de seks flyttede modulene er endret.
+
+---
+
 ## 2026-05-30 — Bugfix (oppfølging): ordsky kollapset fortsatt til en miniklump
 
 Den forrige fiksen (`st.image(width="stretch")`) løste ikke problemet i praksis: inne i `card()`/`stylable_container` kollapset bildet til en liten klump i hjørnet, og ordskyen var bare lesbar via fullskjerm-overlayet. Ordskyene rendres nå korrekt i full bredde uten fullskjerm-avhengighet.

@@ -183,7 +183,7 @@ def render_barchart(
     fig.update_layout(
         plot_bgcolor="rgba(0,0,0,0)",
         paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter, Arial, sans-serif", color=TEXT_PRIMARY),
+        font=dict(family="Arial, Helvetica, sans-serif", color=TEXT_PRIMARY),
         margin=dict(l=20, r=20, t=30, b=20),
         height=280,
         showlegend=False,

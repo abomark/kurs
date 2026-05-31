@@ -1,5 +1,5 @@
-<!-- UTKAST – Andre verifiserer -->
 # 1 · Forstå skill-en først
+<!-- UTKAST – Andre verifiserer -->
 
 Før du anvender en bundled skill, la Cortex Code forklare den. Da vet du hva du
 faktisk setter i gang. Kjør denne prompten foran salen:

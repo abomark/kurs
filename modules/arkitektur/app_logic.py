@@ -15,9 +15,9 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "08 · Arkitekturoversikt"])
-    st.title("🏗️ Arkitekturoversikt")
-    st.caption("Modul 8 · Hvordan Cortex Code er bygget — én LLM med fem integrerte lag.")
+    crumb(["Kursmoduler", "05 · Arkitekturoversikt"])
+    st.title("Arkitekturoversikt")
+    st.caption("Modul 5 · Hvordan Cortex Code er bygget — én LLM med fem integrerte lag.")
     st.divider()
 
     # --- Intro ---
@@ -26,22 +26,22 @@ def main() -> None:
     st.divider()
 
     # --- De fem lagene som klikkbare ekspandere ---
-    st.subheader("🧩 De fem lagene")
+    st.subheader("De fem lagene")
     st.caption("Klikk på et lag for å se mer.")
 
-    with st.expander("📜 1. Instruksjonslag (System Prompt)"):
+    with st.expander("1. Instruksjonslag (System Prompt)"):
         st.markdown(load_markdown(__file__, "system_prompt"))
 
-    with st.expander("🔧 2. Verktøylag (Tool Interface)"):
+    with st.expander("2. Verktøylag (Tool Interface)"):
         st.markdown(load_markdown(__file__, "tool_interface"))
 
-    with st.expander("🧱 3. Skills-system (Utvidelsesmekanisme)"):
+    with st.expander("3. Skills-system (Utvidelsesmekanisme)"):
         st.markdown(load_markdown(__file__, "skills_system"))
 
-    with st.expander("✅ 4. Oppgavestyring (TODO-liste)"):
+    with st.expander("4. Oppgavestyring (TODO-liste)"):
         st.markdown(load_markdown(__file__, "oppgavestyring"))
 
-    with st.expander("👁️ 5. Kontekstbevissthet"):
+    with st.expander("5. Kontekstbevissthet"):
         st.markdown(load_markdown(__file__, "kontekstbevissthet"))
 
     st.divider()
@@ -50,7 +50,7 @@ def main() -> None:
     callout(
         load_markdown(__file__, "forbehold"),
         kind="subtle",
-        title="ℹ️ Forbehold",
+        title="Forbehold",
         key="arkitektur_forbehold",
     )
 

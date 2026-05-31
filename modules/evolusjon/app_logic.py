@@ -38,7 +38,7 @@ def main() -> None:
     # Tittel + intro hentes fra første # H1-linje i intro.md slik at Andre
     # kan styre wording uten å åpne Python-fila.
     title, intro_body = load_titled_markdown(__file__, "intro")
-    st.title(title or "📈 Fra Google til spesifikasjon")
+    st.title(title or "Fra Google til spesifikasjon")
     st.caption("Modul 1 · Tre epoker i hvordan vi skriver kode")
     st.divider()
     st.markdown(intro_body)
@@ -60,7 +60,7 @@ def main() -> None:
     callout(
         load_markdown(__file__, "hvor_er_du"),
         kind="subtle",
-        title="🪞 Hvor er du i dag?",
+        title="Hvor er du i dag?",
         key="evolusjon_hvor_er_du",
     )
 

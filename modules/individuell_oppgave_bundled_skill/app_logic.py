@@ -18,25 +18,25 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 def main() -> None:
     crumb(["Kursmoduler", "19 · Individuell oppgave: Bundled skill"])
-    st.title("🧩 Individuell oppgave: Bundled skill")
+    st.title("Individuell oppgave: Bundled skill")
     st.caption("Modul 19 · Hands-on: forstå en bundled skill, så anvend den selv.")
     st.divider()
 
     callout(
         load_markdown(__file__, "oppgave"),
         kind="info",
-        title="🎯 Oppgave",
+        title="Oppgave",
         key="ind_bundled_oppgave",
     )
 
     st.divider()
 
-    st.subheader("🪜 Steg")
+    st.subheader("Steg")
     st.markdown(load_markdown(__file__, "steg"))
 
     st.divider()
 
-    st.subheader("✅ Forventet resultat")
+    st.subheader("Forventet resultat")
     st.markdown(load_markdown(__file__, "forventet"))
 
     st.divider()

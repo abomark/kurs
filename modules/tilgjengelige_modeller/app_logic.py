@@ -15,9 +15,9 @@ from modules.shared.ui import crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "14 · Tilgjengelige modeller"])
-    st.title("🧠 Tilgjengelige modeller")
-    st.caption("Modul 14 · Hvilke modeller står til rådighet, og når velger du hvilken?")
+    crumb(["Kursmoduler", "15 · Tilgjengelige modeller"])
+    st.title("Tilgjengelige modeller")
+    st.caption("Modul 15 · Hvilke modeller står til rådighet, og når velger du hvilken?")
     st.divider()
 
     # --- Intro ---
@@ -26,19 +26,19 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 1: Oversikt over modellene ---
-    st.subheader("📋 Oversikt")
+    st.subheader("Oversikt")
     st.markdown(load_markdown(__file__, "oversikt"))
 
     st.divider()
 
     # --- Seksjon 2: Når velger du hvilken ---
-    st.subheader("🤔 Når velger du hvilken")
+    st.subheader("Når velger du hvilken")
     st.markdown(load_markdown(__file__, "valg"))
 
     st.divider()
 
     # --- Seksjon 3: Praktisk eksempel ---
-    st.subheader("🎯 Eksempel")
+    st.subheader("Eksempel")
     with st.container(border=True):
         st.markdown(load_markdown(__file__, "eksempel"))
 

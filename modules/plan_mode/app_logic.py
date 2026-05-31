@@ -34,10 +34,10 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "07 · Plan Mode"])
-    st.title("📋 Plan Mode")
+    crumb(["Kursmoduler", "10 · Plan Mode"])
+    st.title("Plan Mode")
     st.caption(
-        "Modul 7 · Kjøremodusen som holder seg read-only mens den tenker, "
+        "Modul 10 · Kjøremodusen som holder seg read-only mens den tenker, "
         "og leverer en plan til godkjenning før noe utføres"
     )
     st.divider()
@@ -46,14 +46,14 @@ def main() -> None:
     callout(
         load_markdown(__file__, "intro"),
         kind="info",
-        title="📍 Hva er Plan Mode?",
+        title="Hva er Plan Mode?",
         key="plan_intro",
     )
 
     st.divider()
 
     # --- Seksjon 2: De tre kjøremodusene ---
-    st.subheader("🎚️ De tre kjøremodusene")
+    st.subheader("De tre kjøremodusene")
     st.markdown(
         "Modusene spenner fra mest kontroll og bekreftelse til mest "
         "automatikk. Plan Mode ligger i midten — den tenker fritt, men "
@@ -65,13 +65,13 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 3: Slik aktiverer du ---
-    st.subheader("⌨️ Slik aktiverer du Plan Mode")
+    st.subheader("Slik aktiverer du Plan Mode")
     _two_cards(load_split_markdown(__file__, "aktiver"), key="plan_aktiver")
 
     st.divider()
 
     # --- Seksjon 4: Slik fungerer Plan Mode ---
-    st.subheader("🔄 Slik fungerer Plan Mode")
+    st.subheader("Slik fungerer Plan Mode")
     st.markdown(load_markdown(__file__, "flyt"))
     steg = [t for t in load_split_markdown(__file__, "flyt_steg") if t]
     numbered_steps(steg, key="plan_flyt_steg")
@@ -79,19 +79,19 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 5: Når bør du bruke den? ---
-    st.subheader("🧭 Når bør du bruke Plan Mode?")
+    st.subheader("Når bør du bruke Plan Mode?")
     _two_cards(load_split_markdown(__file__, "naar"), key="plan_naar")
     callout(
         load_markdown(__file__, "kobling"),
         kind="success",
-        title="🔗 Kobling til skills",
+        title="Kobling til skills",
         key="plan_kobling",
     )
 
     st.divider()
 
-    # Plan Mode → arkitektur (resten av "Komme i gang"-flyten).
-    next_module_cta_for("arkitektur")
+    # Plan Mode → hands-on Plan Mode-oppgave.
+    next_module_cta_for("individuell_oppgave_plan_mode")
 
 
 def _spectrum_label() -> None:

@@ -38,7 +38,7 @@ RBAC_AUDIO = _REPO_ROOT / "Snowflake RBAC.mp3"
 
 def main() -> None:
     crumb(["Kursmoduler", "02 · Cortex Code"])
-    st.title("❄️ Cortex Code")
+    st.title("Cortex Code")
     st.caption("Modul 2 · Hva er Cortex Code egentlig?")
     st.divider()
 
@@ -46,7 +46,7 @@ def main() -> None:
     callout(
         load_markdown(__file__, "quote"),
         kind="info",
-        title="📖 Dokumentasjonen sier",
+        title="Dokumentasjonen sier",
         key="cortex_quote",
     )
     st.caption("La oss pakke ut hva som faktisk står her.")
@@ -54,7 +54,7 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 2: Begrep for begrep ---
-    st.subheader("🔍 Begrep for begrep")
+    st.subheader("Begrep for begrep")
     show_all = st.toggle(
         "Vis alle forklaringer",
         value=False,
@@ -73,21 +73,21 @@ def main() -> None:
     callout(
         load_markdown(__file__, "summary"),
         kind="highlight",
-        title="💡 Kort oppsummert",
+        title="Kort oppsummert",
         key="cortex_summary",
     )
 
     st.divider()
 
     # --- Seksjon 4: Konkret eksempel ---
-    st.subheader("🎯 Et konkret eksempel")
+    st.subheader("Et konkret eksempel")
     with st.container(border=True):
         st.markdown(load_markdown(__file__, "example"))
 
     st.divider()
 
     # --- Seksjon 5: Lydklipp om RBAC ---
-    st.subheader("🎧 Lytteklipp: Snowflake RBAC")
+    st.subheader("Lytteklipp: Snowflake RBAC")
     if RBAC_AUDIO.exists():
         st.audio(str(RBAC_AUDIO), format="audio/mp3")
     else:

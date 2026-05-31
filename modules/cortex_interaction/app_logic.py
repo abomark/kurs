@@ -15,7 +15,7 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 def main() -> None:
     crumb(["Kursmoduler", "03 · Snowsight vs CLI"])
-    st.title("🔀 Snowsight vs CLI")
+    st.title("Snowsight vs CLI")
     st.caption("Modul 3 · To måter å samhandle med Cortex Code på")
     st.divider()
 
@@ -35,13 +35,13 @@ def main() -> None:
     st.divider()
 
     # --- Sammenligningstabell ---
-    st.subheader("📊 Kjapp oversikt")
+    st.subheader("Kjapp oversikt")
     st.markdown(load_markdown(__file__, "comparison_table"))
 
     st.divider()
 
     # --- Praktisk veiledning ---
-    st.subheader("🤔 Hva velger du?")
+    st.subheader("Hva velger du?")
     col3, col4 = st.columns(2)
     with col3:
         callout(

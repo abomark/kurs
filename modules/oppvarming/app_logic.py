@@ -200,7 +200,7 @@ def _render_likert_grid() -> dict[int, int | None]:
 
 def main() -> None:
     crumb(["Oversikt", "Bli kjent"])
-    st.title("👋 Bli kjent")
+    st.title("Bli kjent")
     st.caption(
         "Modul 0 · Litt oversikt over hvem dere er. Helt anonymt — "
         "vi bruker svarene til å kalibrere resten av kurset."

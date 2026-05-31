@@ -17,26 +17,26 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "06 · Individuell oppgave: @-mentions"])
-    st.title("📌 Individuell oppgave: @-mentions")
-    st.caption("Modul 6 · Hands-on: prøv samme prompt med og uten `@`.")
+    crumb(["Kursmoduler", "09 · Individuell oppgave: @-mentions"])
+    st.title("Individuell oppgave: @-mentions")
+    st.caption("Modul 9 · Hands-on: prøv samme prompt med og uten `@`.")
     st.divider()
 
     callout(
         load_markdown(__file__, "oppgave"),
         kind="info",
-        title="🎯 Oppgave",
+        title="Oppgave",
         key="ind_atmen_oppgave",
     )
 
     st.divider()
 
-    st.subheader("🪜 Steg")
+    st.subheader("Steg")
     st.markdown(load_markdown(__file__, "steg"))
 
     st.divider()
 
-    st.subheader("✅ Forventet resultat")
+    st.subheader("Forventet resultat")
     st.markdown(load_markdown(__file__, "forventet"))
 
     st.divider()

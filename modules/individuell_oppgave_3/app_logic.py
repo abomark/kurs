@@ -15,26 +15,26 @@ from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "23 · Individuell oppgave 3"])
-    st.title("🩺 Individuell oppgave 3")
-    st.caption("Modul 23 · Hands-on: datakvalitetssjekk med Cortex Code.")
+    crumb(["Kursmoduler", "26 · Individuell oppgave 3"])
+    st.title("Individuell oppgave 3")
+    st.caption("Modul 26 · Hands-on: datakvalitetssjekk med Cortex Code.")
     st.divider()
 
     callout(
         load_markdown(__file__, "oppgave"),
         kind="info",
-        title="🎯 Oppgave",
+        title="Oppgave",
         key="ind3_oppgave",
     )
 
     st.divider()
 
-    st.subheader("🪜 Steg")
+    st.subheader("Steg")
     st.markdown(load_markdown(__file__, "steg"))
 
     st.divider()
 
-    st.subheader("✅ Forventet resultat")
+    st.subheader("Forventet resultat")
     st.markdown(load_markdown(__file__, "forventet"))
 
     st.divider()

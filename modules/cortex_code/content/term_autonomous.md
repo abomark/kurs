@@ -1,4 +1,4 @@
-# 🔁 Autonomous agent framework
+# Autonomous agent framework
 
 Underliggende maskineri som lar agenten **bestemme sitt eget neste steg** — først sjekke skjema, så skrive spørring, så validere resultatet.
 

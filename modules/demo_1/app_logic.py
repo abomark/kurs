@@ -30,9 +30,9 @@ DEMO_FILES = [
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "09 · Første demo"])
-    st.title("🎬 Første demo")
-    st.caption("Modul 9 · Live-demo: workspace, Cortex Code, og bokstavspørsmålet")
+    crumb(["Kursmoduler", "06 · Første demo"])
+    st.title("Første demo")
+    st.caption("Modul 6 · Live-demo: workspace, Cortex Code, og bokstavspørsmålet")
     st.divider()
 
     # --- Oversikt ---
@@ -60,7 +60,7 @@ def main() -> None:
         st.divider()
 
         # --- Diskusjon ---
-        st.subheader("🤔 Diskusjon etter demoen")
+        st.subheader("Diskusjon etter demoen")
         st.markdown(load_markdown(__file__, "diskusjon"))
 
         st.divider()

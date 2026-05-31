@@ -22,7 +22,7 @@ from modules.shared.ui import crumb, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "13 · Resultater Gruppeoppgave 1"])
+    crumb(["Kursmoduler", "14 · Resultater Gruppeoppgave 1"])
     st.title("Resultater · Gruppeoppgave 1")
     st.caption(
         "Live aggregerte svar fra Gruppeoppgave 1. Oppdateres automatisk. "

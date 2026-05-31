@@ -1,5 +1,5 @@
-<!-- UTKAST – Andre verifiserer -->
 # 2 · Anvend på et levende objekt
+<!-- UTKAST – Andre verifiserer -->
 
 Nå som vi vet hva skill-en gjør, kjør den på et faktisk objekt:
 

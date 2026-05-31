@@ -18,29 +18,29 @@ from modules.shared.ui import callout, card, crumb, load_markdown, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "18 · memory.md"])
-    st.title("📓 memory.md")
-    st.caption("Modul 18 · Hvordan Cortex Code husker ting på tvers av sesjoner.")
+    crumb(["Kursmoduler", "21 · memory.md"])
+    st.title("memory.md")
+    st.caption("Modul 21 · Hvordan Cortex Code husker ting på tvers av sesjoner.")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---
     callout(
         load_markdown(__file__, "what_is_it"),
         kind="info",
-        title="📍 Hva er memory?",
+        title="Hva er memory?",
         key="memory_what",
     )
 
     st.divider()
 
     # --- Seksjon 2: Hvordan fungerer den? ---
-    st.subheader("⚙️ Hvordan fungerer den?")
+    st.subheader("Hvordan fungerer den?")
     st.markdown(load_markdown(__file__, "how_it_works"))
 
     st.divider()
 
     # --- Seksjon 3: Hvor plasserer man den? ---
-    st.subheader("📂 Hvor plasserer man den?")
+    st.subheader("Hvor plasserer man den?")
     st.markdown(load_markdown(__file__, "where_to_place"))
 
     st.divider()
@@ -52,7 +52,7 @@ def main() -> None:
     st.divider()
 
     # --- Seksjon 5: Hvorfor ikke en skill? ---
-    st.subheader("🤔 Hvorfor er dette ikke en skill?")
+    st.subheader("Hvorfor er dette ikke en skill?")
     st.markdown(load_markdown(__file__, "why_not_skill"))
 
     st.divider()
@@ -61,14 +61,14 @@ def main() -> None:
     callout(
         load_markdown(__file__, "what_to_store"),
         kind="warn",
-        title="⚖️ Hva bør lagres — og hva ikke?",
+        title="Hva bør lagres — og hva ikke?",
         key="memory_what_to_store",
     )
 
     st.divider()
 
     # --- Seksjon 7: Eksempel-fil (i kort) ---
-    st.subheader("📄 Eksempel-fil")
+    st.subheader("Eksempel-fil")
     with card(key="memory_example"):
         st.markdown(load_markdown(__file__, "example"))
 

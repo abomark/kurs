@@ -10,16 +10,10 @@ secondaryBackgroundColor = "#0F1729"   # Surface-1: kort, sidebar
 textColor = "#F4F6FB"                  # Text-primary (ikke Sand)
 linkColor = "#7EB5D2"                  # Frost
 codeBackgroundColor = "#131C33"        # Surface-2
-font = "Inter, Arial, sans-serif"
+font = "Arial, Helvetica, sans-serif"
 baseFontSize = 16
 baseRadius = "10px"
 borderColor = "rgba(126, 181, 210, 0.10)"
-
-[[theme.fontFaces]]
-family = "Inter"
-url = "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2"
-weight = "400 700"
-style = "normal"
 
 [theme.sidebar]
 backgroundColor = "#0F1729"

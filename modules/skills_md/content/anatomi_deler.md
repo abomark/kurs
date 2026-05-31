@@ -1,13 +1,13 @@
 <!-- Fire deler en skill leverer. Splittes på "## " og rendres som fire kort. -->
 
-## 🧭 Domenekontekst
+## Domenekontekst
 Hva oppgaven egentlig handler om
 
-## 📥 Forventede inputs
+## Forventede inputs
 Hvilken informasjon den trenger
 
-## ⚙️ Definert prosess
+## Definert prosess
 Stegene den skal følge
 
-## 📦 Strukturerte outputs
+## Strukturerte outputs
 Artefaktene den returnerer

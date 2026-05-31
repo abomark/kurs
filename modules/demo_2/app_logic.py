@@ -27,9 +27,9 @@ DEMO_FILES = [
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "24 · Demo 2"])
-    st.title("🎬 Demo 2")
-    st.caption("Modul 24 · Live-demo: realistisk bank-use-case med Cortex Code.")
+    crumb(["Kursmoduler", "27 · Demo 2"])
+    st.title("Demo 2")
+    st.caption("Modul 27 · Live-demo: realistisk bank-use-case med Cortex Code.")
     st.divider()
 
     callout(
@@ -53,7 +53,7 @@ def main() -> None:
 
         st.divider()
 
-        st.subheader("🤔 Diskusjon etter demoen")
+        st.subheader("Diskusjon etter demoen")
         st.markdown(load_markdown(__file__, "diskusjon"))
     else:
         callout(

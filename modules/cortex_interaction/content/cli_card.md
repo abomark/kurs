@@ -1,4 +1,4 @@
-### ⌨ CLI
+### CLI
 
 _Cortex Code i din egen terminal, integrert med lokalt utviklingsmiljø._
 
