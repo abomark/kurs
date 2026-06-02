@@ -6,6 +6,6 @@
    > brukes, hvilke inputs den forventer, og de eksakte outputene den alltid
    > returnerer. Legg den under `.cortex/skills/`._
 3. **Skriv/juster SKILL.md** (20 min) gjør outputstrukturen repeterbar
-4. **Test på et fiktivt datasett** (15 min) kjør skillen, se om outputen er
+4. **Test på et datasett** (15 min) kjør skillen, se om outputen er
    forutsigbar.
 5. **Reflekter** (10 min) hva gikk bra, hva ble vanskelig?

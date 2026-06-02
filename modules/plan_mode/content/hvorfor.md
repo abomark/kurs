@@ -1,0 +1,5 @@
+- Plan Mode gir mer kontroll i analysearbeid.
+- Du får se hvordan agenten vurderer oppgaven.
+- Du får oversikt over hvilke objekter som kan påvirkes.
+- Du får se foreslåtte steg før noe endres.
+- Det gjør det lettere å styre arbeidet, fange feil tidlig og kvalitetssikre før implementering.

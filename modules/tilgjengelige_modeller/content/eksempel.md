@@ -1,14 +1,11 @@
-<!-- UTKAST - Andre verifiserer -->
-Samme verktøy, to ulike oppgaver:
+**Sonnet:**
 
-**Sonnet** passer til det avgrensede og raske:
-> _Skriv en spørring som summerer transaksjoner per måned for kundeID 123._
+> Skriv en spørring som summerer transaksjoner per måned for kundeID 123.
 
-Ett klart steg, lav risiko. Sonnet løser det raskt og rimelig.
+Avgrenset oppgave, lav risiko og raskt å løse.
 
-**Opus** passer til det fler-stegs og høy-innsats:
-> _Refaktorer hele den regulatoriske rapporterings-pipelinen med flere avhengige
-> staging-modeller, og forklar konsekvensene før du gjør endringer._
+**Opus:**
 
-Mange avhengigheter, tvetydig omfang og høy kostnad ved feil. Her er Opus' dypere
-resonnement verdt den ekstra tiden, gjerne i Plan Mode.
+> Refaktorer hele den regulatoriske rapporterings-pipelinen og forklar konsekvensene før endringer gjøres.
+
+Flere avhengigheter, høy risiko og behov for dypere resonnement.

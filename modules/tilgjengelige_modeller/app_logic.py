@@ -24,25 +24,19 @@ def main() -> None:
 
     st.divider()
 
-    # --- Seksjon 0: Hva er en LLM ---
-    st.subheader("Hva er en LLM")
-    st.markdown(load_markdown(__file__, "hva_er_llm"))
+    # --- Kort om modellene (LLM-definisjon + modelltabell) ---
+    st.subheader("Kort om modellene")
+    st.markdown(load_markdown(__file__, "kort_om"))
 
     st.divider()
 
-    # --- Seksjon 1: Oversikt over modellene ---
-    st.subheader("Oversikt")
-    st.markdown(load_markdown(__file__, "oversikt"))
+    # --- Når velger du hvilken? ---
+    st.subheader("Når velger du hvilken?")
+    st.markdown(load_markdown(__file__, "naar"))
 
     st.divider()
 
-    # --- Seksjon 2: Når velger du hvilken ---
-    st.subheader("Når velger du hvilken")
-    st.markdown(load_markdown(__file__, "valg"))
-
-    st.divider()
-
-    # --- Seksjon 3: Praktisk eksempel ---
+    # --- Eksempel ---
     st.subheader("Eksempel")
     with st.container(border=True):
         st.markdown(load_markdown(__file__, "eksempel"))

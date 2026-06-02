@@ -1,15 +1,15 @@
 """Kanonisk modul-liste for Cortex Code-kurset.
 
 Hver modul er en dict med felt:
-- nr:       int, 1-31. Sekvensnummer i kurset.
+- nr:       int, 1-28. Sekvensnummer i kurset.
 - slug:     str, matcher mappenavn under `modules/<slug>/` slik at
             wrapper-importene i `pages_content/modules/` finner riktig
             `main()` å aliasere som `render()`.
 - tittel:   str, vist navn i sidebaren.
 - kategori: str, en av "I" | "K" | "P" | "G" | "F".
 
-Endrer du rekkefølgen her, endres rekkefølgen i sidebaren OG i forsidens
-modul-grid. Ikke endre nummereringen uten å oppdatere filnavn under
+Endrer du rekkefølgen her, endres rekkefølgen i sidebaren. Ikke endre
+nummereringen uten å oppdatere filnavn under
 `pages_content/modules/m{nr:02d}_{slug}.py` tilsvarende.
 
 Se DESIGN_GUIDE.md §11 for kategori-betydning og fargevalg.
@@ -24,11 +24,11 @@ MODULER = [
     {"nr":  4, "slug": "arkitektur",                 "tittel": "Under panseret",             "kategori": "I"},
     {"nr":  5, "slug": "demo_1",                     "tittel": "Første demo",                "kategori": "I"},
     {"nr":  6, "slug": "individuell_oppgave_1",      "tittel": "Individuell oppgave 1",      "kategori": "P"},
-    {"nr":  7, "slug": "kostnader",                  "tittel": "Kostnader",                  "kategori": "F"},
-    {"nr":  8, "slug": "at_mentions",                "tittel": "@-mentions",                 "kategori": "I"},
-    {"nr":  9, "slug": "individuell_oppgave_at_mentions", "tittel": "Individuell oppgave: @-mentions", "kategori": "P"},
-    {"nr": 10, "slug": "plan_mode",                   "tittel": "Plan Mode",                  "kategori": "I"},
-    {"nr": 11, "slug": "individuell_oppgave_plan_mode", "tittel": "Individuell oppgave: Plan Mode", "kategori": "P"},
+    {"nr":  7, "slug": "at_mentions",                "tittel": "@-mentions",                 "kategori": "I"},
+    {"nr":  8, "slug": "individuell_oppgave_at_mentions", "tittel": "Individuell oppgave: @-mentions", "kategori": "P"},
+    {"nr":  9, "slug": "plan_mode",                   "tittel": "Plan Mode",                  "kategori": "I"},
+    {"nr": 10, "slug": "individuell_oppgave_plan_mode", "tittel": "Individuell oppgave: Plan Mode", "kategori": "P"},
+    {"nr": 11, "slug": "kostnader",                  "tittel": "Kostnader",                  "kategori": "F"},
     {"nr": 12, "slug": "agents_md",                  "tittel": "AGENTS.md",                  "kategori": "K"},
     {"nr": 13, "slug": "gruppeoppgave_1",            "tittel": "Gruppeoppgave 1",            "kategori": "G"},
     {"nr": 14, "slug": "gruppeoppgave_1_resultater", "tittel": "Resultater Gruppeoppgave 1", "kategori": "G"},
@@ -42,13 +42,9 @@ MODULER = [
     {"nr": 22, "slug": "gruppeoppgave_3",            "tittel": "Gruppeoppgave 3",            "kategori": "G"},
     {"nr": 23, "slug": "gruppeoppgave_3_resultater", "tittel": "Resultater Gruppeoppgave 3", "kategori": "G"},
     {"nr": 24, "slug": "context_engineering",        "tittel": "Context engineering",        "kategori": "K"},
-    {"nr": 25, "slug": "individuell_oppgave_2",      "tittel": "Individuell oppgave 2",      "kategori": "P"},
-    {"nr": 26, "slug": "demo_2",                     "tittel": "Demo 2",                     "kategori": "F"},
-    {"nr": 27, "slug": "autonomous_loop",            "tittel": "Autonomous loop",            "kategori": "F"},
-    {"nr": 28, "slug": "individuell_oppgave_kohort", "tittel": "Individuell oppgave: Kohortanalyse", "kategori": "P"},
-    {"nr": 29, "slug": "individuell_oppgave_konkurrent", "tittel": "Gruppeoppgave: Konkurrent-signaler", "kategori": "G"},
-    {"nr": 30, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
-    {"nr": 31, "slug": "test_skills_html",           "tittel": "Test: Skills (HTML)",        "kategori": "F"},
+    {"nr": 25, "slug": "individuell_oppgave_kohort", "tittel": "Individuell oppgave: Kohortanalyse", "kategori": "P"},
+    {"nr": 26, "slug": "individuell_oppgave_konkurrent", "tittel": "Gruppeoppgave: Konkurrent-signaler", "kategori": "G"},
+    {"nr": 27, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
 ]
 
 KATEGORI_NAVN = {
@@ -100,23 +96,29 @@ SECTIONS = [
         "modules": [
             "m05_demo_1",
             "m06_individuell_oppgave_1",
-            "m07_kostnader",
         ],
     },
     {
         "id": "at_mentions",
         "label": "@-mentions",
         "modules": [
-            "m08_at_mentions",
-            "m09_individuell_oppgave_at_mentions",
+            "m07_at_mentions",
+            "m08_individuell_oppgave_at_mentions",
         ],
     },
     {
         "id": "plan_mode",
         "label": "Plan Mode",
         "modules": [
-            "m10_plan_mode",
-            "m11_individuell_oppgave_plan_mode",
+            "m09_plan_mode",
+            "m10_individuell_oppgave_plan_mode",
+        ],
+    },
+    {
+        "id": "kostnader",
+        "label": "Kostnader",
+        "modules": [
+            "m11_kostnader",
         ],
     },
     {
@@ -163,40 +165,18 @@ SECTIONS = [
         ],
     },
     {
-        "id": "anvendt_praksis",
-        "label": "Anvendt praksis",
-        "modules": [
-            "m25_individuell_oppgave_2",
-        ],
-    },
-    {
-        "id": "dybde",
-        "label": "Dybde",
-        "modules": [
-            "m26_demo_2",
-            "m27_autonomous_loop",
-        ],
-    },
-    {
         "id": "kurs_data",
         "label": "Anvendt praksis: KURS-data",
         "modules": [
-            "m28_individuell_oppgave_kohort",
-            "m29_individuell_oppgave_konkurrent",
+            "m25_individuell_oppgave_kohort",
+            "m26_individuell_oppgave_konkurrent",
         ],
     },
     {
         "id": "avslutning",
         "label": "Avslutning",
         "modules": [
-            "m30_avslutning",
-        ],
-    },
-    {
-        "id": "test",
-        "label": "Test",
-        "modules": [
-            "m31_test_skills_html",
+            "m27_avslutning",
         ],
     },
 ]

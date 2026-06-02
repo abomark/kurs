@@ -25,6 +25,25 @@ from data.moduler import (
 )
 
 
+# Fast sidebar-bredde. Endre denne ene verdien for å justere bredden
+# (jf. DESIGN_GUIDE «fast sidebar-bredde»).
+SIDEBAR_WIDTH = "320px"
+
+_SIDEBAR_WIDTH_CSS = f"""
+<style>
+/* Fast bredde + skillelinje mot innholdet (lyst Bankbrief-tema). */
+section[data-testid="stSidebar"] {{
+    width: {SIDEBAR_WIDTH} !important;
+    min-width: {SIDEBAR_WIDTH} !important;
+    border-right: 1px solid #E3E8F1;
+}}
+section[data-testid="stSidebar"] > div {{
+    width: {SIDEBAR_WIDTH} !important;
+}}
+</style>
+"""
+
+
 SIDEBAR_CSS = """
 <style>
 :root {
@@ -37,16 +56,6 @@ SIDEBAR_CSS = """
 
 /* Skjul Streamlit sin default sidebar-navigasjon. */
 [data-testid="stSidebarNav"] { display: none; }
-
-/* Fast bredde + skillelinje mot innholdet (Designsystem v1: 280px, hvit). */
-section[data-testid="stSidebar"] {
-    width: 280px !important;
-    min-width: 280px !important;
-    border-right: 1px solid #E3E8F1;
-}
-section[data-testid="stSidebar"] > div {
-    width: 280px !important;
-}
 
 section[data-testid="stSidebar"] > div:first-child {
     padding-top: 1rem;
@@ -197,6 +206,7 @@ def render_sidebar(active_slug: str | None = None) -> None:
     """Render hele sidemenyen. Kall denne fra app.py før sideinnhold."""
     with st.sidebar:
         st.markdown(SIDEBAR_CSS, unsafe_allow_html=True)
+        st.markdown(_SIDEBAR_WIDTH_CSS, unsafe_allow_html=True)
 
         # Brand
         st.markdown(
@@ -208,8 +218,6 @@ def render_sidebar(active_slug: str | None = None) -> None:
             unsafe_allow_html=True,
         )
 
-        # Forside (uten gruppe-header)
-        _render_link("Forside", "forside", active_slug)
         st.markdown('<div class="sb-divider"></div>', unsafe_allow_html=True)
 
         # Oversikt (uberørt av seksjonsgruppering)

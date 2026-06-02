@@ -1,10 +1,17 @@
-# 1 · Forstå skill-en først
-<!-- UTKAST - Andre verifiserer -->
+# 1. Forstå skill-en først
 
-Før du anvender en bundled skill, la Cortex Code forklare den. Da vet du hva du
-faktisk setter i gang. Kjør denne prompten foran salen:
+Før vi bruker skill-en, ber vi Cortex Code forklare hva den gjør.
 
-> _Hva gjør `@(serverSkill:lineage)`-skillen? Oppsummer når jeg skal bruke den,
-> hvilke input den forventer, og hvilke output den returnerer._
+**Prompt:**
 
-Agenten beskriver skill-en - når den passer, hvilke inputs den trenger, og hvilke outputs den alltid returnerer - *før* den rører noe.
+```text
+Hva gjør @(serverSkill:lineage)-skillen?
+Oppsummer når jeg skal bruke den, hvilke input den forventer,
+og hvilke output den returnerer.
+```
+
+**Poeng:**
+
+- Vi ser hva skill-en gjør før den brukes
+- Vi får vite hvilke inputs og outputs den forventer
+- Vi reduserer risikoen for å bruke feil verktøy

@@ -49,6 +49,12 @@ def main() -> None:
 
     st.divider()
 
+    # --- Seksjon 1b: Hvorfor bruke skills? ---
+    st.subheader("Hvorfor bruke skills?")
+    st.markdown(load_markdown(__file__, "hvorfor"))
+
+    st.divider()
+
     # --- Seksjon 2: Anatomien - SKILL.md ---
     st.subheader("Anatomien: SKILL.md")
     with card(key="skills_skillmd"):
@@ -85,6 +91,12 @@ def main() -> None:
     st.markdown(load_markdown(__file__, "naar"))
     steg = [t for t in load_split_markdown(__file__, "naar_steg") if t]
     numbered_steps(steg, key="skills_naar_steg")
+    callout(
+        load_markdown(__file__, "naar_regel"),
+        kind="tip",
+        title="Tommelfingerregel",
+        key="skills_naar_regel",
+    )
 
     st.divider()
 

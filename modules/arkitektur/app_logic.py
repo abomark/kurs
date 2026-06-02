@@ -16,17 +16,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 def main() -> None:
     crumb(["Kursmoduler", "04 · Under panseret"])
-    module_header("Under panseret", subtitle="Hvordan Cortex Code er bygget - en LLM med fem integrerte lag.")
-    st.divider()
-
-    # --- Demo helt øverst: la agenten beskrive sin egen arkitektur ---
-    callout(
-        load_markdown(__file__, "demo"),
-        kind="info",
-        title="Demo: spør agenten om seg selv",
-        key="arkitektur_demo",
-    )
-
+    module_header("Under panseret", subtitle="Hvordan Cortex Code er bygget - en LLM med integrerte lag.")
     st.divider()
 
     # --- Intro ---
@@ -35,7 +25,7 @@ def main() -> None:
     st.divider()
 
     # --- De fem lagene som klikkbare ekspandere ---
-    st.subheader("De fem lagene")
+    st.subheader("Lagene")
     st.caption("Klikk på et lag for å se mer.")
 
     with st.expander("1. Instruksjonslag (System Prompt)"):
@@ -55,12 +45,12 @@ def main() -> None:
 
     st.divider()
 
-    # --- Forbehold ---
+    # --- Demo til sist: la agenten beskrive sin egen arkitektur ---
     callout(
-        load_markdown(__file__, "forbehold"),
-        kind="subtle",
-        title="Forbehold",
-        key="arkitektur_forbehold",
+        load_markdown(__file__, "demo"),
+        kind="info",
+        title="Demo: spør agenten om seg selv",
+        key="arkitektur_demo",
     )
 
     st.divider()

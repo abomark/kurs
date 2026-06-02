@@ -1,9 +1,10 @@
-# 3 · Kombiner med Plan Mode
-<!-- UTKAST - Andre verifiserer -->
+# 3. Kombiner med Plan Mode
 
-Vis det trygge mønsteret for kjernetabeller: skru på Plan Mode (`Ctrl + P` /
-`/plan`) før du lar en skill endre noe. Da holder Cortex Code seg read-only mens
-den tenker, og legger fram en strukturert flertrinnsplan til godkjenning.
+Ved kjernetabeller eller produksjonsnære objekter bør skill-en brukes sammen med Plan Mode.
 
-**Snakkepunkt:** Bank-relevant - du får sett *hva* skill-en vil gjøre med
-kjernetabellen før den faktisk gjør det. Risiko + nytte parallelt.
+**Hvorfor:**
+
+- Cortex Code holder seg read-only
+- Du får en plan før noe endres
+- Tryggere ved høy risiko
+- Nyttig for konsekvensanalyse i bank

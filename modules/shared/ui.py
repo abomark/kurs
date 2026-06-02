@@ -6,6 +6,7 @@ og §FR-3.15 (designsystem-helpers per DESIGN_GUIDE v2).
 
 from __future__ import annotations
 
+import re
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator, Sequence
@@ -152,6 +153,27 @@ def load_split_markdown(
     if current_lines or current_title:
         sections[current_title] = "\n".join(current_lines).strip()
     return sections
+
+
+_FENCE_RE = re.compile(r"```[^\n]*\n(.*?)```", re.DOTALL)
+
+
+def render_markdown_wrapped_code(markdown_text: str) -> None:
+    """Render markdown der ```-kodeblokker vises som `st.code(wrap_lines=True)`.
+
+    Prosaen rundt rendres som vanlig markdown; selve kodeblokkene (f.eks. lange
+    prompt-tekster som skal limes inn) bryter ord og vokser vertikalt i stedet
+    for å lage horisontal scroll. Lar innholdet ligge urørt i `.md`-fila (jf.
+    §FR-3.12) - kun renderingen endres.
+    """
+    parts = _FENCE_RE.split(markdown_text)
+    # split med én capture-gruppe gir: [prosa, kode, prosa, kode, ..., prosa]
+    for i, part in enumerate(parts):
+        if i % 2 == 0:
+            if part.strip():
+                st.markdown(part)
+        else:
+            st.code(part.rstrip("\n"), language=None, wrap_lines=True)
 
 
 # --- Callout (FR-3.15 / DESIGN_GUIDE v2 §7) ---
@@ -496,6 +518,7 @@ def card(key: str | None = None, padding: str = "24px") -> Iterator[None]:
 def signature_card(
     number: int | str | None = None,
     *,
+    title: str | None = None,
     key: str | None = None,
     padding: str = "24px 26px",
 ) -> Iterator[None]:
@@ -503,12 +526,13 @@ def signature_card(
 
     Som `card()`, men med designsystemets varme signaturflate (fersken) i
     stedet for hvit - samme språk som `feature_hero`. Valgfritt nummer-badge
-    (marine disc) øverst, til ordnede sekvenser (epoker, faser, steg).
-    Innhold rendres som vanlig med `st.markdown` inni context-manageren, så
+    (marine disc) og `title` rendres side om side i en rad øverst (tittel til
+    høyre for badgen), til ordnede sekvenser (epoker, faser, steg). Resten av
+    innholdet rendres som vanlig med `st.markdown` inni context-manageren, så
     markdown (kursiv, lister) bevares - i motsetning til `feature_card` som
     tar ferdig HTML-streng.
     """
-    derived = key or f"sigcard_{abs(hash((str(number), padding))) % 100000}"
+    derived = key or f"sigcard_{abs(hash((str(number), title or '', padding))) % 100000}"
     css = f"""
         {{
             background-color: {COLOR_SAND};
@@ -520,14 +544,25 @@ def signature_card(
         }}
     """
     with stylable_container(key=derived, css_styles=css):
-        if number is not None:
-            st.markdown(
+        if number is not None or title is not None:
+            badge = (
                 f"<div style='width:36px;height:36px;border-radius:50%;"
                 f"background:{COLOR_VANN};color:#FFFFFF;display:grid;"
                 f"place-items:center;font-weight:800;font-size:16px;"
-                f"font-variant-numeric:tabular-nums;line-height:1;"
-                f"box-shadow:0 1px 2px rgba(12,26,64,.12);margin-bottom:6px;'>"
-                f"{number}</div>",
+                f"font-variant-numeric:tabular-nums;line-height:1;flex:0 0 auto;"
+                f"box-shadow:0 1px 2px rgba(12,26,64,.12);'>{number}</div>"
+                if number is not None
+                else ""
+            )
+            title_html = (
+                f"<div style='font-size:18px;font-weight:800;letter-spacing:-0.01em;"
+                f"color:{COLOR_VANN};'>{title}</div>"
+                if title
+                else ""
+            )
+            st.markdown(
+                f"<div style='display:flex;align-items:center;gap:14px;"
+                f"margin-bottom:6px;'>{badge}{title_html}</div>",
                 unsafe_allow_html=True,
             )
         yield

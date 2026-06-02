@@ -16,11 +16,11 @@ from modules.shared.ui import callout, crumb, module_header, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "07 · Kostnader"])
+    crumb(["Kursmoduler", "11 · Kostnader"])
     module_header("Kostnader")
     st.divider()
 
     callout("Gjennomgang i PowerPoint.", kind="info", key="kostnader_ppt")
 
     st.divider()
-    next_module_cta_for("at_mentions")
+    next_module_cta_for("agents_md")

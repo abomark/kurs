@@ -14,3 +14,5 @@ Gjenbrukbare arbeidsflyter **du selv definerer** for teamets repeterbare mønstr
 - hvilke inputs den forventer
 - hvilke steg den skal følge
 - hvilke outputs den alltid skal returnere
+
+Typiske bruksområder: lage endringsplan fra nye krav, sjekke eksisterende kode, foreslå validering, lage standard SQL-output, og dokumentere antakelser og åpne spørsmål.

@@ -16,7 +16,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "29 · Gruppeoppgave: Konkurrent-signaler"])
+    crumb(["Kursmoduler", "26 · Gruppeoppgave: Konkurrent-signaler"])
     module_header(
         "Gruppeoppgave: Konkurrent-signaler",
         subtitle="Hands-on: kan agenten flagge utgående transaksjoner til konkurrenter?",
@@ -29,16 +29,6 @@ def main() -> None:
         title="Oppgave",
         key="ind_konkurrent_oppgave",
     )
-
-    st.divider()
-
-    st.subheader("Steg")
-    st.markdown(load_markdown(__file__, "steg"))
-
-    st.divider()
-
-    st.subheader("Forventet resultat")
-    st.markdown(load_markdown(__file__, "forventet"))
 
     st.divider()
     next_module_cta_for("avslutning")

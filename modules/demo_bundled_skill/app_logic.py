@@ -4,7 +4,7 @@ Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Presentatør-runbook: vis hvordan man
 først lar Cortex Code forklare en bundled skill (`@(serverSkill:lineage)`),
 og deretter anvender den på et levende objekt - gjerne kombinert med Plan
-Mode. Speiler runbook-strukturen i `demo_1`/`demo_2`.
+Mode. Speiler runbook-strukturen i `demo_1`.
 
 Eksponerer `main()` som kalles fra
 `pages_content/modules/m18_demo_bundled_skill.py`.
@@ -32,13 +32,14 @@ DEMO_FILES = [
 
 def main() -> None:
     crumb(["Kursmoduler", "18 · Demo: Bundled skill"])
-    module_header("Demo: Bundled skill (lineage)", subtitle="Live-demo: forstå en bundled skill, så anvend den på et levende objekt.")
+    module_header("Demo: Bundled skill - lineage", subtitle="Live-demo: forstå en bundled skill, så anvend den på et levende objekt.")
     st.divider()
 
     callout(
-        load_markdown(__file__, "agenda"),
+        load_markdown(__file__, "formaal"),
         kind="info",
-        key="demo_skill_agenda",
+        title="Formål",
+        key="demo_skill_formaal",
     )
 
     st.divider()
@@ -51,7 +52,7 @@ def main() -> None:
 
     st.divider()
 
-    st.subheader("Diskusjon etter demoen")
+    st.subheader("Diskusjon")
     st.markdown(load_markdown(__file__, "diskusjon"))
 
     st.divider()

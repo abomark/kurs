@@ -5,7 +5,7 @@ agenten selv kan se av egne instruksjoner og verktøy.
 
 - Den underliggende infrastrukturen (hvordan Snowflake orkestrerer
   API-kall til Claude, håndterer autentisering, session-styring)
-- Eventuelle mellomvare-lag mellom Snowsight-frontend og LLM-en
+- Eventuelle mellomvar  e-lag mellom Snowsight-frontend og LLM-en
   (f.eks. prompt-injeksjon av kontekst, routing-logikk)
 
 Med andre ord: arkitekturen rundt Cortex Code (Snowflakes plattform-side)

@@ -22,15 +22,18 @@ from modules.shared.ui import inject_global_css
 # page_id via MODULER, så settet ikke drifter når moduler renummereres.
 _WIDE_LAYOUT_SLUGS = {
     "gruppeoppgave_1_resultater",
-    "test_skills_html",  # HTML-preview vil ha 920px-bredde, ikke 'centered'
 }
 WIDE_LAYOUT_PAGES = {
     page_id(m) for m in MODULER if m["slug"] in _WIDE_LAYOUT_SLUGS
 }
 
+# Standard-side når URL mangler ?page=... : første kursmodul (Evolusjon).
+# Utledes fra MODULER så den ikke drifter ved renummerering.
+_DEFAULT_PAGE = page_id(MODULER[0])
+
 # Må leses FØR set_page_config siden layout-valget avhenger av aktiv side.
 # `st.query_params` er trygg å bruke før set_page_config (URL-metadata, ikke UI).
-_active_slug = st.query_params.get("page", "forside")
+_active_slug = st.query_params.get("page", _DEFAULT_PAGE)
 
 st.set_page_config(
     page_title="Cortex Code Kurs 2026",
@@ -43,8 +46,6 @@ st.set_page_config(
 def _load_page(slug: str):
     """Returner modul-objekt med `render`-callable. Returnerer None hvis ikke funnet."""
     # Faste sider på rot
-    if slug == "forside":
-        return importlib.import_module("pages_content.forside")
     if slug == "bli_kjent":
         return importlib.import_module("pages_content.bli_kjent")
     if slug == "resultater":
@@ -76,7 +77,7 @@ def main() -> None:
     page = _load_page(active_slug)
     if page is None:
         st.error(f"Fant ikke side: `{active_slug}`")
-        st.markdown('[← Tilbake til forsiden](?page=forside)')
+        st.markdown(f'[← Tilbake til start](?page={_DEFAULT_PAGE})')
         return
     page.render()
 

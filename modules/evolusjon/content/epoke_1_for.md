@@ -1,3 +1,4 @@
 # Før
 
-Vi skrev all kode selv eller kopierte fra ulike kilder. Å skrive kode var krevende og tok lang tid.
+- Vi skrev all kode selv, eller hentet inspirasjon fra ulike kilder.
+- Det var krevende å skrive kode, og det tok lang tid.

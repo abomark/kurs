@@ -1,0 +1,5 @@
+- Standardiserer repeterbare arbeidsflyter
+- Gir mer konsistente resultater
+- Reduserer behovet for lange prompts
+- Hjelper Cortex Code å følge teamets måte å jobbe på
+- Gjør komplekse oppgaver lettere å gjenta

@@ -1,3 +1,5 @@
 # Context engineering
 
-_Andre skriver: hvorfor prompt engineering fortjener egen modul nå som deltakerne kjenner AGENTS/skills/memory - overgangen fra "hva er konfigurasjon" til "hvordan snakker jeg med agenten i dagligdags arbeid"._
+* Å gi agenten riktig kontekst, på riktig sted, til riktig tid
+* Målet er bedre svar, færre misforståelser og mindre rework
+* Handler ikke om lange prompts, men om presise prompts

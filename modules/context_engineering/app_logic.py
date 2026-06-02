@@ -1,13 +1,13 @@
 """Context engineering - modul 24.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
-markdown-filer under `content/`). Bygger bro fra konsept-blokkene
-(AGENTS.md / skills.md / memory.md) til praktisk daglig bruk: hvordan
-deltakeren faktisk skriver en god prompt.
+markdown-filer under `content/`). Strukturen følger eierens innhold: hva det
+er, hva en god prompt sier, en prompt-mal, daarlig vs bedre prompt, vanlige
+feil, hvor konteksten legges, og en hovedregel.
 
-Layout per DESIGN_GUIDE v2 §8: crumb, H1+intro, expanders for hvert tema,
-warn-callout for anti-patterns, og to-kolonners eksempel-sammenligning
-(Før/Etter) som splittes ut av en markdown-fil via `load_split_markdown`.
+Layout: crumb, H1 + intro (hva er det), seksjoner med subheaders/callouts.
+Prompt-kodeblokker rendres via `render_markdown_wrapped_code` (wrap, ingen
+horisontal scroll). Innhold ligger i `content/*.md` (jf. §FR-3.12).
 
 Eksponerer `main()` som kalles fra `pages_content/modules/m24_context_engineering.py`.
 """
@@ -20,59 +20,71 @@ from modules.shared.ui import (
     callout,
     crumb,
     load_markdown,
-    load_split_markdown,
     load_titled_markdown,
     module_header,
     next_module_cta_for,
+    render_markdown_wrapped_code,
 )
 
 
 def main() -> None:
     crumb(["Kursmoduler", "24 · Context engineering"])
 
+    # --- Hva er det (intro under H1) ---
     title, intro_body = load_titled_markdown(__file__, "intro")
-    module_header(title or "Context engineering", subtitle="Anatomi, mønstre og iterativ forbedring av prompts")
+    module_header(title or "Context engineering", subtitle="Riktig kontekst, på riktig sted, til riktig tid")
     st.divider()
     st.markdown(intro_body)
 
     st.divider()
 
-    # --- Anatomi ---
-    with st.expander("Anatomi av en god prompt"):
-        st.markdown(load_markdown(__file__, "anatomi"))
+    # --- En god prompt bør si ---
+    st.subheader("En god prompt bør si")
+    st.markdown(load_markdown(__file__, "god_prompt"))
 
-    # --- SQL-spesifikt ---
-    with st.expander("SQL- og Snowflake-spesifikke mønstre"):
-        st.markdown(load_markdown(__file__, "sql_spesifikt"))
+    st.divider()
 
-    # --- Anti-patterns som warn-callout ---
+    # --- Enkel prompt-mal ---
+    st.subheader("Enkel prompt-mal")
+    render_markdown_wrapped_code(load_markdown(__file__, "mal"))
+
+    st.divider()
+
+    # --- Daarlig vs bedre prompt (to kolonner) ---
+    st.subheader("Dårlig prompt vs bedre prompt")
+    col_daarlig, col_bedre = st.columns(2, gap="medium")
+    with col_daarlig:
+        st.markdown("**Dårlig**")
+        render_markdown_wrapped_code(load_markdown(__file__, "daarlig"))
+    with col_bedre:
+        st.markdown("**Bedre**")
+        render_markdown_wrapped_code(load_markdown(__file__, "bedre"))
+
+    st.divider()
+
+    # --- Vanlige feil ---
     callout(
-        load_markdown(__file__, "anti_patterns"),
+        load_markdown(__file__, "vanlige_feil"),
         kind="warn",
-        title="Anti-patterns",
-        key="pe_anti_patterns",
+        title="Vanlige feil",
+        key="ce_vanlige_feil",
     )
 
-    # --- Iterativ ---
-    with st.expander("Iterativ forbedring - pingpong med agenten"):
-        st.markdown(load_markdown(__file__, "iterativ"))
+    st.divider()
 
-    # --- AGENTS.md vs skills.md vs inline ---
-    with st.expander("AGENTS.md vs skills.md vs inline prompt"):
-        st.markdown(load_markdown(__file__, "agents_vs_inline"))
+    # --- Hvor legger vi konteksten ---
+    st.subheader("Hvor legger vi konteksten?")
+    st.markdown(load_markdown(__file__, "hvor"))
 
     st.divider()
 
-    # --- Eksempel-sammenligning: en fil, to ## -seksjoner, to kolonner ---
-    st.subheader("Før og etter")
-    sections = load_split_markdown(__file__, "eksempel_sammenligning")
-    col_for, col_etter = st.columns(2, gap="medium")
-    with col_for:
-        st.markdown("**Før**")
-        st.markdown(sections.get("Før", "_Mangler `## Før`-seksjon i `eksempel_sammenligning.md`._"))
-    with col_etter:
-        st.markdown("**Etter**")
-        st.markdown(sections.get("Etter", "_Mangler `## Etter`-seksjon i `eksempel_sammenligning.md`._"))
+    # --- Hovedregel ---
+    callout(
+        load_markdown(__file__, "hovedregel"),
+        kind="tip",
+        title="Hovedregel",
+        key="ce_hovedregel",
+    )
 
     st.divider()
-    next_module_cta_for("individuell_oppgave_2")
+    next_module_cta_for("individuell_oppgave_kohort")

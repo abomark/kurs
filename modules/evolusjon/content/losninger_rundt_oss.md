@@ -1,1 +1,1 @@
-Hva krever dette av løsninger rundt oss?
+Som analytikere, hva krever dette av løsninger rundt oss?

@@ -73,8 +73,7 @@ def main() -> None:
     for nr, (col, era_name) in enumerate(zip(cols, ERA_FILES), start=1):
         era_title, era_body = load_titled_markdown(__file__, era_name)
         with col:
-            with signature_card(number=nr, key=f"evolusjon_{era_name}"):
-                st.markdown(f"#### {era_title}")
+            with signature_card(number=nr, title=era_title, key=f"evolusjon_{era_name}"):
                 st.markdown(era_body)
 
     st.divider()

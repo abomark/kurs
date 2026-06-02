@@ -6,6 +6,108 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-06-02 - Fjernet Forside og Test-skills-siden
+
+- **Test: Skills (HTML)** (var modul 28, siste) fjernet helt: MODULER-entry + «Test»-seksjonen i `data/moduler.py`, wrapper `pages_content/modules/m28_test_skills_html.py`, modulmappa `modules/test_skills_html/`, og `test_skills_html` ut av `_WIDE_LAYOUT_SLUGS` i `app.py`. Var siste modul, så ingen renummerering. **27 moduler igjen.**
+- **Forside** fjernet: slettet `pages_content/forside.py`, «Forside»-lenka i sidebaren (`components/sidebar.py`), og forside-dispatchen i `app.py`. Ny standard-side (URL uten `?page=`) er **første kursmodul (Evolusjon)**, utledet som `_DEFAULT_PAGE = page_id(MODULER[0])` så den ikke drifter ved renummerering. Feilside-fallback peker til samme; gamle `?page=forside`-lenker gir en grasiøs «Fant ikke side»-feilside.
+- `data/moduler.py`-docstring oppdatert (forsidens modul-grid finnes ikke lenger).
+- Ingen ny FR/NFR (FR-3.10s nav-spec er fra før utdatert). Verifisert: py_compile + AppTest: appen lander på Evolusjon, «Forside» borte fra sidebar, test-seksjon borte, 0 feil.
+
+---
+
+## 2026-06-02 - skills.md (modul 17): flettet inn eier-utkast (additivt)
+
+Etter sammenligning av eierens nye utkast mot dagens side («mister vi mye?») ble konklusjonen: behold dagens rike side + hekt på utkastets tillegg. Additiv fletting, ingenting verdifullt mistet.
+
+- Ny seksjon **«Hvorfor bruke skills?»** (`content/hvorfor.md`), etter «Hva er en skill?».
+- **Tommelfingerregel**-callout (`content/naar_regel.md`, tip) etter stegene i «Når bør du lage en custom skill?».
+- Custom-kortet beriket med **«typiske bruksområder»** (utvidet `content/typer.md`).
+- Urørt: skill-development-eksempelet (broen til Gruppeoppgave 2), anatomi-kort, bundled/custom i to kolonner, badge-steg, callouts, tabeller.
+- PRD §8 v0.60. Verifisert: AppTest (m17), 0 feil, 0 emoji/dash/é.
+
+---
+
+## 2026-06-02 - Context engineering (modul 24): full restrukturering rundt eier-innhold
+
+Eier leverte innholdet; modulen er strukturert rundt det (innholds-unntaket i CLAUDE.md).
+
+- `app_logic.py` skrevet om. Ny seksjonsflyt: intro «hva er det» -> «En god prompt bør si» -> «Enkel prompt-mal» -> «Dårlig prompt vs bedre prompt» (to kolonner) -> «Vanlige feil» (warn-callout) -> «Hvor legger vi konteksten?» (tabell) -> «Hovedregel» (tip-callout) -> CTA.
+- Prompt-kodeblokkene (mal/daarlig/bedre) rendres via `render_markdown_wrapped_code` (st.code med `wrap_lines`, ingen horisontal scroll).
+- 8 nye content-filer: `intro.md`, `god_prompt.md`, `mal.md`, `daarlig.md`, `bedre.md`, `vanlige_feil.md`, `hvor.md`, `hovedregel.md`.
+- Slettet de gamle prompt-engineering-filene: `anatomi.md`, `sql_spesifikt.md`, `anti_patterns.md`, `iterativ.md`, `agents_vs_inline.md`, `eksempel_sammenligning.md` (og `load_split_markdown`-bruken fjernet).
+- Subtitle -> «Riktig kontekst, på riktig sted, til riktig tid». «Hva er det?» foldet inn som intro under H1. Én §1.10-retting i eier-teksten: «minst én transaksjon» -> «minst en» i bedre-prompten.
+- Ingen ny FR/NFR. Verifisert: py_compile + AppTest (m24): 4 subheaders, 3 wrappede kodeblokker, tabell + 2 callouts, 0 feil.
+
+---
+
+## 2026-06-02 - Individuell oppgave: Bundled skill (modul 19): fjernet «Forventet resultat»
+
+- Fjernet «Forventet resultat»-seksjonen (subheader + `load_markdown("forventet")` + divider) fra `modules/individuell_oppgave_bundled_skill/app_logic.py`. Siden er nå: Oppgave-callout -> Steg -> CTA.
+- `content/forventet.md` er nå ubrukt - beholdt, ikke slettet.
+- Ingen ny FR/NFR. Verifisert: py_compile + AppTest (m19): subheaders = kun «Steg», 0 feil.
+
+---
+
+## 2026-06-02 - Modellvalg-oppgave: prompt-tekster bryter ord (ingen horisontal scroll)
+
+På «Individuell oppgave: Modellvalg» (modul 16) lå de to prompt-tekstene i ```-kodeblokker som ikke brøt ord, så lange linjer ga horisontal scroll. Nå bryter de ord og vokser vertikalt.
+
+- Ny helper `render_markdown_wrapped_code()` i `modules/shared/ui.py`: splitter markdown på kodeblokker og rendrer dem som `st.code(..., wrap_lines=True)`; prosaen rundt som vanlig markdown.
+- `individuell_oppgave_modellvalg/app_logic.py` bruker den for `oppgave_1`/`oppgave_2`. Content-filene er urørt (kun rendering endret).
+- PRD §8 v0.57. Verifisert: AppTest (m16), 2 wrap-bar `st.code`, 0 feil.
+
+---
+
+## 2026-06-02 - Sidebar-bredde 280px -> 320px, samlet i én konstant
+
+- Sidebar-bredden endret fra 280px til **320px** i `components/sidebar.py`.
+- Refaktorert: bredden ligger nå i én konstant `SIDEBAR_WIDTH` (+ liten `_SIDEBAR_WIDTH_CSS` f-string injisert i `render_sidebar`); de tre hardkodede `280px`-stedene i `SIDEBAR_CSS` er fjernet. Endre bredden ett sted heretter.
+- Bakgrunn: Streamlit 1.50 har **ingen native dra-resize** av sidebaren (kun collapse/expand). Fri «dra den vertikale linja»-justering ville krevd en skjør JS-hack mot Streamlit-interne DOM (via component-iframe -> parent), så eier valgte en annen fast bredde i stedet.
+- Ingen ny FR/NFR. DESIGN_GUIDE pinner ikke bredden i prosa (ingen guide-endring). Verifisert: py_compile OK, `SIDEBAR_WIDTH == 320px`, ingen `280px` igjen i sidebar.py, AppTest av `render_sidebar` uten feil.
+
+---
+
+## 2026-06-02 - «Kostnader» som egen seksjon mellom Plan Mode og AGENTS.md
+
+«Kostnader» flyttet fra «Komme i gang» (var nr 7) til en **egen seksjon** mellom Plan Mode og AGENTS.md, og er nå nr 11.
+
+- Ny `SECTIONS`-gruppe `kostnader` (label «Kostnader», kun `m11_kostnader`), plassert etter `plan_mode` og før `agents_md`.
+- Sekvensiell renummerering: kostnader 7->11; @-mentions + Plan Mode-modulene skjøvet ned ett hakk (7-10); AGENTS.md (12) og alt etter uendret.
+- 5 wrapper-filer renamet, 5 crumb-nr, `data/moduler.py` (MODULER + SECTIONS), 3 CTA-er rekoblet (`individuell_oppgave_1`->`at_mentions`, `individuell_oppgave_plan_mode`->`kostnader`, `kostnader`->`agents_md`).
+- PRD §8 v0.55. Verifisert: AppTest 34 sider 0 feil, crumb-nr==MODULER-nr, 1..31 uten hull.
+- **Merk:** `scripts/lag_kursoversikt_xlsx.py` er fra før ute av sync med dagens 31-moduls-liste - ikke patchet her; bør rebygges separat.
+
+---
+
+## 2026-06-02 - Første demo (modul 5): kun agenda, fjernet demo-segmentene
+
+Etter eier-ønske: behold «Agenda for demoen»-callouten, fjern de tre detalj-segmentene under den (selve demoen kjøres live i plenum).
+
+- Fjernet fra `modules/demo_1/app_logic.py`: `DEMO_FILES`-loopen som rendret segmentene Workspace (rolle/metadata), Cortex Code («Vis meg de 5 første radene», kontekst-panelet) og Kostnadsdashbord som bordered containers. Fjernet ubrukt `load_titled_markdown`-import.
+- Beholdt: crumb, header, Agenda-callout (`agenda.md`) og CTA. Agendaen lister fortsatt Workspace / Cortex Code / Kostnadsdashbord / Under panseret som punkter.
+- Content-filene `demo_1_workspace.md` / `demo_2_cortex_code.md` / `demo_4_kostnad.md` (og `demo_3_bokstav.md` fra før) er nå ubrukt - beholdt, ikke slettet.
+- Ingen ny FR/NFR. Verifisert: py_compile + AppTest (m05): kun agenda + CTA, detalj-punktene (Rolle/Metadata/«Vis meg de 5»/kontekst-panelet) borte, 0 feil.
+
+---
+
+## 2026-06-02 - Under panseret: fjernet Forbehold, flyttet demo til sist
+
+- Fjernet «Forbehold»-callouten nederst på siden. `content/forbehold.md` er nå ubrukt (beholdt).
+- Flyttet «Demo: spør agenten om seg selv» fra toppen til sist (der Forbehold lå, rett før CTA).
+- Ny rekkefølge: intro -> de fem lagene -> demo -> CTA. Kun `modules/arkitektur/app_logic.py`. PRD §8 v0.53. Verifisert: AppTest (m04), 0 feil.
+
+---
+
+## 2026-06-02 - Evolusjon: epoke-tittel ved siden av nummer-badgen
+
+På Evolusjon-kortene (Før/Nå/Snart) ligger tittelen nå på samme rad som nummer-badgen, til høyre for «1/2/3» (tidligere under badgen).
+
+- `signature_card` fikk valgfritt `title`-argument som rendrer badge + tittel i en flex-rad (18px marine). Bakoverkompatibelt (`title=None` gir badge alene).
+- `evolusjon/app_logic.py` sender nå `title=era_title` og dropper den separate `#### {tittel}`-linja.
+- DESIGN_GUIDE §8 oppdatert. PRD §8 v0.52. Verifisert: AppTest (m01), badge + tittel i samme rad i alle tre kort, 0 feil.
+
+---
+
 ## 2026-06-02 - «Under panseret» til Introduksjon, slettet «Cortex Code i Snowsight», full renummerering 1..31
 
 - **«Arkitekturoversikt» flyttet** fra «Komme i gang» til **«Introduksjon»**, nå **nr 4** (etter «Snowsight vs CLI»).

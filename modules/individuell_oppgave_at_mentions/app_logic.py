@@ -17,7 +17,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "09 · Individuell oppgave: @-mentions"])
+    crumb(["Kursmoduler", "08 · Individuell oppgave: @-mentions"])
     module_header("Individuell oppgave: @-mentions", subtitle="Hands-on: prøv samme prompt med og uten `@`.")
     st.divider()
 

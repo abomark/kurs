@@ -1,3 +1,3 @@
 # Evolusjon
 
-Vi har gått fra å søke etter svar på Google og Stack Overflow, til å spørre AI om kodehjelp, til at vi nå i større grad lar AI-en være den som implementerer for oss.
+Vi har gått fra å finne svar via Google og Stack Overflow, til å bruke AI som kodehjelp, og videre til at AI i større grad står for selve implementeringen.

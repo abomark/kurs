@@ -414,10 +414,11 @@ Designsystemets funksjonskort er helpere i `modules/shared/ui.py`:
 - `feature_hero(title, items, *, icon="code")` — fersken signaturflate, 52px marine disc-
   ikon, tittel + prikkliste. For den fremhevede hovedfunksjonen.
 - `feature_card(title, body, *, icon="info")` — hvitt kort, 40px disc, tittel + brødtekst.
-- `signature_card(number=None)` — **context manager**: fersken signaturflate + azur
-  venstrekant (samme varme språk som `feature_hero`), valgfritt marine nummer-badge
-  (1/2/3 …) øverst. I motsetning til `feature_card` (ferdig HTML-streng) rendres innholdet
-  med `st.markdown` inni `with`-blokken, så markdown (kursiv, lister, kvotering) bevares.
+- `signature_card(number=None, *, title=None)` — **context manager**: fersken signaturflate
+  + azur venstrekant (samme varme språk som `feature_hero`), valgfritt marine nummer-badge
+  (1/2/3 …) og `title` side om side i en rad øverst (tittel til høyre for badgen). I
+  motsetning til `feature_card` (ferdig HTML-streng) rendres resten av innholdet med
+  `st.markdown` inni `with`-blokken, så markdown (kursiv, lister, kvotering) bevares.
   Bruk for ordnede, prosa-tunge kort-sekvenser (epoker, faser, steg) der den hvite `card()`
   blir for kjølig. Eksempel: de tre epoke-kortene i Evolusjon (modul 1).
 - `dotlist(items)` — frittstående marine prikkliste.

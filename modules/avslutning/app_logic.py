@@ -15,19 +15,9 @@ from modules.shared.ui import crumb, load_markdown, module_header
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "30 · Avslutning"])
-    module_header("Avslutning", subtitle="Hva nå? - oppsummering og veien videre.")
+    crumb(["Kursmoduler", "27 · Avslutning"])
+    module_header("Avslutning", subtitle="Hva nå? - veien videre.")
     st.divider()
 
-    st.subheader("Oppsummering")
-    st.markdown(load_markdown(__file__, "oppsummering"))
-
-    st.divider()
-
-    st.subheader("Neste steg")
-    st.markdown(load_markdown(__file__, "neste_steg"))
-
-    st.divider()
-
-    st.subheader("Holdning - har den flyttet seg?")
-    st.markdown(load_markdown(__file__, "holdning_revisit"))
+    st.subheader("Fra i morgen")
+    st.markdown(load_markdown(__file__, "fra_i_morgen"))

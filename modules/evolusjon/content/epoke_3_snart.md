@@ -1,3 +1,6 @@
 # Fremover
 
-Vi tar lead, agenten oppfører seg som utvikler og implementerer for oss.
+- Vi tar lead.
+- Agenten fungerer som en utvikler.
+- Agenten implementerer løsninger for oss.
+

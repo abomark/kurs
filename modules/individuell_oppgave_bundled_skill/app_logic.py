@@ -34,9 +34,4 @@ def main() -> None:
     st.markdown(load_markdown(__file__, "steg"))
 
     st.divider()
-
-    st.subheader("Forventet resultat")
-    st.markdown(load_markdown(__file__, "forventet"))
-
-    st.divider()
     next_module_cta_for("gruppeoppgave_2")

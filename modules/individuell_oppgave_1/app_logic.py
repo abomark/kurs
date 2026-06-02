@@ -32,4 +32,4 @@ def main() -> None:
     st.markdown(load_markdown(__file__, "instructions"))
 
     st.divider()
-    next_module_cta_for("kostnader")
+    next_module_cta_for("at_mentions")

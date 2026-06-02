@@ -1,9 +1,9 @@
-Se på svarene og vurder:
+Vurder svarene på:
 
-- **Korrekthet:** Gir spørringen faktisk det oppgaven ber om? Riktig nivå (grain), riktig tidsvindu, ingen dobbelttelling?
-- **Antakelser:** Stopper modellen og avklarer det uklare, eller gjetter den i stillhet? (Spesielt oppgave 2.)
-- **Kant-tilfeller:** Håndteres uavgjort (ties) i ranking, kunder uten transaksjoner og NULL-verdier?
-- **Lesbarhet:** CTE-er og kommentarer, eller en tett nøstet spørring?
-- **Forklaring:** Hvor godt forklarer modellen *hvorfor* den valgte løsningen?
+- **Korrekthet:** riktig tidsvindu, grain og beregning?
+- **Antakelser:** avklarer modellen uklarheter, eller gjetter den?
+- **Kanttilfeller:** håndteres ties, NULL og kunder uten transaksjoner?
+- **Lesbarhet:** ryddige CTE-er og forklaring?
+- **Verdi:** var Opus merkbart bedre enn Sonnet?
 
-**Refleksjon:** På oppgave 1: merket du stor forskjell? På oppgave 2: var Opus verdt ekstra kostnad og tid?
+Reflekter spesielt over om Opus var verdt ekstra kostnad og tid på oppgave 2.

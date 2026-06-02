@@ -13,7 +13,14 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
+from modules.shared.ui import (
+    callout,
+    crumb,
+    load_markdown,
+    module_header,
+    next_module_cta_for,
+    render_markdown_wrapped_code,
+)
 
 
 def main() -> None:
@@ -39,12 +46,12 @@ def main() -> None:
     st.divider()
 
     st.subheader("Oppgave 1: Topp 10 % kunder per segment")
-    st.markdown(load_markdown(__file__, "oppgave_1"))
+    render_markdown_wrapped_code(load_markdown(__file__, "oppgave_1"))
 
     st.divider()
 
     st.subheader("Oppgave 2: Kundefrafall per segment")
-    st.markdown(load_markdown(__file__, "oppgave_2"))
+    render_markdown_wrapped_code(load_markdown(__file__, "oppgave_2"))
 
     st.divider()
 

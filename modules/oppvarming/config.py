@@ -23,10 +23,10 @@ STATEMENTS = {
     9: "Jeg forstår hva som driver kostnader ved bruk av Cortex Code",
     10: "Jeg vet hvordan jeg optimaliserer bruken av Cortex Code",
     11: "Jeg vet hvordan jeg avveier modellvalg for en gitt oppgave",
-    12: "Jeg har kjennskap til hva verktøy er og hvilke agenten har tilgjengelig",
+    12: "Jeg har kjennskap til hva verktøy/tools er for noe og hvilke agenten har tilgjengelig",
     13: "Jeg har kjennskap til hva skills er og hvilke agenten har tilgjengelig",
     14: "Jeg vet hvordan man lager personlige skills",
-    15: "Jeg vet hva system prompt er og hvordan man legger til mer",
+    15: "Jeg vet hva system prompt er og hvordan man legger til mer innhold",
 }
 
 # Skala-anker. 1 = lav enighet, 5 = høy enighet.
