@@ -1,69 +1,62 @@
-"""Snowsight vs CLI – modul 3.
+"""Snowsight vs CLI - modul 3.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
-markdown-filer under `content/`). Layout her — innhold i `content/*.md`.
+markdown-filer under `content/`). Layout her - innhold i `content/*.md`.
 
 Eksponerer `main()` som kalles fra `pages/cortex_interaction.py`.
 """
 
 from __future__ import annotations
 
+import os
+
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import crumb, load_markdown, module_header, next_module_cta_for
+
+_HERE = os.path.dirname(__file__)
+
+
+def _image_or_placeholder(filename: str, label: str) -> None:
+    """Vis skjermbildet hvis det finnes i content/, ellers en stiplet placeholder.
+
+    Bildefilene legges i `modules/cortex_interaction/content/` av Andre.
+    """
+    path = os.path.join(_HERE, "content", filename)
+    if os.path.exists(path):
+        st.image(path, width="stretch")
+    else:
+        st.markdown(
+            "<div style='border:1px dashed #D5DEEA;border-radius:10px;"
+            "padding:56px 24px;text-align:center;color:#6B7280;"
+            "background:#F7F8FB;font-size:14px;'>"
+            f"Skjermbilde av {label} settes inn her</div>",
+            unsafe_allow_html=True,
+        )
 
 
 def main() -> None:
     crumb(["Kursmoduler", "03 · Snowsight vs CLI"])
-    st.title("Snowsight vs CLI")
-    st.caption("Modul 3 · To måter å samhandle med Cortex Code på")
+    module_header("Snowsight vs CLI", subtitle="To måter å samhandle med Cortex Code på")
     st.divider()
 
     st.markdown(load_markdown(__file__, "intro"))
 
     st.divider()
 
-    # --- Side-by-side sammenligning ---
+    # --- Side-by-side: skjermbilde av hver flate ---
     col1, col2 = st.columns(2)
     with col1:
-        with st.container(border=True):
-            st.markdown(load_markdown(__file__, "snowsight_card"))
+        st.markdown("#### Snowsight")
+        _image_or_placeholder("snowsight.png", "Snowsight")
     with col2:
-        with st.container(border=True):
-            st.markdown(load_markdown(__file__, "cli_card"))
+        st.markdown("#### CLI")
+        _image_or_placeholder("cli.png", "CLI")
 
     st.divider()
 
-    # --- Sammenligningstabell ---
-    st.subheader("Kjapp oversikt")
-    st.markdown(load_markdown(__file__, "comparison_table"))
+    # --- Lenke til dokumentasjon for CLI ---
+    st.markdown(load_markdown(__file__, "cli_docs"))
 
     st.divider()
-
-    # --- Praktisk veiledning ---
-    st.subheader("Hva velger du?")
-    col3, col4 = st.columns(2)
-    with col3:
-        callout(
-            load_markdown(__file__, "when_snowsight"),
-            kind="info",
-            key="ci_when_snowsight",
-        )
-    with col4:
-        callout(
-            load_markdown(__file__, "when_cli"),
-            kind="info",
-            key="ci_when_cli",
-        )
-
-    st.divider()
-
-    # --- Avsluttende note ---
-    callout(
-        load_markdown(__file__, "closing"),
-        kind="highlight",
-        key="ci_closing",
-    )
-
-    st.divider()
-    next_module_cta_for("pages/cortex_in_snowsight.py")
+    next_module_cta_for("arkitektur")

@@ -1,4 +1,4 @@
-"""Skills i Cortex Code – modul 15.
+"""Skills i Cortex Code - modul 15.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Innføring i Cortex Codes skill-mekanisme:
@@ -24,6 +24,7 @@ from modules.shared.ui import (
     load_markdown,
     load_split_markdown,
     load_titled_markdown,
+    module_header,
     next_module_cta_for,
     numbered_steps,
 )
@@ -33,10 +34,10 @@ def main() -> None:
     crumb(["Kursmoduler", "17 · skills.md"])
 
     title, intro_body = load_titled_markdown(__file__, "intro")
-    st.title(title or "Skills i Cortex Code")
-    st.caption(
-        "Modul 17 · Gjenbrukbare arbeidsflyter som forteller Cortex Code "
-        "hvordan en Snowflake-oppgave skal håndteres"
+    module_header(
+        title or "Skills i Cortex Code",
+        subtitle="Gjenbrukbare arbeidsflyter som forteller Cortex Code "
+        "hvordan en Snowflake-oppgave skal håndteres",
     )
     st.divider()
 
@@ -48,7 +49,7 @@ def main() -> None:
 
     st.divider()
 
-    # --- Seksjon 2: Anatomien — SKILL.md ---
+    # --- Seksjon 2: Anatomien - SKILL.md ---
     st.subheader("Anatomien: SKILL.md")
     with card(key="skills_skillmd"):
         st.markdown(load_markdown(__file__, "skill_md"))
@@ -94,7 +95,7 @@ def main() -> None:
     st.code(load_markdown(__file__, "forstaa_prompt"), language="text")
     callout(
         load_markdown(__file__, "tips_plan"),
-        kind="success",
+        kind="tip",
         title="Tips: kombiner med Plan Mode",
         key="skills_tips_plan",
     )
@@ -125,7 +126,7 @@ def main() -> None:
 
 
 def _anatomy_grid(deler: dict[str, str]) -> None:
-    """Render de fire delene en skill leverer som fire små kort i én rad.
+    """Render de fire delene en skill leverer som fire små kort i en rad.
 
     `deler` er `{tittel: body}` fra `load_split_markdown` der tittelen
     inkluderer ledende emoji (f.eks. "Domenekontekst").

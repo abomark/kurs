@@ -44,7 +44,7 @@ def _enighet_label(mean: float) -> str:
 
 
 def render_results() -> None:
-    """Metric-rad øverst + én Likert-barchart i kort per påstand."""
+    """Metric-rad øverst + en Likert-barchart i kort per påstand."""
     # --- Aggregert data for summary-strip ---
     all_counts: dict[int, dict[int, int]] = {
         sid: cached_value_counts(sid) for sid in STATEMENTS
@@ -66,13 +66,13 @@ def render_results() -> None:
             ),
             (
                 "SNITT-SCORE",
-                f"{snitt_score:.2f}/5" if snitt_score is not None else "—",
+                f"{snitt_score:.2f}/5" if snitt_score is not None else "-",
                 _enighet_label(snitt_score) if snitt_score is not None else "Venter på svar",
             ),
             (
                 "SPØRSMÅL",
                 str(len(STATEMENTS)),
-                "Likert-skala 1–5",
+                "Likert-skala 1-5",
             ),
         ]
     )

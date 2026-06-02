@@ -8,8 +8,8 @@ Det betyr at agenten ser:
 - **Eventuelle masking policies** som gjelder
 - **Tags** (PII-klassifisering, sensitivitetsnivå)
 - **Beskrivelser fra `schema.yml`** hvis det er en dbt-tabell
-- **Lineage** hvis tilgjengelig
+- **Lineage** hvis tilgjengelig (hvor data kommer fra, og hva som avhenger av den nedstrøms)
 - **Sample-statistikk** (radantall, eventuelt distinct counts)
 
-Med andre ord: agenten trenger ikke gjette eller slå opp — den får alt
+Med andre ord: agenten trenger ikke gjette eller slå opp - den får alt
 servert som faktagrunnlag før den tenker på spørsmålet ditt.

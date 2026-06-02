@@ -2,13 +2,13 @@
 
 Implementerer PRD §FR-3.13 (offentlig resultatvisning): rendering-logikk
 som er trygg å eksponere uten passord-gate. Bruker `service_client()`
-server-side for å hente aggregerte data — service_role-keyen lekker
+server-side for å hente aggregerte data - service_role-keyen lekker
 aldri til nettleseren.
 
 `admin_logic.py` (passordbeskyttet) og `gruppeoppgave_3_resultater`
 (modul 10, offentlig) deler disse funksjonene for å unngå duplisering.
 
-IKKE legg moderering, eksport eller sletting her — det hører hjemme i
+IKKE legg moderering, eksport eller sletting her - det hører hjemme i
 `admin_logic.py`.
 """
 
@@ -69,7 +69,7 @@ def render_results() -> None:
 
     callout(
         "Ordene er ekstrahert med enkel stopword-filtrering. "
-        "Diskuter trender — ikke enkelt-ord.",
+        "Diskuter trender - ikke enkelt-ord.",
         kind="subtle",
         key="g3_views_reducer_note",
     )

@@ -1,4 +1,4 @@
-"""Arkitekturoversikt – modul 7.
+"""Under panseret - modul 7.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Visuell oversikt over Cortex Codes
@@ -11,13 +11,22 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "05 · Arkitekturoversikt"])
-    st.title("Arkitekturoversikt")
-    st.caption("Modul 5 · Hvordan Cortex Code er bygget — én LLM med fem integrerte lag.")
+    crumb(["Kursmoduler", "04 · Under panseret"])
+    module_header("Under panseret", subtitle="Hvordan Cortex Code er bygget - en LLM med fem integrerte lag.")
+    st.divider()
+
+    # --- Demo helt øverst: la agenten beskrive sin egen arkitektur ---
+    callout(
+        load_markdown(__file__, "demo"),
+        kind="info",
+        title="Demo: spør agenten om seg selv",
+        key="arkitektur_demo",
+    )
+
     st.divider()
 
     # --- Intro ---

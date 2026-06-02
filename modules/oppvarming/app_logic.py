@@ -1,8 +1,8 @@
-"""Oppvarming – modul 0 (Bli kjent, Likert-variant).
+"""Oppvarming - modul 0 (Bli kjent, Likert-variant).
 
-Deltakerflyt: ti påstander, alle vurderes på 1–5-skala (1 = uenig,
-5 = enig). Alle besvares samtidig i én form med én submit-knapp.
-Hver innsending lagrer ti rader i `kurs.oppvarming_responses` (én
+Deltakerflyt: ti påstander, alle vurderes på 1-5-skala (1 = uenig,
+5 = enig). Alle besvares samtidig i en form med en submit-knapp.
+Hver innsending lagrer ti rader i `kurs.oppvarming_responses` (en
 per påstand).
 
 Implementerer PRD §FR-3.1 (variant), §FR-3.2 (innsending), §NFR-4.1
@@ -16,7 +16,7 @@ from __future__ import annotations
 import streamlit as st
 from streamlit_extras.stylable_container import stylable_container
 
-from modules.shared.ui import callout, crumb, next_module_cta_for
+from modules.shared.ui import callout, crumb, module_header, next_module_cta_for
 
 from .config import SCALE_MAX, SCALE_MIN, STATEMENTS
 from .db import insert_likert_responses
@@ -34,33 +34,33 @@ _LIKERT_CSS = [
     """[data-testid="stHorizontalBlock"] {
         align-items: center;
         padding: 14px 16px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        border-bottom: 1px solid #EEF1F6;
         border-radius: 10px;
         transition: background 0.12s ease;
     }""",
     """[data-testid="stHorizontalBlock"]:hover {
-        background: rgba(126, 181, 210, 0.04);
+        background: #F7FAFE;
     }""",
-    # Vann-tint når raden er besvart (CSS :has() — ingen rerun nødvendig).
+    # Azur-tint når raden er besvart (CSS :has() - ingen rerun nødvendig).
     """[data-testid="stHorizontalBlock"]:has(input:checked) {
-        background: rgba(0, 90, 164, 0.06);
+        background: #EAF1FB;
     }""",
     # stRadio får stå der Streamlit naturlig plasserer den (typisk venstre i
     # sin kolonne). Forsøk på å pushe den helt til høyre via margin-left:auto
-    # eller flex justify-content:flex-end fungerte ikke pålitelig — heller
+    # eller flex justify-content:flex-end fungerte ikke pålitelig - heller
     # justeres uenig/enig-labelen til samme posisjon som baren (se under).
     """[data-testid="stRadio"] {
         width: fit-content;
     }""",
-    # Skjul collapsed label-widget — den tar plass selv om den ikke vises.
+    # Skjul collapsed label-widget - den tar plass selv om den ikke vises.
     """[data-testid="stRadio"] > label[data-testid="stWidgetLabel"] {
         display: none !important;
     }""",
     # Segmentert container rundt de fem radio-knappene.
     """[data-testid="stRadio"] > div[role="radiogroup"] {
         display: flex;
-        background: rgba(126, 181, 210, 0.06);
-        border: 1px solid rgba(126, 181, 210, 0.12);
+        background: #F2F5FA;
+        border: 1px solid #E3E8F1;
         border-radius: 8px;
         padding: 3px;
         gap: 2px;
@@ -79,7 +79,7 @@ _LIKERT_CSS = [
         cursor: pointer;
         transition: background 0.12s ease, color 0.12s ease;
     }""",
-    # Skjul BaseWeb sin radio-sirkel — tallet alene er kontrollen.
+    # Skjul BaseWeb sin radio-sirkel - tallet alene er kontrollen.
     """[data-testid="stRadio"] label > div:first-child {
         display: none !important;
     }""",
@@ -90,7 +90,7 @@ _LIKERT_CSS = [
         text-align: center;
     }""",
     """[data-testid="stRadio"] label [data-testid="stMarkdownContainer"] p {
-        color: #A8B3C7;
+        color: #3B4256;
         font-size: 13px;
         font-weight: 500;
         margin: 0 !important;
@@ -98,15 +98,15 @@ _LIKERT_CSS = [
         text-align: center;
     }""",
     """[data-testid="stRadio"] label:hover {
-        background: rgba(126, 181, 210, 0.10);
+        background: #EAF1FB;
     }""",
     """[data-testid="stRadio"] label:hover [data-testid="stMarkdownContainer"] p {
-        color: #F4F6FB;
+        color: #0A2C72;
     }""",
-    # Valgt segment: Vann-fyll, hvit tekst, subtil shadow.
+    # Valgt segment: Marine-fyll, hvit tekst, subtil shadow.
     """[data-testid="stRadio"] label:has(input:checked) {
-        background: #005AA4;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        background: #0A2C72;
+        box-shadow: 0 1px 2px rgba(12, 26, 64, 0.18);
     }""",
     """[data-testid="stRadio"] label:has(input:checked) [data-testid="stMarkdownContainer"] p {
         color: #FFFFFF;
@@ -119,14 +119,14 @@ def _render_skala_pille() -> None:
     """Kompakt inline pille som erstatter det tidligere skala-callout-banneret."""
     st.markdown(
         '<div style="display:inline-flex;align-items:center;'
-        'background:rgba(126,181,210,0.06);'
-        'border-left:2px solid #7EB5D2;'
+        'background:#F2F5FA;'
+        'border-left:2px solid #1F6FC4;'
         'border-radius:6px;padding:6px 12px;'
-        'font-size:12px;color:#A8B3C7;margin:8px 0 24px;">'
-        '<strong style="color:#F4F6FB;font-weight:600;'
+        'font-size:12px;color:#3B4256;margin:8px 0 24px;">'
+        '<strong style="color:#16203A;font-weight:700;'
         'margin-right:8px;">Skala</strong>'
         '<span>· 1 = uenig · 5 = enig</span>'
-        '<span style="color:#3A4561;margin:0 10px;">|</span>'
+        '<span style="color:#CBD3E0;margin:0 10px;">|</span>'
         '<span>Velg ett tall per påstand</span>'
         '</div>',
         unsafe_allow_html=True,
@@ -134,16 +134,16 @@ def _render_skala_pille() -> None:
 
 
 def _render_question_cell(sid: int, statement: str) -> None:
-    """Q-badge + spørsmålstekst i én linje (left cell)."""
+    """Q-badge + spørsmålstekst i en linje (left cell)."""
     st.markdown(
         f'<div>'
         f'<span style="display:inline-block;'
         f'font-family:ui-monospace,\'JetBrains Mono\',monospace;'
-        f'font-size:11px;color:#6B7691;'
-        f'background:rgba(126,181,210,0.08);'
+        f'font-size:11px;color:#6B7280;'
+        f'background:#EAF1FB;'
         f'padding:2px 7px;border-radius:4px;'
         f'margin-right:10px;vertical-align:middle;">Q{sid}</span>'
-        f'<span style="font-size:14px;color:#F4F6FB;'
+        f'<span style="font-size:14px;color:#16203A;'
         f'line-height:1.45;vertical-align:middle;">{statement}</span>'
         f'</div>',
         unsafe_allow_html=True,
@@ -151,21 +151,21 @@ def _render_question_cell(sid: int, statement: str) -> None:
 
 
 def _render_endpoint_labels() -> None:
-    """uenig/enig-labels rett over Likert-baren — kun på første rad.
+    """uenig/enig-labels rett over Likert-baren - kun på første rad.
 
     Bredden (196px) = barens ytre bredde: 1px border + 3px padding +
     5×36px segmenter + 4×2px gap + 3px padding + 1px border. Padding 0 4px
     tilsvarer barens indre venstre/høyre-kant, så `uenig` flukter med
     segment 1 og `enig` med segment 5.
 
-    Ingen `margin-left: auto` — labelen sitter til venstre i sin
+    Ingen `margin-left: auto` - labelen sitter til venstre i sin
     markdown-container, samme x-posisjon som baren under (som også sitter
     til venstre i sin element-container).
     """
     st.markdown(
         '<div style="display:flex;justify-content:space-between;'
         'font-size:10px;text-transform:uppercase;'
-        'letter-spacing:0.05em;color:#6B7691;'
+        'letter-spacing:0.05em;color:#6B7280;'
         'width:196px;margin:0 0 4px 0;padding:0 4px;'
         'box-sizing:border-box;">'
         '<span>uenig</span><span>enig</span></div>',
@@ -183,7 +183,7 @@ def _render_likert_grid() -> dict[int, int | None]:
             with col_text:
                 _render_question_cell(sid, statement)
             with col_likert:
-                # uenig/enig kun øverst — gjentakelse på hver rad ble visuelt støy.
+                # uenig/enig kun øverst - gjentakelse på hver rad ble visuelt støy.
                 if i == 0:
                     _render_endpoint_labels()
                 answers[sid] = st.radio(
@@ -200,18 +200,14 @@ def _render_likert_grid() -> dict[int, int | None]:
 
 def main() -> None:
     crumb(["Oversikt", "Bli kjent"])
-    st.title("Bli kjent")
-    st.caption(
-        "Modul 0 · Litt oversikt over hvem dere er. Helt anonymt — "
-        "vi bruker svarene til å kalibrere resten av kurset."
-    )
+    module_header("Bli kjent", subtitle="Hvilke forkunnskaper har vi? Helt anonymt.")
 
     _render_skala_pille()
 
     if st.session_state.get("oppvarming_submitted"):
         callout(
             "Takk! Svarene er lagret. Du kan svare på nytt om du vil korrigere.",
-            kind="highlight",
+            kind="tip",
             key="oppvarming_submitted_ok",
         )
         if st.button("Svar på nytt"):
@@ -233,7 +229,7 @@ def main() -> None:
             callout(
                 "Alle påstander må besvares før du kan sende inn. "
                 "Sjekk at hver rad har et valg.",
-                kind="warning",
+                kind="warn",
                 key="oppvarming_missing",
             )
             return
@@ -246,6 +242,6 @@ def main() -> None:
         except Exception as exc:  # noqa: BLE001
             callout(
                 f"Kunne ikke lagre svar: {exc}",
-                kind="warning",
+                kind="warn",
                 key="oppvarming_error",
             )

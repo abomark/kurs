@@ -1,0 +1,4 @@
+- Bygge Streamlit-dashbord
+- Skrive SQL-spørringer
+- Maskinlæring (ikke dekket i kurset)
+- Analyse i notebooks

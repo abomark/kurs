@@ -1,3 +1,0 @@
-- Hva overrasket deg mest av det vi nettopp så?
-- Hvor ville du brukt Cortex Code i din egen jobb-hverdag?
-- Hva tror du den IKKE er god på?

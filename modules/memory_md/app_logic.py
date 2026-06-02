@@ -1,4 +1,4 @@
-"""memory.md – modul 17.
+"""memory.md - modul 17.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Konseptuell innføring i Cortex Codes
@@ -14,13 +14,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, card, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, card, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
     crumb(["Kursmoduler", "21 · memory.md"])
-    st.title("memory.md")
-    st.caption("Modul 21 · Hvordan Cortex Code husker ting på tvers av sesjoner.")
+    module_header("memory.md", subtitle="Hvordan Cortex Code husker ting på tvers av sesjoner.")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---
@@ -61,7 +60,7 @@ def main() -> None:
     callout(
         load_markdown(__file__, "what_to_store"),
         kind="warn",
-        title="Hva bør lagres — og hva ikke?",
+        title="Hva bør lagres - og hva ikke?",
         key="memory_what_to_store",
     )
 

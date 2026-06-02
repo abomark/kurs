@@ -20,11 +20,13 @@ Kurset er rettet mot **analytikere og data scientists i norske banker**. Det for
 [`DESIGN_GUIDE.md`](DESIGN_GUIDE.md) er **single source of truth** for all visuell stil i appen — farger, fonter, layout, callouts, emoji-bruk og forbudte mønstre. Den overstyrer dine generelle preferanser om "moderne" eller "kreativ" UI.
 
 **Kort sammendrag:**
-- Palett: Vann (`#005AA4`), Fjell (`#002776`), Sand (`#F8E9DD`), Frost (`#7EB5D2`), Syrin (`#D3D3EA`)
+- Palett (lyst «Bankbrief», jf. DESIGN_GUIDE §2): Vann/Marine (`#0A2C72`), Fjell (`#071E50`), Frost/Azur (`#1F6FC4`), Sand/Fersken (`#F8E6D5`), Syrin/Amber (`#C9821B`)
 - Font: Arial gjennomgående (ikke Inter, ikke Roboto)
 - Tema: [`.streamlit/config.toml`](.streamlit/config.toml) — kanonisk versjon i DESIGN_GUIDE §6
 - Callouts: `callout()`-helper i `modules/shared/ui.py` matcher guide §5.2–5.4
-- **Ingen emojis eller ikoner** (DESIGN_GUIDE §1.7): overskrifter, `st.subheader`, `st.expander`-labels, callout-titler, crumbs og brødtekst er ren tekst. Eneste unntak: den kvadratiske callout-badgen (`i`/`!`/`✓`/`·`, settes automatisk av `callout()` ut fra `kind`) og typografiske piler (`→`/`←`) i prosa.
+- **Ingen emojis; SVG-linjeikoner er ikon-språket** (DESIGN_GUIDE §1.7, eier-beslutning 2026-05-31): overskrifter, `st.subheader`, `st.expander`-labels, callout-titler, crumbs og brødtekst skal aldri ha emoji-dekorasjon. Sanksjonert ikon-form er SVG-linjeikoner via `svg_icon()` i `modules/shared/ui.py` (callout-badger, funksjonskort-disker, knapper). Typografiske piler (`→`/`←`) i prosa er ok. Ett emoji-unntak: nettleserfanens favicon `page_icon="❄"` i `app.py` (fane-metadata, ikke side-innhold).
+- **Aldri en-dash (`–`) eller em-dash (`—`)** noe sted (DESIGN_GUIDE §1.8, eier-beslutning 2026-05-31): bruk vanlig bindestrek `-`, komma eller kolon - også i docstrings og kommentarer.
+- **Aldri `é`/`É`** (DESIGN_GUIDE §1.10, eier-beslutning 2026-05-31): bruk alltid `e`/`E`; det vanligste tilfellet er ordet for tallet 1 (skriv «en», uten aksent).
 
 **Når du legger til/endrer en modul:** gå gjennom sjekklista i DESIGN_GUIDE §10 før du sier "ferdig".
 
@@ -53,7 +55,7 @@ Snakkepunkter, beskrivelser, eksempler, taleformuleringer, demo-steg og lignende
 - Før du endrer kode: les relevant PRD-seksjon. Hvis koden divergerer fra PRD-en, avgjør hvilken som er riktig — så oppdater den andre.
 - Før du endrer atferd: oppdater PRD-en *først*, så koden. Aldri silent drift.
 - Hvis PRD er tvetydig: avklar med eier (Andre) i samtale, så oppdater PRD-en med avklaringen, så koden.
-- Nye krav får ny ID (f.eks. neste ledige `FR-3.10`). Aldri renummerér eksisterende ID-er.
+- Nye krav får ny ID (f.eks. neste ledige `FR-3.10`). Aldri renummerer eksisterende ID-er.
 
 ## Kodekommentarer skal referere PRD
 
@@ -105,13 +107,13 @@ kurs/
 │ ├── bli_kjent.py # Oppvarming/Bli kjent (?page=bli_kjent)
 │ ├── resultater.py # Samle-resultatside
 │ ├── admin.py # Admin
-│ └── modules/ # Tynne wrappers, én per modul, navngitt m{nr:02d}_{slug}
+│ └── modules/ # Tynne wrappers, en per modul, navngitt m{nr:02d}_{slug}
 │   ├── m01_evolusjon.py # → modules.evolusjon.app_logic.main as render
 │   ├── m12_gruppeoppgave_1.py
 │   ├── m13_gruppeoppgave_1_resultater.py
 │   └── … # 29 wrappers totalt
 ├── modules/
-│ ├── <slug>/ # Én mappe per modul (slug matcher data/moduler.py)
+│ ├── <slug>/ # En mappe per modul (slug matcher data/moduler.py)
 │ │ ├── app_logic.py # main() – KUN layout (FR-3.12)
 │ │ └── content/ # Markdown-blokker (FR-3.12)
 │ ├── gruppeoppgave_1/ # Interaktiv workshop (eksempel på full modul)
@@ -134,7 +136,7 @@ kurs/
 ## Konvensjoner
 
 - **Imports:** filer inne i `modules/<navn>/` bruker relative imports (`from .config import …`). Wrappers i `pages_content/modules/` bruker absolutt og eksponerer `render` (ikke `main`): `from modules.<slug>.app_logic import main as render`.
-- **Set page config:** kalles én gang sentralt i `app.py` (layout velges via `WIDE_LAYOUT_PAGES`), *ikke* i wrapperne, `app_logic.py` eller `admin_logic.py`.
+- **Set page config:** kalles en gang sentralt i `app.py` (layout velges via `WIDE_LAYOUT_PAGES`), *ikke* i wrapperne, `app_logic.py` eller `admin_logic.py`.
 - **Navigasjon:** `app.py` leser `?page=<slug>`. Faste sider (`forside`, `bli_kjent`, `resultater`, `admin`) ligger i `pages_content/`. Modul-sider rutes via `page_id()` → `pages_content/modules/m{nr:02d}_{slug}.py`. Ikke endre wrapper-filnavn uten å oppdatere `nr`/`slug` i `data/moduler.py` tilsvarende (og PRD §FR-3.8).
 - **Secrets:** alltid via `st.secrets[...]`. Aldri hardkod, aldri legg i config.py.
 - **Språk:** UI og kommentarer i koden på norsk (matcher målgruppen). PRD og denne fila også på norsk.
@@ -165,10 +167,10 @@ Sjekk PRD §FR-3.8 og §FR-3.12 først. Deretter:
 5. Hvis ny DB-tabell: lag `kurs.<navn>_responses` i det felles `kurs`-schemaet (PRD §DM-5.2). Definer `SCHEMA = "kurs"` og `TABLE = "<navn>_ responses"` som konstanter i `db.py`. Ingen Supabase dashboard-endring nødvendig — `kurs` er allerede i "Exposed schemas".
 6. Oppdater PRD §8 endringslogg.
 
-**Andre skriver innholdet selv** — ikke generér prosa i `.md`-filene uten eksplisitt forespørsel. Lag tomme `<!-- placeholder -->`-filer.
+**Andre skriver innholdet selv** — ikke generer prosa i `.md`-filene uten eksplisitt forespørsel. Lag tomme `<!-- placeholder -->`-filer.
 
 ## Hvis du er Claude (eller annen AI-agent)
 
 - Les PRD.md før du foreslår strukturelle endringer.
 - Foreslå PRD-oppdateringer eksplisitt i samtale — ikke gjør dem "i forbifarten" sammen med kode.
-- Hvis du ser drift (kode != PRD), si fra heller enn å stille-rette én av sidene.
+- Hvis du ser drift (kode != PRD), si fra heller enn å stille-rette en av sidene.

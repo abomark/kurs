@@ -1,7 +1,7 @@
 <!-- To typer skills. Splittes på "## " og rendres i to kolonner. -->
 
 ## Bundled skills
-Snowflake-vedlikeholdte skills som følger med Cortex Code. Forhåndsbygde, Snowflake-native arbeidsflyter designet av Snowflakes produkt- og AI-team — så du starter fra utprøvde mønstre i stedet for en blank prompt.
+Snowflake-vedlikeholdte skills som følger med Cortex Code. Forhåndsbygde, Snowflake-native arbeidsflyter designet av Snowflakes produkt- og AI-team - så du starter fra utprøvde mønstre i stedet for en blank prompt.
 
 Eksempler: `Dynamic Tables` · `Semantic views` · `Agents` · `Lineage`
 

@@ -48,7 +48,7 @@ NON_ANSWERS = {
     "???",
 }
 
-# Norske + engelske stopwords. Bevisst kort liste — vi vil heller beholde
+# Norske + engelske stopwords. Bevisst kort liste - vi vil heller beholde
 # litt støy enn å filtrere bort meningsbærende ord.
 STOPWORDS = {
     # Norsk

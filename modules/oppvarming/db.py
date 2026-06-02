@@ -2,8 +2,8 @@
 
 Implementerer PRD §DM-5.2 (felles `kurs`-schema) og §NFR-4.2 (RLS / minimal returning).
 
-Tabell: `kurs.oppvarming_responses`. Kolonner: id, question_id (1–5),
-answer_value (1–5 heltall — Likert), created_at.
+Tabell: `kurs.oppvarming_responses`. Kolonner: id, question_id (1-5),
+answer_value (1-5 heltall - Likert), created_at.
 """
 
 from __future__ import annotations
@@ -36,9 +36,9 @@ def service_client() -> Client:
 
 
 def insert_likert_responses(values: dict[int, int]) -> None:
-    """Bulk-insert: alle 5 påstandssvar på én gang.
+    """Bulk-insert: alle 5 påstandssvar på en gang.
 
-    `values` er {question_id: answer_value} der answer_value er 1–5.
+    `values` er {question_id: answer_value} der answer_value er 1-5.
     """
     rows = [
         {"question_id": qid, "answer_value": val}
@@ -51,7 +51,7 @@ def insert_likert_responses(values: dict[int, int]) -> None:
 
 
 def fetch_value_counts(question_id: int) -> dict[int, int]:
-    """Tell hvor mange svar som har valgt hver verdi 1–5 for et spørsmål."""
+    """Tell hvor mange svar som har valgt hver verdi 1-5 for et spørsmål."""
     res = (
         service_client()
         .table(TABLE)

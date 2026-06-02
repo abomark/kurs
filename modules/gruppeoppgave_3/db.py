@@ -5,7 +5,7 @@ og §NFR-4.2 (RLS / minimal returning).
 
 To klienter eksponeres:
   - `anon_client()` for deltakerens INSERT (RLS tillater kun innsetting).
-  - `service_client()` for admin (SELECT/DELETE — service_role-key må holdes hemmelig).
+  - `service_client()` for admin (SELECT/DELETE - service_role-key må holdes hemmelig).
 """
 
 from __future__ import annotations

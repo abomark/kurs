@@ -1,7 +1,7 @@
 """Kanonisk modul-liste for Cortex Code-kurset.
 
 Hver modul er en dict med felt:
-- nr:       int, 1–28. Sekvensnummer i kurset.
+- nr:       int, 1-31. Sekvensnummer i kurset.
 - slug:     str, matcher mappenavn under `modules/<slug>/` slik at
             wrapper-importene i `pages_content/modules/` finner riktig
             `main()` å aliasere som `render()`.
@@ -18,13 +18,13 @@ Se DESIGN_GUIDE.md §11 for kategori-betydning og fargevalg.
 from __future__ import annotations
 
 MODULER = [
-    {"nr":  1, "slug": "evolusjon",                  "tittel": "Fra Google til spesifikasjon", "kategori": "I"},
+    {"nr":  1, "slug": "evolusjon",                  "tittel": "Evolusjon",                  "kategori": "I"},
     {"nr":  2, "slug": "cortex_code",                "tittel": "Cortex Code",                "kategori": "I"},
     {"nr":  3, "slug": "cortex_interaction",         "tittel": "Snowsight vs CLI",           "kategori": "I"},
-    {"nr":  4, "slug": "cortex_in_snowsight",        "tittel": "Cortex Code i Snowsight",    "kategori": "I"},
-    {"nr":  5, "slug": "arkitektur",                 "tittel": "Arkitekturoversikt",         "kategori": "I"},
-    {"nr":  6, "slug": "demo_1",                     "tittel": "Første demo",                "kategori": "I"},
-    {"nr":  7, "slug": "individuell_oppgave_1",      "tittel": "Individuell oppgave 1",      "kategori": "P"},
+    {"nr":  4, "slug": "arkitektur",                 "tittel": "Under panseret",             "kategori": "I"},
+    {"nr":  5, "slug": "demo_1",                     "tittel": "Første demo",                "kategori": "I"},
+    {"nr":  6, "slug": "individuell_oppgave_1",      "tittel": "Individuell oppgave 1",      "kategori": "P"},
+    {"nr":  7, "slug": "kostnader",                  "tittel": "Kostnader",                  "kategori": "F"},
     {"nr":  8, "slug": "at_mentions",                "tittel": "@-mentions",                 "kategori": "I"},
     {"nr":  9, "slug": "individuell_oppgave_at_mentions", "tittel": "Individuell oppgave: @-mentions", "kategori": "P"},
     {"nr": 10, "slug": "plan_mode",                   "tittel": "Plan Mode",                  "kategori": "I"},
@@ -41,15 +41,14 @@ MODULER = [
     {"nr": 21, "slug": "memory_md",                  "tittel": "memory.md",                  "kategori": "K"},
     {"nr": 22, "slug": "gruppeoppgave_3",            "tittel": "Gruppeoppgave 3",            "kategori": "G"},
     {"nr": 23, "slug": "gruppeoppgave_3_resultater", "tittel": "Resultater Gruppeoppgave 3", "kategori": "G"},
-    {"nr": 24, "slug": "prompt_engineering",         "tittel": "Prompt engineering",         "kategori": "K"},
+    {"nr": 24, "slug": "context_engineering",        "tittel": "Context engineering",        "kategori": "K"},
     {"nr": 25, "slug": "individuell_oppgave_2",      "tittel": "Individuell oppgave 2",      "kategori": "P"},
-    {"nr": 26, "slug": "individuell_oppgave_3",      "tittel": "Individuell oppgave 3",      "kategori": "P"},
-    {"nr": 27, "slug": "demo_2",                     "tittel": "Demo 2",                     "kategori": "F"},
-    {"nr": 28, "slug": "individuell_oppgave_4",      "tittel": "Individuell oppgave 4",      "kategori": "P"},
-    {"nr": 29, "slug": "autonomous_loop",            "tittel": "Autonomous loop",            "kategori": "F"},
-    {"nr": 30, "slug": "individuell_oppgave_5",      "tittel": "Individuell oppgave 5",      "kategori": "P"},
-    {"nr": 31, "slug": "kostnader",                  "tittel": "Kostnader",                  "kategori": "F"},
-    {"nr": 32, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
+    {"nr": 26, "slug": "demo_2",                     "tittel": "Demo 2",                     "kategori": "F"},
+    {"nr": 27, "slug": "autonomous_loop",            "tittel": "Autonomous loop",            "kategori": "F"},
+    {"nr": 28, "slug": "individuell_oppgave_kohort", "tittel": "Individuell oppgave: Kohortanalyse", "kategori": "P"},
+    {"nr": 29, "slug": "individuell_oppgave_konkurrent", "tittel": "Gruppeoppgave: Konkurrent-signaler", "kategori": "G"},
+    {"nr": 30, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
+    {"nr": 31, "slug": "test_skills_html",           "tittel": "Test: Skills (HTML)",        "kategori": "F"},
 ]
 
 KATEGORI_NAVN = {
@@ -61,11 +60,11 @@ KATEGORI_NAVN = {
 }
 
 KATEGORI_FARGE = {
-    "I": "#7EB5D2",  # Frost
-    "K": "#B197FC",  # Lavendel
-    "P": "#66D9A8",  # Mynt
-    "G": "#FFAD80",  # Korall
-    "F": "#94A3B8",  # Sky
+    "I": "#1F6FC4",  # Azur    (Innføring)
+    "K": "#6B5BD2",  # Violett (Konfigurasjon)
+    "P": "#1E9E6A",  # Grønn   (Praksis)
+    "G": "#E08A3C",  # Oransje (Gruppe)
+    "F": "#8A93A6",  # Grå     (Fordypning)
 }
 
 
@@ -82,7 +81,7 @@ def page_id(modul: dict) -> str:
 # tilhører, og styrer vertikal gruppering + "DU ER HER"-aktiv-markering
 # i sidemenyen.
 #
-# `modules` lister `page_id()`-strenger, ikke nr — så stabil over om-
+# `modules` lister `page_id()`-strenger, ikke nr - så stabil over om-
 # nummerering av modul-listen.
 SECTIONS = [
     {
@@ -92,16 +91,16 @@ SECTIONS = [
             "m01_evolusjon",
             "m02_cortex_code",
             "m03_cortex_interaction",
-            "m04_cortex_in_snowsight",
+            "m04_arkitektur",
         ],
     },
     {
         "id": "komme_i_gang",
         "label": "Komme i gang",
         "modules": [
-            "m05_arkitektur",
-            "m06_demo_1",
-            "m07_individuell_oppgave_1",
+            "m05_demo_1",
+            "m06_individuell_oppgave_1",
+            "m07_kostnader",
         ],
     },
     {
@@ -157,10 +156,10 @@ SECTIONS = [
         ],
     },
     {
-        "id": "prompt_engineering",
-        "label": "Prompt engineering",
+        "id": "context_engineering",
+        "label": "Context engineering",
         "modules": [
-            "m24_prompt_engineering",
+            "m24_context_engineering",
         ],
     },
     {
@@ -168,25 +167,36 @@ SECTIONS = [
         "label": "Anvendt praksis",
         "modules": [
             "m25_individuell_oppgave_2",
-            "m26_individuell_oppgave_3",
         ],
     },
     {
         "id": "dybde",
         "label": "Dybde",
         "modules": [
-            "m27_demo_2",
-            "m28_individuell_oppgave_4",
-            "m29_autonomous_loop",
-            "m30_individuell_oppgave_5",
+            "m26_demo_2",
+            "m27_autonomous_loop",
+        ],
+    },
+    {
+        "id": "kurs_data",
+        "label": "Anvendt praksis: KURS-data",
+        "modules": [
+            "m28_individuell_oppgave_kohort",
+            "m29_individuell_oppgave_konkurrent",
         ],
     },
     {
         "id": "avslutning",
         "label": "Avslutning",
         "modules": [
-            "m31_kostnader",
-            "m32_avslutning",
+            "m30_avslutning",
+        ],
+    },
+    {
+        "id": "test",
+        "label": "Test",
+        "modules": [
+            "m31_test_skills_html",
         ],
     },
 ]

@@ -1,4 +1,4 @@
-"""Individuell oppgave 1 – modul 9.
+"""Individuell oppgave 1 - modul 9.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Individuell hands-on oppgave:
@@ -11,13 +11,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "07 · Individuell oppgave 1"])
-    st.title("Individuell oppgave 1")
-    st.caption("Modul 7 · Hands-on: hver deltaker gjør dette på egen maskin.")
+    crumb(["Kursmoduler", "06 · Individuell oppgave 1"])
+    module_header("Individuell oppgave 1", subtitle="Hands-on: hver deltaker gjør dette på egen maskin.")
     st.divider()
 
     callout(
@@ -33,4 +32,4 @@ def main() -> None:
     st.markdown(load_markdown(__file__, "instructions"))
 
     st.divider()
-    next_module_cta_for("at_mentions")
+    next_module_cta_for("kostnader")

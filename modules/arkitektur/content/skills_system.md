@@ -25,5 +25,5 @@ domenekunnskap** utover det generelle system-promptet.
 3. Skill-en lastes inn → agenten får nye, detaljerte instruksjoner
 4. Agenten følger disse instruksjonene for å løse oppgaven
 
-Skills er **"plug-in ekspertise"** — de gjør agenten til en spesialist på
+Skills er **"plug-in ekspertise"** - de gjør agenten til en spesialist på
 et område uten at all den kunnskapen må ligge i system-promptet hele tiden.

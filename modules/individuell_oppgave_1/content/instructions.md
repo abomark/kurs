@@ -1,9 +1,8 @@
-**Trykk på:**
-
-1. **+**
-2. **Git workspace**
-3. Legg til repo URL
-4. Behold workspace name
-5. Velg API integrasjon: `SB1SN_GET_API_INTEGRATION`
-6. Velg **OAuth2**
-7. **Create**
+1. **Åpne Workspaces** i Snowsight
+2. Trykk **+**
+3. Velg **Git workspace**
+4. Legg til repo-URL
+5. Behold workspace-navn
+6. Velg API-integrasjon: `SB1SN_GET_API_INTEGRATION`
+7. Velg **OAuth2**
+8. **Create**

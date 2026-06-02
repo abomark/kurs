@@ -16,9 +16,6 @@ URL-er (under deploy):
 - `/gruppeoppgave_1_resultater` – Modul 8: Resultater Gruppeoppgave 1 (offentlig, kun grafer)
 - `/individuell_oppgave_1` – Modul 9: Individuell oppgave 1 (Git repo setup)
 - `/individuell_oppgave_2` – Modul 10: Beskrive ukjent tabell
-- `/individuell_oppgave_3` – Modul 11: Datakvalitetssjekk
-- `/individuell_oppgave_4` – Modul 12: Optimaliser treig query
-- `/individuell_oppgave_5` – Modul 13: Refleksjon
 - `/demo_2` – Modul 14: Demo 2 (realistisk bank-use-case)
 - `/autonomous_loop` – Modul 15: Autonomous loop i dybden
 - `/avslutning` – Modul 16: Avslutning
@@ -52,9 +49,6 @@ kurs/
 │   ├── gruppeoppgave_1_resultater/ # Modul 8 (offentlig read-only)
 │   ├── individuell_oppgave_1/      # Modul 9 (Git repo setup)
 │   ├── individuell_oppgave_2/      # Modul 10 (Beskrive ukjent tabell)
-│   ├── individuell_oppgave_3/      # Modul 11 (Datakvalitetssjekk)
-│   ├── individuell_oppgave_4/      # Modul 12 (Optimaliser query)
-│   ├── individuell_oppgave_5/      # Modul 13 (Refleksjon)
 │   ├── demo_2/                     # Modul 14 (Realistisk bank-use-case)
 │   ├── autonomous_loop/            # Modul 15 (Loop i dybden)
 │   ├── avslutning/                 # Modul 16 (Hva nå?)

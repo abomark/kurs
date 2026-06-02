@@ -7,7 +7,7 @@ Hovedresultater (Resultater-tab) ligger i `views.py` slik at modul 13
 (offentlig resultatvisning) kan dele samme rendering uten å duplisere.
 
 Eksponerer `main()` som kalles fra `pages/admin_gruppeoppgave_1.py`. Setter
-IKKE `st.set_page_config` — det gjøres i wrapperen.
+IKKE `st.set_page_config` - det gjøres i wrapperen.
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ def _check_password() -> bool:
             st.session_state.admin_ok = True
             st.rerun()
         else:
-            callout("Feil passord.", kind="warning", key="admin_login_error")
+            callout("Feil passord.", kind="warn", key="admin_login_error")
     return False
 
 
@@ -54,7 +54,7 @@ def _cached_all_responses() -> list[dict]:
 
 def _diff_tokens(claude_tokens: list[str], user_tokens: list[str]) -> list[str]:
     # PRD §FR-3.6: tokens som finnes i Claude-svar men ikke i deltakersvar.
-    # Duplikater fra Claude beholdes — frekvens styrer størrelse i diff-skyen.
+    # Duplikater fra Claude beholdes - frekvens styrer størrelse i diff-skyen.
     user_set = set(user_tokens)
     return [t for t in claude_tokens if t not in user_set]
 
@@ -62,7 +62,7 @@ def _diff_tokens(claude_tokens: list[str], user_tokens: list[str]) -> list[str]:
 def _render_forgotten() -> None:
     st.caption(
         "Ordsky over begreper Claude nevnte (i bank-/analysekontekst) "
-        "som ikke dukket opp i deltakernes svar. Bruk som diskusjonsfôr — "
+        "som ikke dukket opp i deltakernes svar. Bruk som diskusjonsfôr - "
         "ikke som fasit."
     )
 
@@ -70,7 +70,7 @@ def _render_forgotten() -> None:
     user_tokens_1 = reduce_answers(answers_1)
     claude_tokens_1 = reduce_answers(CLAUDE_ANSWERS_Q1)
     diff_1 = _diff_tokens(claude_tokens_1, user_tokens_1)
-    render_wordcloud(diff_1, f"Glemt – {QUESTIONS[1]['text']}")
+    render_wordcloud(diff_1, f"Glemt - {QUESTIONS[1]['text']}")
     st.caption(
         f"{len(set(claude_tokens_1))} unike Claude-ord · "
         f"{len(set(user_tokens_1))} unike deltaker-ord · "
@@ -83,7 +83,7 @@ def _render_forgotten() -> None:
     user_tokens_2 = reduce_answers(answers_2)
     claude_tokens_2 = reduce_answers(CLAUDE_ANSWERS_Q2)
     diff_2 = _diff_tokens(claude_tokens_2, user_tokens_2)
-    render_wordcloud(diff_2, f"Glemt – {QUESTIONS[2]['text']}")
+    render_wordcloud(diff_2, f"Glemt - {QUESTIONS[2]['text']}")
     st.caption(
         f"{len(set(claude_tokens_2))} unike Claude-ord · "
         f"{len(set(user_tokens_2))} unike deltaker-ord · "
@@ -140,7 +140,7 @@ def _render_danger_zone() -> None:
     st.subheader("Nullstill runde")
     callout(
         "Sletter ALLE svar. Bruk før ny kurssesjon.",
-        kind="warning",
+        kind="warn",
         key="admin_danger_notice",
     )
     confirm = st.text_input("Skriv 'SLETT' for å bekrefte")
@@ -149,7 +149,7 @@ def _render_danger_zone() -> None:
         st.cache_data.clear()
         callout(
             "Alle svar slettet.",
-            kind="highlight",
+            kind="tip",
             key="admin_danger_done",
         )
 

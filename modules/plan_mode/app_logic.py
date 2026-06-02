@@ -1,4 +1,4 @@
-"""Plan Mode i Cortex Code – modul 7.
+"""Plan Mode i Cortex Code - modul 7.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Innføring i Cortex Codes kjøremoduser med
@@ -28,6 +28,7 @@ from modules.shared.ui import (
     crumb,
     load_markdown,
     load_split_markdown,
+    module_header,
     next_module_cta_for,
     numbered_steps,
 )
@@ -35,10 +36,10 @@ from modules.shared.ui import (
 
 def main() -> None:
     crumb(["Kursmoduler", "10 · Plan Mode"])
-    st.title("Plan Mode")
-    st.caption(
-        "Modul 10 · Kjøremodusen som holder seg read-only mens den tenker, "
-        "og leverer en plan til godkjenning før noe utføres"
+    module_header(
+        "Plan Mode",
+        subtitle="Kjøremodusen som holder seg read-only mens den tenker, "
+        "og leverer en plan til godkjenning før noe utføres",
     )
     st.divider()
 
@@ -56,7 +57,7 @@ def main() -> None:
     st.subheader("De tre kjøremodusene")
     st.markdown(
         "Modusene spenner fra mest kontroll og bekreftelse til mest "
-        "automatikk. Plan Mode ligger i midten — den tenker fritt, men "
+        "automatikk. Plan Mode ligger i midten - den tenker fritt, men "
         "handler ikke uten godkjenning."
     )
     _spectrum_label()
@@ -83,7 +84,7 @@ def main() -> None:
     _two_cards(load_split_markdown(__file__, "naar"), key="plan_naar")
     callout(
         load_markdown(__file__, "kobling"),
-        kind="success",
+        kind="tip",
         title="Kobling til skills",
         key="plan_kobling",
     )

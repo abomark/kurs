@@ -1,4 +1,4 @@
-"""Wrapper for modul 11: Individuell oppgave — Modellvalg.
+"""Wrapper for modul 11: Individuell oppgave - Modellvalg.
 
 Tynn pass-through til `modules.individuell_oppgave_modellvalg.app_logic.main`.
 """

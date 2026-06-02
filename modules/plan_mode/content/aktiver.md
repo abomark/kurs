@@ -8,4 +8,4 @@ Begge deler setter Cortex Code i read-only-modus. Den tenker gjennom oppgaven og
 ## Skru opp automatikken
 `Shift + Tab`
 
-Veksler mot en mer automatisert modus — kun i betrodde, validerte miljøer der teamet har godkjent arbeidsflyten.
+Veksler mot en mer automatisert modus - kun i betrodde, validerte miljøer der teamet har godkjent arbeidsflyten.

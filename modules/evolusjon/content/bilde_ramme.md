@@ -1,0 +1,2 @@
+<!-- UTKAST - Andre verifiserer -->
+Tegneserien overdriver med vilje. Poenget for oss er ikke «10x» eller en hær av agenter, men kontrasten: å be AI-en «bare fikse det» uten rammer gir tilfeldige resultater, mens strukturert arbeid med rammer rundt (standarder, sjekker, tilbakemelding) gir noe du kan stole på. I en regulert data-hverdag er det nettopp rammene og kontrollen som avgjør om vi kan ta dette i bruk - og rollen vår flytter seg fra å gjøre alt selv til å styre og kvalitetssikre.

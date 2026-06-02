@@ -15,44 +15,93 @@ from streamlit_extras.stylable_container import stylable_container
 
 HUB_URL = "/"
 
-# DESIGN_GUIDE v2 §2 — palett og overflater.
-COLOR_CANVAS = "#0A0F1F"
-COLOR_SURFACE_1 = "#0F1729"
-COLOR_SURFACE_2 = "#131C33"
-COLOR_SURFACE_3 = "#1A2542"
+# Designsystem v1 "Bankbrief" - lyst marine + fersken-uttrykk.
+# Avledet fra PowerPoint-malen (se Designsystem.html). Navnene er
+# beholdt for bakoverkompatibilitet; verdiene er reskinnet til lyst tema.
+COLOR_CANVAS = "#FFFFFF"     # hvit canvas
+COLOR_SURFACE_1 = "#FFFFFF"  # kort / sidebar
+COLOR_SURFACE_2 = "#F7F8FB"  # dempet flate / hover
+COLOR_SURFACE_3 = "#EAF1FB"  # azur tint
 
-COLOR_VANN = "#005AA4"
-COLOR_FJELL = "#002776"
-COLOR_FROST = "#7EB5D2"
-COLOR_SAND = "#F8E9DD"
-COLOR_SYRIN = "#D3D3EA"
+COLOR_VANN = "#0A2C72"   # Marine (primær)
+COLOR_FJELL = "#071E50"  # Marine dyp
+COLOR_FROST = "#1F6FC4"  # Azur
+COLOR_SAND = "#F8E6D5"   # Fersken (signaturflate)
+COLOR_SYRIN = "#C9821B"  # Amber (brukt til warn-callout)
 
-TEXT_PRIMARY = "#F4F6FB"
-TEXT_SECONDARY = "#A8B3C7"
-TEXT_TERTIARY = "#6B7691"
+TEXT_PRIMARY = "#16203A"    # Blekk
+TEXT_SECONDARY = "#3B4256"  # Brødtekst
+TEXT_TERTIARY = "#6B7280"   # Dempet
 
-BORDER = "rgba(126, 181, 210, 0.10)"
-BORDER_STRONG = "rgba(126, 181, 210, 0.20)"
+BORDER = "#E3E8F1"
+BORDER_STRONG = "#D5DEEA"
+
+# Skygge (Designsystem v1 shadow-1) - løfter hvite kort fra canvas.
+SHADOW_1 = "0 1px 2px rgba(12, 26, 64, 0.05)"
 
 
-# --- Header/footer ---
-
-
-def render_module_header(title: str, subtitle: str = "") -> None:
-    """Tittel + lenke tilbake til kurs-forsiden. Kall først på en modul-side."""
-    cols = st.columns([6, 1])
-    with cols[0]:
-        st.title(title)
-        if subtitle:
-            st.caption(subtitle)
-    with cols[1]:
-        st.page_link("hub.py", label="← Til forsiden")
-    st.divider()
+# --- Footer ---
+# (Modul-headere bruker nå module_header() lenger ned - den gamle
+#  render_module_header() med hub.py-lenke er fjernet som død kode.)
 
 
 def render_footer() -> None:
     st.divider()
     st.caption("Kurs · Streamlit + Supabase")
+
+
+def inject_global_css() -> None:
+    """Globale CSS-regler (Designsystem v1) - kalles EN gang fra `app.py`.
+
+    Styler Streamlit-primitiver som ikke går via våre helpers: knapper
+    (primær / sekundær / form-submit) og inline-kode i markdown. Holdes ett
+    sted så vi slipper å gjenta CSS per side.
+    """
+    st.markdown(
+        f"""
+        <style>
+        /* Primærknapp + form-submit → marine, radius 7px, hover marine-dyp. */
+        [data-testid="stButton"] button[kind="primary"],
+        [data-testid="stFormSubmitButton"] button {{
+            background-color: {COLOR_VANN};
+            color: #FFFFFF;
+            border: 1px solid {COLOR_VANN};
+            border-radius: 7px;
+            padding: 11px 22px;
+            font-weight: 700;
+        }}
+        [data-testid="stButton"] button[kind="primary"]:hover,
+        [data-testid="stFormSubmitButton"] button:hover {{
+            background-color: {COLOR_FJELL};
+            border-color: {COLOR_FJELL};
+            color: #FFFFFF;
+        }}
+        /* Sekundærknapp → hvit, marine kontur, hover azur tint. */
+        [data-testid="stButton"] button[kind="secondary"] {{
+            background-color: #FFFFFF;
+            color: {COLOR_VANN};
+            border: 1px solid {COLOR_VANN};
+            border-radius: 7px;
+            padding: 11px 22px;
+            font-weight: 700;
+        }}
+        [data-testid="stButton"] button[kind="secondary"]:hover {{
+            background-color: {COLOR_SURFACE_3};
+            color: {COLOR_VANN};
+            border-color: {COLOR_VANN};
+        }}
+        /* Inline-kode i markdown → azur tint, marine tekst, radius 5px. */
+        [data-testid="stMarkdownContainer"] code:not(pre code) {{
+            background-color: {COLOR_SURFACE_3};
+            color: {COLOR_VANN};
+            border-radius: 5px;
+            padding: 2px 6px;
+            font-size: 0.88em;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 # --- Markdown-loader (FR-3.12) ---
@@ -107,20 +156,59 @@ def load_split_markdown(
 
 # --- Callout (FR-3.15 / DESIGN_GUIDE v2 §7) ---
 
-# (border-color, background, icon-text, kind-class)
-# v2 har tre primære typer + en dempet for empty-state.
-# Aliaser fra v1 ("highlight"→success, "warning"→warn) holder
-# bakoverkompatibilitet med eksisterende moduler.
-_CALLOUT_PALETTE: dict[str, tuple[str, str, str]] = {
-    "info":      (COLOR_VANN,  "rgba(0, 90, 164, 0.12)",    "i"),
-    "warn":      (COLOR_SYRIN, "rgba(211, 211, 234, 0.12)", "!"),
-    "success":   (COLOR_FROST, "rgba(126, 181, 210, 0.15)", "✓"),
-    "subtle":    (TEXT_TERTIARY, "rgba(255, 255, 255, 0.03)", "·"),
+# SVG-linjeikoner (Designsystem v1 «Bankbrief»). 24×24 viewBox,
+# stroke=currentColor så fargen styres av containeren. Ingen emojis
+# (§1.7) - dette er det sanksjonerte ikon-språket i appen.
+_SVG_ICONS: dict[str, str] = {
+    "info":    '<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5v.01"/>',
+    "warn":    '<path d="M12 3l9 16H3z"/><path d="M12 10v4"/><path d="M12 17v.01"/>',
+    "success": '<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>',
+    "tip":     '<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.3 1 2.5h6c0-1.2.3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
+    "code":    '<polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/>',
+    "dbt":     '<circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M6 8.5v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3"/><path d="M12 13.5v2"/>',
+    "chart":   '<path d="M4 18l5-5 3 3 6-7"/><path d="M4 4v16h16"/>',
 }
 
-# v1-aliaser (DESIGN_GUIDE v2 §0 har nye navn, men eksisterende kall fungerer).
+
+def svg_icon(
+    name: str,
+    *,
+    size: int = 18,
+    color: str = "currentColor",
+    stroke: float = 2.2,
+) -> str:
+    """Returner et inline SVG-linjeikon (Designsystem v1 ikon-språk).
+
+    Brukes i `unsafe_allow_html`-kontekst (callout-badger, funksjonskort-
+    disker, knapper). Ingen emojis (§1.7) - dette er den sanksjonerte
+    ikon-formen. Ukjent navn returnerer tom streng.
+    """
+    paths = _SVG_ICONS.get(name)
+    if not paths:
+        return ""
+    return (
+        f'<svg viewBox="0 0 24 24" width="{size}" height="{size}" fill="none" '
+        f'stroke="{color}" stroke-width="{stroke}" stroke-linecap="round" '
+        f'stroke-linejoin="round">{paths}</svg>'
+    )
+
+
+# Callout-palett: (aksentfarge, bakgrunn, ikon-navn). Tre primære, semantiske
+# typer som matcher Designsystemet (INFO / TIPS / ADVARSEL), pluss en dempet
+# "subtle" for empty-states. Se DESIGN_GUIDE §7.
+_CALLOUT_PALETTE: dict[str, tuple[str, str, str]] = {
+    "info":      (COLOR_VANN,    "#EAF1FB", "info"),  # Marine / azur tint - fakta, definisjon
+    "tip":       ("#1E9E6A",     "#E7F5EE", "tip"),   # Grønn - råd, anbefaling, beste praksis
+    "warn":      ("#C9821B",     "#FBF1DF", "warn"),  # Amber - risiko, fallgruve
+    "subtle":    (TEXT_TERTIARY, "#F2F5FA", "info"),  # Dempet grå - tomme tilstander (intern)
+}
+
+# Deprecated alias-navn. Behold for bakoverkomp, men nye kall skal bruke de
+# kanoniske navnene (info/tip/warn/subtle). Den grønne typen ble omdøpt fra
+# "success" til "tip" (jf. spec), så success/highlight peker nå til "tip".
 _CALLOUT_ALIASES = {
-    "highlight": "success",
+    "success": "tip",
+    "highlight": "tip",
     "warning": "warn",
 }
 
@@ -136,22 +224,23 @@ def callout(
 
     Args:
         body: Markdown-tekst som rendres med `st.markdown`.
-        kind: "info" (Vann), "warn" (Syrin), "success" (Frost) eller
-            "subtle" (dempet, for empty-states). Aliaser fra v1
-            ("highlight" → success, "warning" → warn) støttes.
+        kind: Kanonisk: "info" (marine - fakta/definisjon), "tip" (grønn -
+            råd/anbefaling), "warn" (amber - risiko/fallgruve), eller
+            "subtle" (dempet grå - empty-states). Deprecated aliaser:
+            "success"/"highlight" → "tip", "warning" → "warn".
         title: Valgfri fet overskrift. Vises sammen med et kvadratisk
             ikon i venstre kolonne.
         key: Unik nøkkel for stylable_container. Auto-avledet hvis None.
     """
     resolved = _CALLOUT_ALIASES.get(kind, kind)
-    border, bg, icon = _CALLOUT_PALETTE.get(resolved, _CALLOUT_PALETTE["info"])
+    border, bg, icon_name = _CALLOUT_PALETTE.get(resolved, _CALLOUT_PALETTE["info"])
 
     derived_key = key or f"callout_{resolved}_{abs(hash((title or '', body[:40]))) % 100000}"
     # CSS-list: hvert element prefikses med stylable_container sin scoped
-    # selektor. Tidligere brukte vi én enkelt streng, men da lekket
+    # selektor. Tidligere brukte vi en enkelt streng, men da lekket
     # `p:first-child`-reglene ut globalt og påvirket all markdown på siden.
     css = [
-        # 1) Selve callout-boksen — bakgrunn, venstre-kant, radius, padding.
+        # 1) Selve callout-boksen - bakgrunn, venstre-kant, radius, padding.
         f"""{{
             background-color: {bg};
             border-left: 3px solid {border};
@@ -189,24 +278,143 @@ def callout(
     ]
     with stylable_container(key=derived_key, css_styles=css):
         if title:
-            # Ikon + tittel i én flex-rad. margin-bottom holder body-teksten
-            # ren — uten den klistrer body seg opp mot icon-raden.
+            # Ikon + tittel i en flex-rad. margin-bottom holder body-teksten
+            # ren - uten den klistrer body seg opp mot icon-raden.
             icon_html = (
                 f"<div style='display:flex;align-items:center;"
                 f"margin-bottom:12px;'>"
                 f"<div style='"
                 f"display:flex;align-items:center;justify-content:center;"
-                f"width:28px;height:28px;border-radius:6px;"
-                f"background:{border};color:#FFFFFF;"
-                f"font-weight:700;font-size:14px;line-height:1;"
+                f"width:28px;height:28px;border-radius:7px;"
+                f"background:{border};color:#FFFFFF;line-height:0;"
                 f"margin-right:12px;flex-shrink:0;'>"
-                f"{icon}</div>"
+                f"{svg_icon(icon_name, size=17, color='#FFFFFF')}</div>"
                 f"<span style='font-weight:700;font-size:16px;"
                 f"color:{TEXT_PRIMARY};line-height:1.3;'>{title}</span>"
                 f"</div>"
             )
             st.markdown(icon_html, unsafe_allow_html=True)
         st.markdown(body)
+
+
+# --- Modul-hero-header (Designsystem v1 §3) ---
+
+
+def module_header(
+    title: str,
+    *,
+    subtitle: str | None = None,
+    eyebrow: str | None = "For analytikere i bank",
+) -> None:
+    """Render modul-hero per Designsystem v1: eyebrow + display-H1 + undertittel.
+
+    Erstatter `st.title()` + `st.caption("Modul N · …")`-mønsteret. Plasseres
+    etter `crumb()` og før `st.divider()`.
+
+    - eyebrow: azur versaler med vid sperring (skru av med eyebrow=None)
+    - title: tung marine display-H1
+    - subtitle: azur undertittel (typisk modulens tidligere caption-tekst)
+
+    Arial-begrensning: spec'en bruker vekt 900 (Libre Franklin). Arial topper
+    på 700 (bold) - vi bruker 800 (degraderer til bold) + stor størrelse +
+    stram sperring for å tilnærme display-uttrykket. Font-bytte avventes.
+    """
+    blocks: list[str] = []
+    if eyebrow:
+        blocks.append(
+            f"<div style='font-size:13px;font-weight:700;letter-spacing:0.18em;"
+            f"text-transform:uppercase;color:{COLOR_FROST};"
+            f"margin:0 0 10px;'>{eyebrow}</div>"
+        )
+    blocks.append(
+        f"<div style='font-size:42px;font-weight:800;letter-spacing:-0.02em;"
+        f"color:{COLOR_VANN};line-height:1.04;margin:0;'>{title}</div>"
+    )
+    if subtitle:
+        blocks.append(
+            f"<div style='font-size:18px;color:{COLOR_FROST};"
+            f"line-height:1.5;margin:14px 0 0;'>{subtitle}</div>"
+        )
+    st.markdown(
+        f"<div style='margin:0 0 4px;'>{''.join(blocks)}</div>",
+        unsafe_allow_html=True,
+    )
+
+
+# --- Funksjonskort (Designsystem v1 §3) ---
+
+
+def _disc(icon: str, *, diameter: int, icon_size: int) -> str:
+    """Sirkulær marine disc med hvitt SVG-linjeikon (Designsystem v1)."""
+    return (
+        f"<div style='width:{diameter}px;height:{diameter}px;border-radius:50%;"
+        f"background:{COLOR_VANN};display:grid;place-items:center;flex:0 0 auto;"
+        f"box-shadow:0 1px 2px rgba(12,26,64,.12);line-height:0;'>"
+        f"{svg_icon(icon, size=icon_size, color='#FFFFFF')}</div>"
+    )
+
+
+def _dotlist_html(items: Sequence[str], *, color: str = COLOR_VANN, top_margin: int = 0) -> str:
+    """Returner `<ul>`-HTML med marine prikker (Designsystem v1 dotlist)."""
+    lis = "".join(
+        f"<li style='position:relative;padding-left:26px;font-size:16px;"
+        f"color:{TEXT_PRIMARY};margin:12px 0 0;line-height:1.5;'>"
+        f"<span style='position:absolute;left:6px;top:9px;width:7px;height:7px;"
+        f"border-radius:50%;background:{color};'></span>{it}</li>"
+        for it in items
+    )
+    return f"<ul style='list-style:none;margin:{top_margin}px 0 0;padding:0;'>{lis}</ul>"
+
+
+def dotlist(items: Sequence[str], *, color: str = COLOR_VANN) -> None:
+    """Render en prikkliste med marine prikker (Designsystem v1).
+
+    Frittstående variant av punktlisten i `feature_hero` - bruk der du vil ha
+    designsystemets prikker uten et helt funksjonskort rundt.
+    """
+    st.markdown(_dotlist_html(items, color=color), unsafe_allow_html=True)
+
+
+def feature_hero(
+    title: str,
+    items: Sequence[str],
+    *,
+    icon: str = "code",
+) -> None:
+    """Fersken hero-funksjonskort: marine disc + tittel + punktliste.
+
+    Designsystem v1: signaturflate (fersken) med azur venstrestrek, en 52px
+    disc med hvitt ikon, tittel (22px marine), og en prikkliste.
+    """
+    html = (
+        f"<div style='background:{COLOR_SAND};border-left:5px solid #1F6FC4;"
+        f"border-radius:11px;padding:30px 32px;'>"
+        f"<div style='display:flex;align-items:center;gap:16px;'>"
+        f"{_disc(icon, diameter=52, icon_size=24)}"
+        f"<div style='font-size:22px;font-weight:800;letter-spacing:-0.01em;"
+        f"color:{COLOR_VANN};'>{title}</div></div>"
+        f"{_dotlist_html(items, top_margin=18)}</div>"
+    )
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def feature_card(title: str, body: str, *, icon: str = "info") -> None:
+    """Hvitt funksjonskort: 40px marine disc + tittel + brødtekst.
+
+    Designsystem v1: hvit flate, azur venstrestrek, subtil skygge.
+    """
+    html = (
+        f"<div style='background:#FFFFFF;border:1px solid {BORDER};"
+        f"border-left:5px solid #1F6FC4;border-radius:11px;padding:22px 24px;"
+        f"box-shadow:0 1px 2px rgba(12,26,64,.05);'>"
+        f"<div style='display:flex;align-items:center;gap:14px;'>"
+        f"{_disc(icon, diameter=40, icon_size=19)}"
+        f"<div style='font-size:18px;font-weight:800;letter-spacing:-0.01em;"
+        f"color:{COLOR_VANN};'>{title}</div></div>"
+        f"<p style='margin:14px 0 0;font-size:14.5px;color:{TEXT_SECONDARY};"
+        f"line-height:1.6;'>{body}</p></div>"
+    )
+    st.markdown(html, unsafe_allow_html=True)
 
 
 # --- Metric-kort (DESIGN_GUIDE v2 §4) ---
@@ -226,6 +434,7 @@ def metric_card(label: str, value: str, sub: str | None = None) -> None:
             border-radius: 10px;
             padding: 18px 20px;
             min-height: 110px;
+            box-shadow: {SHADOW_1};
         }}
     """
     sub_html = (
@@ -276,9 +485,51 @@ def card(key: str | None = None, padding: str = "24px") -> Iterator[None]:
             border-radius: 10px;
             padding: {padding};
             margin: 8px 0;
+            box-shadow: {SHADOW_1};
         }}
     """
     with stylable_container(key=derived, css_styles=css):
+        yield
+
+
+@contextmanager
+def signature_card(
+    number: int | str | None = None,
+    *,
+    key: str | None = None,
+    padding: str = "24px 26px",
+) -> Iterator[None]:
+    """Varmt signaturkort: fersken-flate + azur venstrekant (Designsystem v1).
+
+    Som `card()`, men med designsystemets varme signaturflate (fersken) i
+    stedet for hvit - samme språk som `feature_hero`. Valgfritt nummer-badge
+    (marine disc) øverst, til ordnede sekvenser (epoker, faser, steg).
+    Innhold rendres som vanlig med `st.markdown` inni context-manageren, så
+    markdown (kursiv, lister) bevares - i motsetning til `feature_card` som
+    tar ferdig HTML-streng.
+    """
+    derived = key or f"sigcard_{abs(hash((str(number), padding))) % 100000}"
+    css = f"""
+        {{
+            background-color: {COLOR_SAND};
+            border-left: 5px solid {COLOR_FROST};
+            border-radius: 11px;
+            padding: {padding};
+            margin: 8px 0;
+            box-shadow: {SHADOW_1};
+        }}
+    """
+    with stylable_container(key=derived, css_styles=css):
+        if number is not None:
+            st.markdown(
+                f"<div style='width:36px;height:36px;border-radius:50%;"
+                f"background:{COLOR_VANN};color:#FFFFFF;display:grid;"
+                f"place-items:center;font-weight:800;font-size:16px;"
+                f"font-variant-numeric:tabular-nums;line-height:1;"
+                f"box-shadow:0 1px 2px rgba(12,26,64,.12);margin-bottom:6px;'>"
+                f"{number}</div>",
+                unsafe_allow_html=True,
+            )
         yield
 
 
@@ -296,8 +547,8 @@ def numbered_steps(
     Brukes til steg-for-steg-prosesser og sjekklister der rekkefølgen eller
     antallet er poenget. Hvert element er enten:
 
-    - `str` — kun en tittel-linje, eller
-    - `(tittel, beskrivelse)` — tittel i fet + dempet beskrivelse under.
+    - `str` - kun en tittel-linje, eller
+    - `(tittel, beskrivelse)` - tittel i fet + dempet beskrivelse under.
 
     Args:
         items: sekvens av strenger eller (tittel, body)-tupler.
@@ -368,12 +619,12 @@ def next_module_cta(
     Args:
         title: f.eks. "02 · Snowsight vs CLI"
         description: kort overgang/beskrivelse
-        href: URL — typisk `?page=m02_cortex_interaction` (relativ)
+        href: URL - typisk `?page=m02_cortex_interaction` (relativ)
         button_label: tekst på lenke
 
     Bruker Streamlits native `st.container(border=True)` for å sikre at
     boksen auto-sizer til innholdet (stylable_container med `:has()`-CSS
-    klarte ikke å vokse — multi-line description rant utenfor).
+    klarte ikke å vokse - multi-line description rant utenfor).
     Navigerer via vanlig `<a href>` (query-param-router i app.py).
     """
     with st.container(border=True):
@@ -408,7 +659,7 @@ def next_module_cta_for(modul_slug: str, *, button_label: str = "Fortsett →") 
     "agents_md", "gruppeoppgave_1"). For bakoverkompatibilitet aksepteres
     også gammel `"pages/<slug>.py"`-form fra første migrasjon.
 
-    Returnerer stille hvis sluggen ikke finnes — da skal du fikse kallet.
+    Returnerer stille hvis sluggen ikke finnes - da skal du fikse kallet.
     """
     # Lazy-import for å unngå at modules/shared/ui.py blir avhengig av data/.
     from data.moduler import MODULER, page_id  # noqa: PLC0415
@@ -419,7 +670,7 @@ def next_module_cta_for(modul_slug: str, *, button_label: str = "Fortsett →") 
 
     mod = next((m for m in MODULER if m["slug"] == modul_slug), None)
     if mod is None:
-        # Ikke en kursmodul — kan være en fast side (oppvarming_resultater,
+        # Ikke en kursmodul - kan være en fast side (oppvarming_resultater,
         # bli_kjent, admin, forside). Bygg en enkel lenke uten oppslag.
         special = {
             "oppvarming_resultater": ("Resultater · Bli kjent", "resultater"),
@@ -427,7 +678,7 @@ def next_module_cta_for(modul_slug: str, *, button_label: str = "Fortsett →") 
         }
         target = special.get(modul_slug)
         if target is None:
-            return  # ukjent slug — hopper over CTA (fiks kallet)
+            return  # ukjent slug - hopper over CTA (fiks kallet)
         title, href_slug = target
         next_module_cta(
             title=title,

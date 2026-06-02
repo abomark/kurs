@@ -16,7 +16,7 @@ drop table if exists kurs.oppvarming_responses cascade;
 
 create table kurs.oppvarming_responses (
   id            bigserial primary key,
-  question_id   smallint     not null check (question_id between 1 and 11),
+  question_id   smallint     not null check (question_id between 1 and 15),
   answer_value  smallint     not null check (answer_value between 1 and 5),
   created_at    timestamptz  not null default now()
 );

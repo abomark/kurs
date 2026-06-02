@@ -19,16 +19,20 @@ _CARD_CSS = """
     gap: 12px;
     padding: 14px 18px;
     margin-bottom: 8px;
-    background-color: #0F1729;
-    border: 1px solid rgba(126, 181, 210, 0.10);
+    background-color: #FFFFFF;
+    border: 1px solid #E3E8F1;
+    border-left: 4px solid #1F6FC4;
     border-radius: 10px;
     text-decoration: none;
-    color: #F4F6FB;
-    transition: background 0.12s ease, border-color 0.12s ease;
+    color: #16203A;
+    box-shadow: 0 1px 2px rgba(12,26,64,.05);
+    transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 .fs-card:hover {
-    background-color: #131C33;
-    border-color: rgba(126, 181, 210, 0.20);
+    background-color: #F7FAFE;
+    border-color: #CBDAEC;
+    border-left-color: #1F6FC4;
+    box-shadow: 0 6px 18px rgba(12,26,64,.08);
 }
 .fs-card-dot {
     width: 10px; height: 10px;
@@ -38,14 +42,14 @@ _CARD_CSS = """
 .fs-card-num {
     font-family: ui-monospace, 'JetBrains Mono', monospace;
     font-size: 12px;
-    color: #6B7691;
+    color: #6B7280;
     min-width: 22px;
 }
-.fs-card-title { font-size: 14px; font-weight: 500; }
+.fs-card-title { font-size: 14px; font-weight: 600; color: #16203A; }
 .fs-cat-label {
-    font-size: 10px; font-weight: 600;
+    font-size: 10px; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
-    color: #6B7691;
+    color: #6B7280;
     margin: 24px 0 8px;
 }
 </style>

@@ -1,4 +1,4 @@
-<!-- UTKAST – Andre verifiserer -->
+<!-- UTKAST - Andre verifiserer -->
 **Mål:** vise mønsteret *forstå skill-en før du bruker den* → *anvend den på et
 levende objekt*. Tre segmenter:
 

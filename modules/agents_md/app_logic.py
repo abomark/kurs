@@ -1,4 +1,4 @@
-"""AGENTS.md – modul 10.
+"""AGENTS.md - modul 10.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul), §FR-3.12 (innhold i
 markdown-filer) og §FR-3.15 (designsystem-helpers fra DESIGN_GUIDE v2).
@@ -13,13 +13,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, card, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, card, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
     crumb(["Kursmoduler", "12 · AGENTS.md"])
-    st.title("AGENTS.md")
-    st.caption("Modul 12 · Hva er AGENTS.md, og hvorfor trenger vi det?")
+    module_header("AGENTS.md", subtitle="Hva er AGENTS.md, og hvorfor trenger vi det?")
     st.divider()
 
     # --- Seksjon 1: Hva er det? ---
@@ -55,7 +54,7 @@ def main() -> None:
 
     # --- Seksjon 6: Overgang til Gruppeoppgave 1 ---
     # Pedagogisk valg: AGENTS.md → praktisk workshop (skipper skills.md i sekvensen).
-    # CTA-kortet henter beskrivelsen fra MODULES i home.py — Andres tekst.
+    # CTA-kortet henter beskrivelsen fra MODULES i home.py - Andres tekst.
     next_module_cta_for("pages/gruppeoppgave_1.py")
 
     st.caption("Les mer: [agents.md](https://agents.md/)")

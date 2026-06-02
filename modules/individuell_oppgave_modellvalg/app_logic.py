@@ -1,24 +1,27 @@
-"""Individuell oppgave: Modellvalg – modul 14.
+"""Individuell oppgave: Modellvalg - modul 16.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Hands-on i Modellvalg-seksjonen: deltaker
-øver på å velge riktig modell for en gitt oppgave i Cortex Code.
+kjører samme prompt to ganger - en gang med Sonnet, en gang med Opus - og
+sammenligner hvordan modellene løser to SQL-oppgaver av ulik vanskegrad.
 
 Eksponerer `main()` som kalles fra
-`pages_content/modules/m11_individuell_oppgave_modellvalg.py`.
+`pages_content/modules/m16_individuell_oppgave_modellvalg.py`.
 """
 
 from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
     crumb(["Kursmoduler", "16 · Individuell oppgave: Modellvalg"])
-    st.title("Individuell oppgave: Modellvalg")
-    st.caption("Modul 16 · Hands-on: velg riktig modell for oppgaven din.")
+    module_header(
+        "Individuell oppgave: Modellvalg",
+        subtitle="Hands-on: kjør samme oppgave med Sonnet og Opus, og sammenlign.",
+    )
     st.divider()
 
     callout(
@@ -30,12 +33,22 @@ def main() -> None:
 
     st.divider()
 
-    st.subheader("Steg")
+    st.subheader("Slik gjør du")
     st.markdown(load_markdown(__file__, "steg"))
 
     st.divider()
 
-    st.subheader("Forventet resultat")
+    st.subheader("Oppgave 1: Topp 10 % kunder per segment")
+    st.markdown(load_markdown(__file__, "oppgave_1"))
+
+    st.divider()
+
+    st.subheader("Oppgave 2: Kundefrafall per segment")
+    st.markdown(load_markdown(__file__, "oppgave_2"))
+
+    st.divider()
+
+    st.subheader("Hva du skal sammenligne")
     st.markdown(load_markdown(__file__, "forventet"))
 
     st.divider()

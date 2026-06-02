@@ -3,7 +3,7 @@
 Kontekstbevissthet er agentens evne til å vite **hva brukeren ser og gjør
 akkurat nå** i Snowsight-grensesnittet.
 
-**Tre mekanismer:**
+**To mekanismer:**
 
 **1. Sidekontekst (`get_page_context`)**
 - Hvilken side brukeren er på (Notebook, Worksheet, Dashboard, osv.)
@@ -14,18 +14,14 @@ akkurat nå** i Snowsight-grensesnittet.
 - Feilmeldinger fra kjøring
 - Kolonnedefinisjoner og data
 
-**3. Brukermarkering (highlighted text)**
-- Tekst brukeren har markert/valgt
-- Vises som kontekst i samtalen
-
 **Hvorfor det er viktig:**
 
-Uten dette ville agenten vært "blind" — den måtte spørre brukeren om alt.
+Uten dette ville agenten vært "blind" - den måtte spørre brukeren om alt.
 Med kontekstbevissthet kan den:
 
 - Se en feilmelding og foreslå en fiks direkte
 - Forstå hvilken notebook du jobber i
 - Vite hvilke resultater du ser på
 
-Det er agentens **"syn" inn i brukergrensesnittet** — den ser det du ser,
+Det er agentens **"syn" inn i brukergrensesnittet** - den ser det du ser,
 og kan svare deretter.

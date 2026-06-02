@@ -1,0 +1,3 @@
+- De beste resultatene kommer ikke fra prompting alene, de kommer fra prompts pluss data.
+- Derfor er det ikke best å bruke et eksternt verktøy eller en ekstern agent.
+- Fordelene kommer fra konteksten i miljøet og fra dataene rundt deg.

@@ -8,4 +8,4 @@
 4. Kjører spørringen, **validerer at resultatet ser fornuftig ut**
 5. Returnerer både koden og resultatet, klar for review
 
-_Poenget: du sa hva du ville ha — agenten bestemte selv stegene som skulle til._
+_Poenget: du sa hva du ville ha - agenten bestemte selv stegene som skulle til._

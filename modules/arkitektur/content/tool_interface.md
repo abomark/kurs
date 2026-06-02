@@ -1,7 +1,7 @@
 **Hva er Tool Interface?**
 
 Tool Interface er mekanismen som lar språkmodellen utføre **handlinger i den
-virkelige verden** — i stedet for bare å generere tekst.
+virkelige verden** - i stedet for bare å generere tekst.
 
 Konkret:
 

@@ -7,7 +7,7 @@ fremdrift** på komplekse oppgaver.
 
 - Verktøyet `system_todo_write` lar agenten opprette en TODO-liste
 - Hver oppgave har en status: `pending` → `in_progress` → `completed`
-- Kun én oppgave skal være `in_progress` om gangen
+- Kun en oppgave skal være `in_progress` om gangen
 
 **Når det brukes:**
 
@@ -15,7 +15,7 @@ fremdrift** på komplekse oppgaver.
 - Brukeren gir flere ting å gjøre
 - Komplekse oppgaver som krever planlegging
 
-**Eksempel** — bruker sier: _"Bygg en dbt-modell, test den, og deploy den"_
+**Eksempel** - bruker sier: _"Bygg en dbt-modell, test den, og deploy den"_ (dbt = et verktøy for å bygge, teste og dokumentere datamodeller i SQL)
 
 Agenten lager:
 

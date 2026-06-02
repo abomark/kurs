@@ -7,7 +7,7 @@ navigasjon mellom sider.
 Modulene grupperes visuelt i seksjoner (Innføring, Konfigurasjon,
 Gruppearbeid, Dybde, Avslutning) per `data.moduler.SECTIONS`. Den aktive
 seksjonen får Vann-stripe og "DU ER HER"-badge. Modulnummereringen er
-fortsatt sekvensiell 01–22.
+fortsatt sekvensiell (01 og oppover, styrt av `MODULER`-rekkefølgen).
 
 Se DESIGN_GUIDE.md §11 for spec.
 """
@@ -28,22 +28,32 @@ from data.moduler import (
 SIDEBAR_CSS = """
 <style>
 :root {
-    --kat-i: #7EB5D2;
-    --kat-k: #B197FC;
-    --kat-p: #66D9A8;
-    --kat-g: #FFAD80;
-    --kat-f: #94A3B8;
+    --kat-i: #1F6FC4;
+    --kat-k: #6B5BD2;
+    --kat-p: #1E9E6A;
+    --kat-g: #E08A3C;
+    --kat-f: #8A93A6;
 }
 
 /* Skjul Streamlit sin default sidebar-navigasjon. */
 [data-testid="stSidebarNav"] { display: none; }
+
+/* Fast bredde + skillelinje mot innholdet (Designsystem v1: 280px, hvit). */
+section[data-testid="stSidebar"] {
+    width: 280px !important;
+    min-width: 280px !important;
+    border-right: 1px solid #E3E8F1;
+}
+section[data-testid="stSidebar"] > div {
+    width: 280px !important;
+}
 
 section[data-testid="stSidebar"] > div:first-child {
     padding-top: 1rem;
 }
 
 /* Streamlit's stVerticalBlock i sidebaren har default `gap: 1rem`
-   mellom hvert element. Vi vil ha tight pakking — overrid til 0. */
+   mellom hvert element. Vi vil ha tight pakking - overrid til 0. */
 section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
     gap: 0 !important;
 }
@@ -66,28 +76,28 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
     align-items: center;
     gap: 10px;
     padding: 0 16px 14px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid #E3E8F1;
     margin-bottom: 6px;
 }
 .sb-brand-mark {
     width: 28px; height: 28px;
     border-radius: 6px;
-    background: #005AA4;
+    background: #0A2C72;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 600; color: white;
+    font-size: 11px; font-weight: 700; color: white;
 }
-.sb-brand-text { font-size: 13px; font-weight: 600; color: #F4F6FB; line-height: 1.2; }
+.sb-brand-text { font-size: 13px; font-weight: 700; color: #0A2C72; line-height: 1.2; }
 .sb-brand-text small {
     display: block;
     font-size: 10px; font-weight: 400;
-    color: #6B7691; margin-top: 2px;
+    color: #6B7280; margin-top: 2px;
 }
 
 /* "Oversikt"-header over de faste sidene før Kursmoduler. */
 .sb-section {
-    font-size: 10px; font-weight: 600;
+    font-size: 10px; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
-    color: #6B7691;
+    color: #6B7280;
     padding: 12px 16px 4px;
 }
 
@@ -105,31 +115,30 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
     gap: 10px;
     padding: 6px 16px;
     font-size: 13px;
-    color: #F4F6FB;
+    color: #3B4256;
     border-left: 3px solid transparent;
     cursor: pointer;
     transition: background 0.12s ease;
 }
 .sb-item:hover {
-    background: rgba(0, 90, 164, 0.10);
-    color: #F4F6FB;
+    background: #F2F5FA;
+    color: #16203A;
 }
-/* Aktiv modul: mykere fyll uten venstrekant — seksjons-stripa skal være
-   "den med kantlinjen", så modulen får bare bakgrunn. */
+/* Aktiv modul: azur tint-fyll + azur aksent-strek. */
 .sb-item.active {
-    background: rgba(0, 90, 164, 0.30);
+    background: #EAF1FB;
     border-radius: 3px;
-    font-weight: 600;
-    /* Ingen border-left her; padding holdes stabil for å unngå layout-skift. */
+    font-weight: 700;
+    color: #0A2C72;
 }
 
 .sb-num {
     font-family: ui-monospace, 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: #6B7691;
+    color: #6B7280;
     min-width: 18px;
 }
-.sb-item.active .sb-num { color: #7EB5D2; }
+.sb-item.active .sb-num { color: #1F6FC4; }
 
 .sb-dot {
     width: 7px; height: 7px;
@@ -139,19 +148,19 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
 
 .sb-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.06);
+    background: #E3E8F1;
     margin: 8px 16px;
 }
 
 /* === Kursseksjoner (Innføring, Konfigurasjon, ...) === */
 
 .kurs-section {
-    border-left: 2px solid rgba(255, 255, 255, 0.06);
+    border-left: 2px solid #E3E8F1;
     padding-left: 10px;
     margin: 0 4px 14px 6px;
 }
 .kurs-section.active {
-    border-left: 3px solid #005AA4;   /* Vann */
+    border-left: 3px solid #1F6FC4;   /* Azur strek */
     padding-left: 9px;                 /* kompenser for tykkere border */
 }
 .kurs-section-head {
@@ -164,16 +173,16 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
 .kurs-section-title {
     font: 700 11px/1 Arial, sans-serif;
     letter-spacing: 0.08em;
-    color: #888780;
+    color: #6B7280;
     text-transform: uppercase;
 }
 .kurs-section.active .kurs-section-title {
-    color: #7EB5D2;                    /* Frost */
+    color: #0A2C72;                    /* Marine */
 }
 .kurs-badge {
     font: 700 9px/1 Arial, sans-serif;
     letter-spacing: 0.05em;
-    background: #005AA4;
+    background: #0A2C72;
     color: #fff;
     padding: 3px 6px;
     border-radius: 3px;
@@ -208,9 +217,9 @@ def render_sidebar(active_slug: str | None = None) -> None:
         _render_link("Bli kjent", "bli_kjent", active_slug)
         _render_link("Resultater", "resultater", active_slug)
 
-        # Kursmoduler — gruppert i seksjoner
+        # Kursmoduler - gruppert i seksjoner
         st.markdown('<div class="sb-section">Kursmoduler</div>', unsafe_allow_html=True)
-        # Slå opp moduler ved page_id én gang så vi unngår O(n²)-loop.
+        # Slå opp moduler ved page_id en gang så vi unngår O(n²)-loop.
         moduler_by_page_id = {page_id(m): m for m in MODULER}
         for seksjon in SECTIONS:
             _render_seksjon(seksjon, moduler_by_page_id, active_slug)
@@ -228,7 +237,7 @@ def _render_link(
 ) -> None:
     is_active = (slug == active_slug)
     klass = "sb-item active" if is_active else "sb-item"
-    style = ' style="color: #6B7691;"' if dimmed and not is_active else ""
+    style = ' style="color: #9AA1AD;"' if dimmed and not is_active else ""
     href = f"?page={slug}"
     st.markdown(
         f'<a class="{klass}" href="{href}" target="_self"{style}>{tittel}</a>',
@@ -241,9 +250,9 @@ def _render_seksjon(
     moduler_by_page_id: dict[str, dict],
     active_slug: str | None,
 ) -> None:
-    """Render én seksjons-container (header + alle moduler) som én HTML-blob.
+    """Render en seksjons-container (header + alle moduler) som en HTML-blob.
 
-    Vi MÅ bygge alt som én markdown-streng — Streamlit pakker hver
+    Vi MÅ bygge alt som en markdown-streng - Streamlit pakker hver
     `st.markdown`-kall i sin egen `stMarkdownContainer`, så et "åpent" div
     fra en kall vil auto-lukkes der og ikke wrappe påfølgende elementer.
     Konsekvens: `.kurs-section`-stripen vil ikke spenne over modulene
@@ -259,7 +268,7 @@ def _render_seksjon(
     for slug in seksjon["modules"]:
         modul = moduler_by_page_id.get(slug)
         if modul is None:
-            # Defensiv — page_id i SECTIONS som ikke matcher MODULER betyr
+            # Defensiv - page_id i SECTIONS som ikke matcher MODULER betyr
             # at noen har endret slug eller nr uten å oppdatere SECTIONS.
             continue
         modul_links.append(_modul_html(modul, active_slug))
@@ -277,7 +286,7 @@ def _render_seksjon(
 
 
 def _modul_html(modul: dict, active_slug: str | None) -> str:
-    """Returner HTML for én modul-lenke (uten å rendre den)."""
+    """Returner HTML for en modul-lenke (uten å rendre den)."""
     slug = page_id(modul)
     is_active = (slug == active_slug)
     klass = "sb-item active" if is_active else "sb-item"

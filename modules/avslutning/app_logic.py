@@ -1,4 +1,4 @@
-"""Avslutning – modul 28 (Hva nå?).
+"""Avslutning - modul 28 (Hva nå?).
 
 Implementerer PRD §FR-3.11 og §FR-3.12. Siste modul i kursrekken:
 oppsummering av kjernepunkter, konkrete neste steg, og evt. en kobling
@@ -11,13 +11,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import crumb, load_markdown
+from modules.shared.ui import crumb, load_markdown, module_header
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "32 · Avslutning"])
-    st.title("Avslutning")
-    st.caption("Modul 32 · Hva nå? — oppsummering og veien videre.")
+    crumb(["Kursmoduler", "30 · Avslutning"])
+    module_header("Avslutning", subtitle="Hva nå? - oppsummering og veien videre.")
     st.divider()
 
     st.subheader("Oppsummering")
@@ -30,5 +29,5 @@ def main() -> None:
 
     st.divider()
 
-    st.subheader("Holdning — har den flyttet seg?")
+    st.subheader("Holdning - har den flyttet seg?")
     st.markdown(load_markdown(__file__, "holdning_revisit"))

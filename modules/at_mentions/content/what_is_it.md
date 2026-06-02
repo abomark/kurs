@@ -1,5 +1,5 @@
 `@`-tegnet er et **eksplisitt signal** til Snowsight-UI-en om at det du
-skriver, er en katalog-referanse — ikke bare tekst.
+skriver, er en katalog-referanse - ikke bare tekst.
 
 Når du skriver `@` får du:
 

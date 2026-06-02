@@ -1,6 +1,6 @@
 <!-- Når bør du bruke Plan Mode. Splittes på "## " → to kort. -->
 
-## ✓ Bruk den til
+## Bruk den til
 - Flerstegs-oppgaver
 - Høyere risiko-operasjoner
 - Å opprette eller oppdatere kjernetabeller

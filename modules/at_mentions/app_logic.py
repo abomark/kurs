@@ -1,4 +1,4 @@
-"""@-mentions – modul 5.
+"""@-mentions - modul 5.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Konseptuell innføring i hvordan
@@ -14,13 +14,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, card, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, card, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
     crumb(["Kursmoduler", "08 · @-mentions"])
-    st.title("@-mentions")
-    st.caption("Modul 8 · Hvordan @-tegnet endrer hva agenten faktisk ser.")
+    module_header("@-mentions", subtitle="Hvordan @-tegnet endrer hva agenten faktisk ser.")
     st.divider()
 
     # --- Seksjon 1: Hva er @-mentions? ---

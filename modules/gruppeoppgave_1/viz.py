@@ -65,7 +65,7 @@ def render_wordcloud(tokens: list[str], title: str, max_words: int = 10) -> None
         # Både st.pyplot og st.image(width="stretch") kollapset bildet til en
         # miniklump inne i kortet (stylable_container) og krevde fullskjerm-
         # klikk for å vises. Vi embedder derfor 1600×900-PNG-en direkte som en
-        # <img> med width:100% — fyller bredden uten fullskjerm-avhengighet.
+        # <img> med width:100% - fyller bredden uten fullskjerm-avhengighet.
         buf = BytesIO()
         wc.to_image().save(buf, format="PNG")
         b64 = base64.b64encode(buf.getvalue()).decode("ascii")

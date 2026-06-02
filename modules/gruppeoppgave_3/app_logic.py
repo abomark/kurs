@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
 
 from .config import QUESTIONS
 from .db import insert_choice_response, insert_text_response
@@ -25,7 +25,7 @@ def _participant_gate() -> bool:
     if st.session_state.get("participant_ok"):
         return True
 
-    st.title("Gruppeoppgave 3 — memory.md")
+    st.title("Gruppeoppgave 3 - memory.md")
     st.write("Skriv inn deltakerkoden du fikk ved kursstart.")
     code = st.text_input("Deltakerkode", type="password")
     if st.button("Fortsett", type="primary"):
@@ -33,7 +33,7 @@ def _participant_gate() -> bool:
             st.session_state.participant_ok = True
             st.rerun()
         else:
-            callout("Feil kode.", kind="warning", key="g3_gate_error")
+            callout("Feil kode.", kind="warn", key="g3_gate_error")
     return False
 
 
@@ -65,13 +65,13 @@ def _render_question(qid: int, qcfg: dict) -> None:
                         except Exception as exc:  # noqa: BLE001
                             callout(
                                 f"Kunne ikke lagre svar: {exc}",
-                                kind="warning",
+                                kind="warn",
                                 key=f"g3_err_{qid}_{sent_count}",
                             )
                     else:
                         callout(
                             "Skriv noe før du sender inn.",
-                            kind="warning",
+                            kind="warn",
                             key=f"g3_text_empty_{qid}",
                         )
 
@@ -93,13 +93,13 @@ def _render_question(qid: int, qcfg: dict) -> None:
                         except Exception as exc:  # noqa: BLE001
                             callout(
                                 f"Kunne ikke lagre svar: {exc}",
-                                kind="warning",
+                                kind="warn",
                                 key=f"g3_err_{qid}_{sent_count}",
                             )
                     else:
                         callout(
                             "Velg ett alternativ før du sender inn.",
-                            kind="warning",
+                            kind="warn",
                             key=f"g3_choice_empty_{qid}",
                         )
 
@@ -109,9 +109,9 @@ def main() -> None:
         return
 
     crumb(["Kursmoduler", "22 · Gruppeoppgave 3"])
-    st.title("Gruppeoppgave 3 — memory.md")
+    module_header("Gruppeoppgave 3 - memory.md")
     st.caption(
-        "Gå sammen to og to. Diskuter åpent — svarene er anonyme. "
+        "Gå sammen to og to. Diskuter åpent - svarene er anonyme. "
         "Ikke skriv navn, bedriftshemmeligheter eller PII."
     )
 

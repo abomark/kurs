@@ -1,4 +1,4 @@
-Beskrivelsen over er korrekt for det **observerbare agent-laget** — det
+Beskrivelsen over er korrekt for det **observerbare agent-laget** - det
 agenten selv kan se av egne instruksjoner og verktøy.
 
 **Det dekker ikke:**

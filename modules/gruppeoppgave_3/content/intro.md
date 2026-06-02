@@ -1,5 +1,4 @@
-Dere går sammen **to og to**. Diskuter åpent — det er ingen fasit, men
-noen svar er bedre enn andre.
+Gå sammen **to og to** og diskuter åpent.
 
 Hver av dere kan sende inn så mange svar dere vil. Svarene er **anonyme**;
-ikke skriv navn, bedriftshemmeligheter eller PII.
+ikke skriv navn eller bedriftshemmeligheter.

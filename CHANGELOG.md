@@ -6,6 +6,312 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-06-02 - «Under panseret» til Introduksjon, slettet «Cortex Code i Snowsight», full renummerering 1..31
+
+- **«Arkitekturoversikt» flyttet** fra «Komme i gang» til **«Introduksjon»**, nå **nr 4** (etter «Snowsight vs CLI»).
+- **Fanen omdøpt** «Arkitekturoversikt» → **«Under panseret»** (kun visningsnavn - MODULER-tittel, `module_header`, crumb; slug `arkitektur` uendret). Innholdet er agentens indre (fem lag + «spør agenten om seg selv»-demoen), så navnet er mer inviterende.
+- **«Cortex Code i Snowsight» (`cortex_in_snowsight`) slettet** - var en tom placeholder. Modul-mappe, wrapper, MODULER- og SECTIONS-oppføring fjernet. `cortex_interaction`-CTA peker nå til `arkitektur` (var → cortex_in_snowsight).
+- **Full sekvensiell renummerering til 1..31** (lukket også pre-eksisterende hull 27/29/31/33 i halen): 28 wrapper-filer renamet + crumb-nr oppdatert i hver berørte modul. CTA-kjeden er slug-basert og tålte renummereringen.
+- **Komme i gang** er nå: Første demo (05), Individuell oppgave 1 (06), Kostnader (07).
+- Verifisert: py_compile, konsistens (1..31 uten hull, alle wrappers finnes, hver modul i én seksjon), 0 `cortex_in_snowsight`-referanser, AppTest på berørte sider = 0 feil.
+
+---
+
+## 2026-06-02 - Evolusjon (modul 1): xkcd-tegneserie under epoke-kortene + analytiker-ramme + titler «I dag»/«Fremover»
+
+- Lagt inn tegneserien «Vibe coding vs Agentic SDLC» under epoke-kortene, i stedet for den gamle «Bilde fra Snowflake settes inn her»-placeholderen (som er fjernet) - bildet passer bedre rett under før/i dag/fremover. Bildefil: `modules/evolusjon/content/vibe_vs_agentic_sdlc.png` (Andre la den inn).
+- Ny helper `_image_or_placeholder` i `modules/evolusjon/app_logic.py` (speiler den i `cortex_interaction`): `st.image(..., width="stretch")` hvis fila finnes, ellers stiplet placeholder.
+- **Analytiker-ramme:** ny `content/bilde_ramme.md` (UTKAST) vist som `st.caption` under bildet. Oversetter kontrasten (vibe vs rammer/kontroll + rolleskifte) til analytiker-/bank-språk og demper tech-bro-hypen - bildet er tungt SE-/hype-rammet, jf. CLAUDE.md «unngå tech-bro». Kobler guardrails til regulert data-hverdag.
+- Epoke-titler endret: «Nå» -> «I dag», «Snart» -> «Fremover» (`epoke_2_naa.md` / `epoke_3_snart.md`).
+- Ingen ny FR/NFR (content/layout i §FR-3.11/§FR-3.12). Ingen emoji/em-dash/`é`. Verifisert: py_compile + AppTest (m01): 1 bilde + bildetekst rendres, 0 feil.
+
+---
+
+## 2026-06-02 - Bli kjent: 4 nye påstander (11 -> 15)
+
+- **Nye Q12-15** i "Bli kjent" (oppvarming) om agent-konfigurasjon: verktøy agenten har tilgjengelig, skills, hvordan lage personlige skills, og system prompt. Lagt til i `STATEMENTS` i `modules/oppvarming/config.py`.
+- **Database:** CHECK-constraint i `modules/oppvarming/supabase_schema.sql` utvidet til `question_id between 1 and 15`. Må re-kjøres manuelt i Supabase SQL Editor (drop+recreate, nullstiller eksisterende svar - greit pre-kurs).
+- Ingen Python-logikk endret (app_logic/db/views/resultater er generiske og looper over `STATEMENTS`). PRD §FR-3.14 oppdatert til 15 påstander (rettet samtidig en eksisterende 10/11-drift) + §8 v0.48. Verifisert: py_compile + struktur (15 nøkler 1-15) + smoke-import.
+
+---
+
+## 2026-06-02 - Cortex Code (modul 2): tre oversiktsseksjoner lagt til
+
+Tre nye seksjoner øverst på siden (eier-innhold, additivt over den eksisterende «decode sitatet»-delen):
+
+- **Hva er Cortex Code?** - AI-kodeagent, integrert i Snowflake, forstår roller/schemaer/beste praksis, aktivt workspace som kontekst (oversatt fra eierens engelske kladd til norsk).
+- **Hvorfor bruke Cortex Code?** - resultater = prompts pluss data; fordelen kommer fra kontekst i miljø og data, derfor ikke et eksternt verktøy.
+- **Hvordan kan vi bruke det?** - Streamlit-dashbord, SQL-spørringer, maskinlæring (utenfor scope), notebook-analyse.
+
+Tre nye `content/`-filer (`hva_er`/`hvorfor`/`hvordan`) + tre `st.subheader`-seksjoner i `app_logic.py`. Eksisterende innhold (sitat, lytteklipp, begrep-expandere, oppsummering, eksempel) urørt. PRD §8 v0.50. Verifisert: AppTest (m02), 0 feil.
+
+---
+
+## 2026-06-02 - Snowsight vs CLI (modul 3): skjermbilder lagt inn
+
+De to skjermbildene la inn i `modules/cortex_interaction/content/`: `snowsight.png` (Snowsight web-UI med Cortex Code-panel) og `cli.png` (Cortex Code v1.0.35 i terminal). `_image_or_placeholder`-helperen (fra v0.46) viser dem nå automatisk via `st.image`, så de stiplete placeholderne er borte. Ingen kodeendring. PRD §8 v0.49. Verifisert: AppTest (m03) viser 2 bilder, 0 feil.
+
+---
+
+## 2026-06-02 - Cortex Code (modul 2): ryddet layout
+
+Tre justeringer etter eier-tilbakemelding (kun `modules/cortex_code/app_logic.py`, content urørt):
+
+- Fjernet caption «La oss pakke ut hva som faktisk står her.» under dokumentasjons-callouten.
+- Fjernet «Vis alle forklaringer»-toggle. Begrep-expanderne er nå alltid kollapset (`expanded=False`); brukeren klikker frem ett og ett.
+- Flyttet «Lytteklipp: Snowflake RBAC» opp til rett under dokumentasjons-callouten (over «Begrep for begrep»).
+
+PRD §8 v0.48. Verifisert: py_compile + AppTest (m02), 0 feil.
+
+---
+
+## 2026-06-01 - Oppgave-opprydding: slettet 4 oppgaver, konkurrent -> gruppeoppgave
+
+- **Slettet** tre individuelle oppgaver (`individuell_oppgave_3`/`_4`/`_5`) og `individuell_oppgave_kurs_kunde` (dupliserte lineage-temaet som dekkes tidligere): mapper under `modules/` + wrappere `m27/m29/m31/m33_*` fjernet.
+- **Konkurrent -> gruppeoppgave:** `individuell_oppgave_konkurrent` (nr 34) endret fra `kategori` P til G og tittel «Individuell oppgave: Konkurrent-signaler» -> «Gruppeoppgave: Konkurrent-signaler» (oransje «Gruppe»-prikk i sidebar). Slug/mappe/wrapper uendret; gruppe-innramming i content skriver Andre selv.
+- **Ingen renummerering:** nr 27/29/31/33 står som hull (trygt - `find_by_page_id` matcher eksakt nr). 3 CTA-er rekoblet forbi de slettede (`individuell_oppgave_2`->`demo_2`, `autonomous_loop`->`individuell_oppgave_kohort`, `individuell_oppgave_kohort`->`individuell_oppgave_konkurrent`). SECTIONS trimmet.
+- Oppdatert `data/moduler.py`, README, CONTENT_REVIEW, `scripts/lag_kursoversikt_xlsx.py`, PRD §8 (v0.47). Ingen ny/slettet FR/NFR. Kurset har nå 32 moduler. Verifisert: py_compile + wrapper-integritet (32 wrappere, 0 orphans), 0 døde referanser.
+
+---
+
+## 2026-06-01 - Snowsight vs CLI (modul 3): bilder + doc-lenke, fjernet fordeler/ulemper/når
+
+Etter eier-tilbakemelding (informasjonen var ikke korrekt):
+
+- **Fjernet** fordeler/ulemper/«når passer den best» for begge flater + «velg»-takeaway. Slettet content-filene `snowsight_card.md`, `cli_card.md`, `closing.md`.
+- **Bilder i stedet for tekst:** to kolonner viser nå skjermbilde av Snowsight og CLI via `st.image` (ny `_image_or_placeholder`-helper, samme mønster som Evolusjon). Bildefilene legges i `modules/cortex_interaction/content/` som `snowsight.png` og `cli.png`; inntil de finnes vises en stiplet placeholder-boks.
+- **Doc-lenke:** ny `content/cli_docs.md` lenker til offisiell Snowflake-dokumentasjon (`https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code-cli`).
+- `intro.md` beholdt. Ingen ny FR/NFR (content/layout i eksisterende §FR-3.11/§FR-3.12-modul). Ingen emoji/em-dash/`é`. Verifisert: py_compile + AppTest (m03), 0 feil; doc-lenke vises, fordeler/ulemper borte, placeholder vises.
+
+---
+
+## 2026-06-01 - Evolusjon reframet: Før / Nå / Snart + Snowflake-bilde + ny refleksjon
+
+Evolusjon (modul 1) oppdatert med Andres innhold.
+
+- **Undertittel:** «Tre epoker i hvordan vi skriver kode» -> «... kode og gjør analyser».
+- **Epoke-kort:** «Era 1/2/3» -> **Før / Nå / Snart** med ny brødtekst. Content-filer omdøpt: `era_1_googling`->`epoke_1_for`, `era_2_assistanse`->`epoke_2_naa`, `era_3_spesifikasjon`->`epoke_3_snart` (ERA_FILES oppdatert).
+- **Snowflake-bilde:** lagt til etter kortene som en merket placeholder-boks (dashed border). Andre bytter den ut med `st.image(...)` når bildefila er på plass.
+- **Refleksjon:** ny callout «Tenk igjennom: Hva krever dette av løsninger rundt oss?» (`content/losninger_rundt_oss.md`) erstatter «Hvor er du i dag?». Rolle-spørsmålet beholdt. `hvor_er_du.md` nå ubrukt (beholdt).
+- Ingen emoji/em-dash/en-dash/`é`. PRD §8 v0.45. Verifisert: py_compile + AppTest (m01), 0 feil.
+
+---
+
+## 2026-05-31 - «Kostnader» flyttet til «Komme i gang» + redusert til PowerPoint-peker
+
+«Kostnader» er flyttet fra slutten av kurset (gammel nr 34) til seksjonen «Komme i gang», rett etter Individuell oppgave 1, og innholdet er redusert til en ren peker. Siden sier nå kun «Gjennomgang i PowerPoint» (resten tas i plenum).
+
+- **Full renummerering:** kostnader ble nr 08; modulene som var 08-33 ble skjøvet +1 (til 09-34); Avslutning/Test beholdt 35/36.
+- **Filer:** 27 wrapper-filer i `pages_content/modules/` flyttet (mNN_*), 26 crumb-numre i `modules/*/app_logic.py` justert, `data/moduler.py` (MODULER-nr + SECTIONS: `m08_kostnader` inn i `komme_i_gang`, ut av `avslutning`).
+- **CTA-er rekoblet:** `individuell_oppgave_1` -> `kostnader`, `kostnader` -> `at_mentions`, `individuell_oppgave_konkurrent` -> `avslutning` (slug-baserte, så nummer i CTA-kortet auto-utledes).
+- **`kostnader/app_logic.py`** strippet til crumb + header + info-callout «Gjennomgang i PowerPoint» + CTA. `kostnader/content/*.md` er nå ubrukt (beholdt, ikke slettet).
+- **`scripts/lag_kursoversikt_xlsx.py`** reordnet/renummerert tilsvarende.
+- **URL-er:** `?page=mNN_...` for de skjøvne modulene endret. Ingen DB-tabeller berørt.
+- PRD §8 v0.44. Verifisert: py_compile + AppTest alle 36 sider, crumb-nr == MODULER-nr, 0 feil.
+
+---
+
+## 2026-05-31 - Ny designregel: ingen «é»-bokstav
+
+Ny typografiregel (eier-beslutning), parallell til §1.7 (emoji) og §1.8 (em-/en-dash): bokstaven `é` (U+00E9) og `É` (U+00C9) skal aldri brukes - bruk alltid vanlig `e`/`E`. Vanligste tilfellet er ordet for tallet 1, som skrives «en» uten aksent.
+
+- Lagt til som **DESIGN_GUIDE §1.10** + bullet i CLAUDE.md «Kort sammendrag».
+- Authority-filenes egne forekomster ryddet samtidig: DESIGN_GUIDE (5, bl.a. «én tydelig idé» i §1.9) og CLAUDE.md (6, bl.a. «renummerér», «generér»).
+- **Retroaktiv sweep utført (eier-godkjent):** alle forekomster i app-/innholds-/kodefiler ryddet (`é`→`e`, `É`→`E`) via `perl -CSD` over working-tree `.py`/`.md`. Alt var prosa/docstrings/kommentarer/visningstekst - ingen load-bearing dataliteraler. Working tree er nå `é`-fri bortsett fra de fire doc-filene: DESIGN_GUIDE.md/CLAUDE.md (kun selve regel-definisjonens `é`/`É`-tegn i backticks) og historiske CHANGELOG.md/PRD.md-entries (append-only records, holdt utenfor). `theme-light/` (untracked) urørt. Verifisert: 142 `.py` py_compile OK, AppTest på m25/m22/m05 rendrer uten feil.
+
+Fylte modul 16 fra placeholder til en hands-on der deltakeren kjører samme prompt to ganger - én gang med Sonnet, én gang med Opus - og sammenligner. To oppgaver av ulik vanskegrad (drafted på eksplisitt forespørsel fra Andre; innholds-unntaket i CLAUDE.md).
+
+**Endringer:**
+- `app_logic.py`: utvidet fra én oppgave til to oppgave-seksjoner + "Slik gjør du" + "Hva du skal sammenligne". Docstring rettet (modul 14 -> 16, wrapper-sti m11 -> m16).
+- `content/`: `oppgave.md` (ramme), `steg.md` (5 steg: velg modell, @-mention tabeller, lagre, bytt, sammenlign), nye `oppgave_1.md` (topp 10 % kunder per segment - prompt verbatim fra Andre) og `oppgave_2.md` (kundefrafall per segment - anti-join + to tidsvinduer, der Opus skal skille seg), `forventet.md` (5 sammenlignings-dimensjoner + refleksjon).
+- Promptene referer `@KURS_KUNDE` / `@KURS_TRANSAKSJON`. Ingen ferdig SQL-fasit (unngår fabrikkering).
+
+**Guardrails:** generiske/fiktive bank-eksempler (kundefrafall, segment), ingen PII, ingen emoji/en-dash/em-dash. Verifisert: AppTest 0 exceptions, fire subheaders + begge prompt-blokker rendrer.
+
+**Forbehold (Andre bekrefter):** tabellnavn-konvensjon og eksakt modellbytte-mekanikk i Cortex Code.
+
+---
+
+## 2026-05-31 — Varmere epoke-kort på Evolusjon (ny `signature_card`)
+
+De tre epoke-kortene på Evolusjon (modul 1) leste som «kalde» (hvit `card()`, tynn grå kant, ingen aksent). Byttet til designsystemets varme signaturflate.
+
+- Ny helper **`signature_card(number=None)`** i `modules/shared/ui.py` (context manager): fersken-flate `#F8E6D5` + azur venstrekant `#1F6FC4` + valgfritt marine nummer-badge. Samme varme språk som `feature_hero`, men innhold rendres via `st.markdown` i `with`-blokken så markdown (kursiv) bevares.
+- `modules/evolusjon/app_logic.py`: epoke-kortene bruker nå `signature_card(number=1/2/3)` i stedet for `card()`. Innhold urørt.
+- DESIGN_GUIDE §8 oppdatert (funksjonskort-listen + «velg flate bevisst»-note). PRD §8 v0.42.
+- Verifisert: py_compile + AppTest (m01), 0 feil.
+
+---
+
+## 2026-05-31 — Modul 24 omdøpt: «Prompt engineering» → «Context engineering»
+
+Etter eier-avklaring (B1): modulens egentlige tema er *context engineering* (hvordan gi agenten riktig kontekst), ikke prompt engineering. Strukturell omdøping av identitet utført; **innholdsreframing gjenstår for Andre**.
+
+- `git mv modules/prompt_engineering → modules/context_engineering`; `git mv pages_content/modules/m24_prompt_engineering.py → m24_context_engineering.py` (import oppdatert).
+- `data/moduler.py`: MODULER slug `prompt_engineering`→`context_engineering`, tittel `Prompt engineering`→`Context engineering`; SECTIONS-seksjon id/label/page_id tilsvarende.
+- `app_logic.py`: docstring, crumb og H1-fallback → «Context engineering». `intro.md` H1 → «# Context engineering». CTA rekoblet: `gruppeoppgave_3_resultater` → `next_module_cta_for("context_engineering")`. `scripts/lag_kursoversikt_xlsx.py` rad 24 oppdatert.
+- **URL endret:** `?page=m24_prompt_engineering` → `?page=m24_context_engineering`. Ingen DB-tabeller berørt. `theme-light/` (untracked variant) urørt.
+- **Gjenstår for Andre (innhold, ikke utført):** subtitle «...av prompts», expander-labels («Anatomi av en god prompt», «AGENTS.md vs skills.md vs inline prompt») og .md-innholdet er fortsatt prompt-rammet og må reframes til kontekst-vinkelen.
+- Verifisert: `py_compile` OK, `find_by_page_id`/`section_for_page` konsistent, Streamlit AppTest rendrer uten exception, ingen «Prompt engineering» igjen i sidetekst. PRD §8 v0.41.
+
+---
+
+## 2026-05-31 — Modul 15: ny grunnlagsseksjon «Hva er en LLM»
+
+Modul 15 (`tilgjengelige_modeller`) fikk en kort grunnlagsseksjon **«Hva er en LLM»** øverst, etter intro-hooken og før Oversikt-tabellen. Den definerer LLM (Large Language Model), next-token-prediksjon, parametere/datamengde, multimodalitet, plasserer Opus/Sonnet/Haiku som LLM-er fra Anthropic, og forklarer skillet mellom modellen som «tenker» og agenten (Cortex Code = modell + verktøy + loop). Dette begrepet var tidligere bare antydet i `arkitektur` (modul 5), aldri sagt rett ut.
+
+- Ny `modules/tilgjengelige_modeller/content/hva_er_llm.md` (Andres egne ord, kun formatert - ingen UTKAST-markør).
+- `app_logic.py`: én ny `st.subheader("Hva er en LLM")` + `load_markdown`-seksjon mellom intro og Oversikt. Ingen nye imports.
+- Ingen emojis (§1.7) / em-dash (§1.8). PRD §8 v0.40.
+
+---
+
+## 2026-05-31 — Pedagogisk gjennomgang «forklart før brukt» + to framoverpekere
+
+Gjennomgang av hele kursløpet (36 moduler i seksjonsrekkefølge) med ett spørsmål: introduseres begreper før de anvendes? De fleste kjernebegrepene er riktig sekvensert (system-prompt m05→m12, @-mentions m08, Plan Mode m10, modeller m15, memory m21). Funn og nøyaktige anbefalinger ligger i plan-fila; kun de to trygge navigasjons-grepene er utført her:
+
+- **`demo_1/content/demo_3_bokstav.md`** (m06): AGENTS.md brukes som demo-poeng 6 moduler før den læres (m12). Lagt til framoverpeker: «Vi går grundig gjennom AGENTS.md i en egen modul senere i kurset».
+- **`plan_mode/content/kobling.md`** (m10): omtaler «bundled skill» før skills læres (m17). Lagt til framoverpeker: «Skills får sin egen modul senere».
+
+**Anbefalt, ikke utført (krever Andres prosa/beslutning):** prompt-grunnlag før første oppgave (prompt engineering ligger i m24, men prompts skrives fra m06/m07); definer `token`/`kontekstvindu` tidlig (brukes i m34-placeholder); gloss for `kohortanalyse`, `lineage`, `dbt`/`RBAC`/`Streamlit`; bro fra katalog-`@` til `@(serverSkill:…)`. Ingen omrokering i `data/moduler.py` (vurdert, men framoverpeker + tidlig primer er mindre invasivt).
+
+**Oppfølging (eier-godkjente glosser, UTKAST - Andre verifiserer):** Etter avklaring fra Andre lagt inn korte begrepsglosser (generisk/konseptuell tekst, ingen produktspesifikke påstander):
+- `tilgjengelige_modeller/content/hva_er_llm.md` (m15): la til **token**-kostnadsvinkel + **kontekstvindu** som to punkter i «Hva er en LLM»-lista (token var alt definert der). Flyttet hit etter eier-ønske (lå først i `intro.md`).
+- `individuell_oppgave_kohort/oppgave.md` (m31): kort gloss på **kohortanalyse** + **Streamlit** i innledningen til oppgaven.
+- `at_mentions/what_agent_sees.md` (m08): parentes-gloss på **lineage** ved første forekomst.
+- `skills_md/intro.md` (m17): brosetning fra katalog-`@` (m08) til `@(serverSkill:…)`.
+- `arkitektur/oppgavestyring.md` (m05): parentes-gloss på **dbt** ved første substansielle bruk.
+- **RBAC** trengte ingen gloss - allerede utvidet («Role-Based Access Control (RBAC)») i `cortex_code/quote.md`.
+- **B1 omdefinert:** temaet er *context engineering* (ikke prompt engineering); tidlige øvelser er bevisst uavhengige av dette, så det er ikke et rekkefølge-avvik. Modul 24 omdøpt (se egen toppseksjon).
+
+---
+
+## 2026-05-31 — Design-konformitets-audit + remediering av trygge avvik
+
+Gjennomgang av DESIGN_GUIDE mot faktiske sidevisninger (statisk audit av 36 moduler + delte komponenter + faste sider). Appen var stort sett konform (0 emoji i sidetekst, 0 em-dash i innhold, Arial gjennomgående, ingen mørke canvas-rester, ingen `st.bar_chart`/`st.info`/`st.balloons`, ingen deprecated callout-kinds). De trygge avvikene er nå rettet:
+
+- **`#0B5BB5`** (en tredje, off-palett blåfarge brukt som hovedaksent) → azur `#1F6FC4` i `components/sidebar.py`, `pages_content/forside.py`, `modules/shared/ui.py` (feature_hero/feature_card), `modules/oppvarming/app_logic.py`.
+- **`gruppeoppgave_2`** manglet `crumb` + `next_module_cta` (alle andre moduler har begge) → lagt til `crumb` + `next_module_cta_for("memory_md")`.
+- **DESIGN_GUIDE** rettet for intern motsigelse/drift: §6+§9 beskriver nå den faktiske custom-sidebaren (ikke `st.navigation()`, jf. §11); §0 fjernet døde referanser til `Designsystem.html`/`design_preview.html` (eksterne, ligger ikke i repoet); §10-sjekklista callout-typer → info/tip/warn; §11 modultall gjort tallfritt.
+
+**Eier-beslutninger (2026-05-31):**
+- `test_skills_html` (modul 36): **beholdes som sandbox** i «Test»-nav (isolert i iframe, CSS lekker ikke). Sanksjonert unntak fra stilreglene; kun stale docstring-ref (`m33`→`m36`) rettet.
+- Favicon `page_icon="❄"`: **beholdes** som fane-branding (sanksjonert emoji-unntak; fane-metadata, ikke side-innhold).
+- §1.8 utvidet til også å forby **en-dash (`–`)**; appen renset (1 forekomst i `data/moduler.py`-docstring).
+
+---
+
+## 2026-05-31 — Modul 15 (Tilgjengelige modeller): innhold om Opus vs Sonnet (UTKAST)
+
+Modul 15 gikk fra fire tomme placeholder-content-filer til en forklaring av forskjellen mellom **Opus** og **Sonnet** i Cortex Code. Drafted som UTKAST på eksplisitt forespørsel fra Andre (innholds-unntaket i CLAUDE.md).
+
+**Endringer (kun `modules/tilgjengelige_modeller/content/`, app_logic urørt):**
+- `intro.md`: Cortex Code kjører på Claude; modellvalget er kapabilitet vs. fart/kost.
+- `oversikt.md`: markdown-sammenligningstabell Opus vs Sonnet (kapabilitet, hastighet, kostnad, passer til); Haiku nevnt i én linje.
+- `valg.md`: Sonnet som standard; Opus når kompleksitet/risiko rettferdiggjør kostnaden (gjerne med Plan Mode); tommelfingerregel.
+- `eksempel.md`: én generisk/fiktiv bank-kontrast (rask SQL for kundeID 123 = Sonnet; fler-stegs refaktorering av rapporterings-pipeline = Opus).
+
+**Guardrails:** konseptuelt (ingen fabrikkerte modellnavn/versjoner/priser eller påstander om Cortex Codes velger), bank-rammet, generiske eksempler, ingen emojis (§1.7), ingen em-dash (§1.8). Alt merket UTKAST. Andre legger inn eksakte produktspesifikke modellnavn selv. Verifisert: AppTest av siden, 0 feil; tabellen rendrer.
+
+**Ikke tatt nå:** hands-on-oppgaven (modul 16 `individuell_oppgave_modellvalg`) er fortsatt placeholder.
+
+---
+
+## 2026-05-31 — Innholds- og regelrunde fra eier (em-dash, PowerPoint-altitude, modul-endringer)
+
+**Nye globale regler (DESIGN_GUIDE §1):**
+- §1.8 **Ingen em-dash (`—`).** Fjernet fra hele appen - 108 filer, 207 forekomster - erstattet med vanlig bindestrek `-`. Markdown-skillelinjer (`---`) og en-dash (`–`) er ikke rørt.
+- §1.9 **PowerPoint-nært.** Hver modul-side leses som ett/få lysbilder: én idé per skjerm, luftig typografi, korte punkter. Presentatør-metainnhold (snakkepunkter, forventet varighet) hører ikke hjemme på sidene.
+
+**Snakkepunkter + varighet fjernet:**
+- `demo_1`, `demo_2`, `demo_bundled_skill`: fjernet «Vis snakkepunkter»-toggle + runbook-caption; segmentene vises nå alltid. `## Snakkepunkter`-seksjoner fjernet fra innhold.
+- `individuell_oppgave_5`: fjernet «Snakkepunkter (for presentatør)»-seksjonen (+ slettet `notater.md`).
+
+**Modul-endringer:**
+- **Evolusjon** (modul 1): omdøpt fra «Fra Google til spesifikasjon». Tre innholdsblokker fra Andre (intro-setning, «hvor er du i dag»-refleksjon, diskusjonsspørsmålet «Når AI implementerer, hva blir da vår rolle?»).
+- **Bli kjent**: intro endret til «Hvilke forkunnskaper har vi? Helt anonymt». (Ingen Likert-utsagn om skills/mcp/systemkontekst funnet - flagget for Andre.)
+- **Resultater fra Bli kjent** (tidl. «Resultater fra Oppvarming»): fjernet auto-refresh + live-aggregerings-undertekst; kun «Refresh nå»-knapp. Gruppeoppgave-resultatsidene beholder live-aggregering (ikke berørt).
+- **Første demo**: redesignet slide-likt. Agenda med kostnadsdashbord til sist; workspace-segment med rolle + metadata; Cortex Code-segment med to prompts; bokstavspørsmålet («Hvilken bokstav kommer etter 'b'?») som AGENTS.md-teaser. Fjernet toggle/varighet og `avklaring.md`.
+- **Individuell oppgave 1**: nytt steg #1 «Åpne Workspaces».
+- **Snowsight vs CLI**: forenklet betydelig - intro + to kort + takeaway. Fjernet duplikat «Hva velger du?»-seksjon og sammenligningstabell (+ slettet `comparison_table.md`/`when_snowsight.md`/`when_cli.md`).
+
+**Merk:** ingen PowerPoint-skill er tilgjengelig i miljøet; «PowerPoint-nært» er kodet som designprinsipp, ikke generert via skill.
+
+---
+
+## 2026-05-31 — Designsystem v1-komponenter: modul-hero, funksjonskort, knapper (gap mot Designsystem.html lukket)
+
+Etter en gap-analyse (Designsystem.html-target vs app) ble de manglende komponentene bygget og rullet ut. Største synlige løft: modul-sidene har nå en ekte **hero-header** (azur eyebrow + tung marine display-H1 + azur undertittel) i stedet for grå `st.title` + `st.caption`.
+
+**Nye helpere i `modules/shared/ui.py`:**
+- `module_header(title, *, subtitle, eyebrow="For analytikere i bank")` — modul-hero.
+- `feature_hero(title, items, *, icon)` — fersken signaturkort, 52px marine disc + prikkliste.
+- `feature_card(title, body, *, icon)` — hvitt kort, 40px disc + brødtekst.
+- `dotlist(items)` — frittstående marine prikkliste.
+- `inject_global_css()` — globale knapper (marine primær/form-submit, radius 7px, hover marine-dyp; hvit-marine sekundær) + azur-tint inline-kode. Kalt én gang fra `app.py`.
+
+**Andre endringer:**
+- `card()` og `metric_card()` fikk `SHADOW_1` (subtil løft) — matcher `feature_card`/forside.
+- Sidebar: fast bredde 280px + `border-right` mot innholdet.
+- **`module_header()` rullet ut på alle 34 moduler** (via migrasjons-workflow, én agent per modul + per-modul AppTest): `st.title()` + `st.caption("Modul N · …")` → `module_header(...)`. Interaktive gate-skjermer (deltakerkode) beholder `st.title()`.
+- Fjernet død `render_module_header()` (pekte på gamle `hub.py`).
+- `DESIGN_GUIDE.md` §8 oppdatert med module_header-mønster + funksjonskort-helpere.
+
+**Verifisert:** 36 sider (alle moduler + faste sider) AppTest-et sentralt — 0 exceptions; 19 sider rendrer SVG-ikoner.
+
+**Åpent / flagget:** ① **font** — Designsystem v1 vil ha Libre Franklin 900 (display); appen bruker Arial (maks 700), så H1 er en *tilnærming* til spec-vekten inntil font-spørsmålet avgjøres. ② **funksjonskort-innhold per modul** (f.eks. cortex_in_snowsight slik mockupen viser) er Andres innholds-domene — `feature_hero`/`feature_card`-helperne er klare til bruk.
+
+---
+
+## 2026-05-31 — Callout-typer standardisert til INFO / TIPS / ADVARSEL
+
+Callout-typene er nå justert til Designsystemets trio (INFO / TIPS / ADVARSEL), pluss en dempet `subtle` for tomme tilstander.
+
+**Hvorfor:** Koden hadde 4 typer + 2 alias-navn, og halvparten av kallene brukte legacy-aliaser (`warning` 21× vs `warn` 4×, `highlight`/`success` om hverandre). Den grønne typen het «success» med sjekkmerke, mens spec'en viser «Tips» med lyspære. Andre ville ha én standardisert modell som matcher Designsystemet.
+
+**Endringer:**
+- `modules/shared/ui.py`: den grønne callout-typen omdøpt fra `success` (sjekkmerke) til **`tip`** (lyspære-ikonet, som allerede fantes i `_SVG_ICONS` men var ukoblet). Kanoniske `kind`-navn: `info` / `tip` / `warn` / `subtle`. Deprecated aliaser (`success`/`highlight`→`tip`, `warning`→`warn`) beholdt for bakoverkomp; docstring oppdatert.
+- Migrert alle 38 førsteparts-`callout()`-kall til kanoniske navn (12 filer).
+- `DESIGN_GUIDE.md` §7: tabell oppdatert (Info/Tips/Advarsel + subtle-rad), og det utdaterte kode-eksemplet (feil signatur `callout(kind, title, content)` + gamle bokstav-badger `i`/`!`/`✓`) byttet til faktisk `callout(body, *, kind, title, key)`-bruk.
+- `PRD.md` FR-3.15: kinds-listen oppdatert; linja som sa «emojis tillatt i callout-titler» rettet (motsa §1.7).
+
+**Callout-typer i appen nå:** `info` (marine, fakta) · `tip` (grønn, råd/anbefaling) · `warn` (amber, risiko) · `subtle` (grå, empty-states).
+
+---
+
+## 2026-05-31 — SVG-linjeikoner adoptert (callouts m.m.) — fortsatt ingen emojis
+
+Eier-beslutning: appen bruker nå **SVG-linjeikoner** fra Designsystem v1 som ikon-språk, i stedet for tekst-glyfer. Emojis er fortsatt aldri tillatt.
+
+**Endringer:**
+- Ny helper `svg_icon(name, *, size, color, stroke)` i `modules/shared/ui.py` + ikon-sett (`info`, `warn`, `success`, `tip`, `code`, `dbt`, `chart`). 24×24 viewBox, `stroke=currentColor`.
+- `callout()` rendrer nå et hvitt SVG-linjeikon i den fargede badgen (28×28, radius 7px) i stedet for bokstav-/tegn (`i`/`!`/`✓`/`·`). Alle callouts i appen arver via den delte helperen.
+- `DESIGN_GUIDE.md`: §1.7 «ingen emojis eller ikoner» → **«ingen emojis, men SVG-linjeikoner er ikon-språket»**; §7 oppdatert med ikon-navn + disc-eksempel; banner-flagget for ikoner løst.
+- Funksjonskort-disker/knapp-ikoner kan bruke samme helper, men er ikke retro-fittet i eksisterende modul-innhold (Andres domene).
+
+**Åpent:** font-avviket (Designsystem v1 = Libre Franklin/IBM Plex Mono, app = Arial pr. bankpolicy) avventer eier-beslutning.
+
+---
+
+## 2026-05-31 — Visuelt tema reskinnet til lyst «Bankbrief» (Designsystem v1)
+
+Appen byttet fra det mørke v2-temaet (nær-svart canvas, Snowflake-aksenter) til et **lyst** marine + fersken-uttrykk avledet fra PowerPoint-malen: hvit canvas, marine `#0A2C72` primær, azur `#1F6FC4` lenker. Full token-mapping i [`theme-light/THEME_PATCH.md`](theme-light/THEME_PATCH.md); full spec i ekstern `Designsystem.html`.
+
+**Hvorfor:** Lyst tema leser renere på projektor i kursrom og gir et nøkternt, bank-passende preg. Avledet fra kundens egen PowerPoint-mal.
+
+**Endringer (6 tema-bærende filer):**
+- `.streamlit/config.toml` — `base="light"`, marine primær, hvit canvas, azur lenker, lys sidebar.
+- `modules/shared/ui.py` — fargekonstantene (`COLOR_*`, `TEXT_*`, `BORDER`) + callout-paletten reskinnet. **Konstantnavn beholdt, kun verdier endret** — alle komponenter (`callout`, `card`, `metric_card`, `numbered_steps`, `crumb`, `next_module_cta`) arver automatisk; ingen import eller signatur brutt.
+- `components/sidebar.py` — lys sidebar, azur aktiv-tint + strek.
+- `pages_content/forside.py` — hvite kort med azur venstrestrek + subtil skygge.
+- `modules/oppvarming/app_logic.py` — Likert-grid + skala-pille reskinnet (eneste innholdsside med hardkodet mørk CSS).
+- `data/moduler.py` — `KATEGORI_FARGE` til mettede farger som leser på hvitt (azur/violett/grønn/oransje/grå). MODULER/SECTIONS uberørt.
+- `DESIGN_GUIDE.md` — konkrete fargeverdier (§0/§2/§5/§7/§9/§10/§11) oppdatert + banner. Avstemt mot autoritativ `Designsystem.html`; §1.7 skjerpet til **ingen emojis** (var «ingen emojis eller ikoner»). Flagget, ikke endret: font (spec Libre Franklin/IBM Plex Mono vs app Arial pr. bankpolicy) og dekorative SVG-ikoner (spec bruker dem, appen er ren tekst).
+
+Øvrige sider (`bli_kjent`, `resultater`, `admin`, alle `mNN_*`-wrappere) bruker `st`-native + delte helpers og arver temaet uten egne endringer. Verifisert med AppTest på et utvalg sider — ingen exceptions.
+
+---
+
 ## 2026-05-31 — Tre nye hands-on-moduler (Plan Mode-oppgave + bundled skill) + to placeholdere fylt
 
 Kurset hadde konsepter for Plan Mode og skills, men manglet hands-on for flere av dem. Tre nye moduler lagt til, og to eksisterende tomme oppgaver fylt med UTKAST-innhold (merket `<!-- UTKAST – Andre verifiserer -->`, jf. eksplisitt avtale om draft denne gangen).

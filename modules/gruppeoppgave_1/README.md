@@ -1,4 +1,4 @@
-# Gruppeoppgave 1 – AGENTS.md
+# Gruppeoppgave 1 - AGENTS.md
 
 Interaktiv workshop om AGENTS.md med live ordskyer og barcharts. Brukes som modul 7 i kursrekken, etter konseptuelle innføringer i modul 5 (AGENTS.md) og modul 6 (skills.md). Entry-point er `hub.py` på repo-rot.
 
@@ -30,7 +30,7 @@ modules/gruppeoppgave_1/
 ## Supabase-oppsett
 
 1. Opprett prosjekt på [supabase.com](https://supabase.com).
-2. Kjør innholdet i [`supabase_schema.sql`](supabase_schema.sql) i SQL Editor — lager `kurs`-schema, `responses`-tabell og RLS-policy.
+2. Kjør innholdet i [`supabase_schema.sql`](supabase_schema.sql) i SQL Editor - lager `kurs`-schema, `responses`-tabell og RLS-policy.
 3. **Eksponer schemaet:** Project Settings → API → "Data API Settings" → "Exposed schemas" → legg til `kurs` (komma-separert med `public, graphql_public`), lagre.
 4. Kopier `Project URL`, `anon public key` og `service_role key` til `.streamlit/secrets.toml` på repo-rot.
 

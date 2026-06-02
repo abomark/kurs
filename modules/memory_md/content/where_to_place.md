@@ -1,4 +1,4 @@
-Mappen ligger i **hjemmekatalogen din** — ikke i prosjektet.
+Mappen ligger i **hjemmekatalogen din** - ikke i prosjektet.
 
 ```
 ~/.snowflake/cortex/
@@ -11,5 +11,5 @@ Mappen ligger i **hjemmekatalogen din** — ikke i prosjektet.
 fra `riskmodell-2026/` til `compliance-pipeline/`, har Cortex Code fortsatt
 tilgang til alt du har lagret.
 
-I praksis betyr det at memory er ditt **personlige verktøyskrin** — ikke
+I praksis betyr det at memory er ditt **personlige verktøyskrin** - ikke
 en delt ressurs med teamet.

@@ -1,15 +1,16 @@
 """Konfigurasjon for Oppvarming-modulen (Bli kjent).
 
-PRD §FR-3.1 (variant for Likert-skala): elleve påstander som hver vurderes
-på en 1–5-skala (1 = uenig, 5 = enig). Alle besvares samtidig i én form
+PRD §FR-3.1 (variant for Likert-skala): femten påstander som hver vurderes
+på en 1-5-skala (1 = uenig, 5 = enig). Alle besvares samtidig i en form
 og lagres som heltall i `kurs.oppvarming_responses.answer_value`.
 
 Brukes til å kalibrere kursleders forventninger til deltakergruppen.
 """
 
-# Stabile ID-er 1–11. Endre ordlyd, men ikke flytt rundt på ID-ene
+# Stabile ID-er 1-15. Endre ordlyd, men ikke flytt rundt på ID-ene
 # (de er lagret i databasen for tidligere svar).
-# Q1–5: generell teknisk bakgrunn. Q6–11: Cortex Code-modenhet.
+# Q1-5: generell teknisk bakgrunn. Q6-11: Cortex Code-modenhet.
+# Q12-15: agent-konfigurasjon (verktøy, skills, personlige skills, system prompt).
 STATEMENTS = {
     1: "Jeg bruker Snowflake regelmessig",
     2: "Jeg er erfaren med AI-assistenter i koding (Copilot, Claude, Cursor, ChatGPT, etc.)",
@@ -22,14 +23,18 @@ STATEMENTS = {
     9: "Jeg forstår hva som driver kostnader ved bruk av Cortex Code",
     10: "Jeg vet hvordan jeg optimaliserer bruken av Cortex Code",
     11: "Jeg vet hvordan jeg avveier modellvalg for en gitt oppgave",
+    12: "Jeg har kjennskap til hva verktøy er og hvilke agenten har tilgjengelig",
+    13: "Jeg har kjennskap til hva skills er og hvilke agenten har tilgjengelig",
+    14: "Jeg vet hvordan man lager personlige skills",
+    15: "Jeg vet hva system prompt er og hvordan man legger til mer",
 }
 
 # Skala-anker. 1 = lav enighet, 5 = høy enighet.
 SCALE_MIN = 1
 SCALE_MAX = 5
 SCALE_LABELS = {
-    1: "1 — uenig",
-    5: "5 — enig",
+    1: "1 - uenig",
+    5: "5 - enig",
 }
 
 # PRD §FR-3.4 / §NFR-4.1: skjul resultater til minst N svar er inne.

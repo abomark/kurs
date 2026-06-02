@@ -15,12 +15,14 @@ import streamlit as st
 
 from components.sidebar import render_sidebar
 from data.moduler import MODULER, find_by_page_id, page_id
+from modules.shared.ui import inject_global_css
 
 # Sider som trenger full skjermbredde (typisk resultatsider med diagrammer
 # som ellers blir trange i 'centered'-layout). Vi nøkler på slug og utleder
 # page_id via MODULER, så settet ikke drifter når moduler renummereres.
 _WIDE_LAYOUT_SLUGS = {
     "gruppeoppgave_1_resultater",
+    "test_skills_html",  # HTML-preview vil ha 920px-bredde, ikke 'centered'
 }
 WIDE_LAYOUT_PAGES = {
     page_id(m) for m in MODULER if m["slug"] in _WIDE_LAYOUT_SLUGS
@@ -61,8 +63,11 @@ def _load_page(slug: str):
 
 
 def main() -> None:
-    # Gjenbruk slug lest øverst for layout-valg — én kilde til sannhet per kjøring.
+    # Gjenbruk slug lest øverst for layout-valg - en kilde til sannhet per kjøring.
     active_slug = _active_slug
+
+    # Globale CSS-regler (knapper, inline-kode) - ett sted, før alt innhold.
+    inject_global_css()
 
     # Sidebar rendres alltid, før innholdet.
     render_sidebar(active_slug=active_slug)

@@ -1,7 +1,6 @@
 **Agenda for demoen:**
 
-1. **Workspace** — vis hvor vi jobber
-2. **Cortex Code** — åpne assistenten og første interaksjon
-3. **Bokstavspørsmålet** — *«hvilken bokstav kommer etter b?»*
-
-Forventet varighet: ~15 minutter.
+1. **Workspace** - hvor vi jobber (rolle og metadata)
+2. **Cortex Code** - første interaksjon
+3. **Kostnadsdashbord** - hva er mitt forbruk?
+4. **Under panseret** - verktøy og skills

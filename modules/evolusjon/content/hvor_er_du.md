@@ -1,1 +1,1 @@
-_Andre skriver: ett spørsmål til deltakeren – hvor er du i dag, og hvor vil du være etter kurset?_
+Tenk igjennom hvor du er i dag, og hvor du tror vi vil være om 6 mnd, 1-2 år frem.

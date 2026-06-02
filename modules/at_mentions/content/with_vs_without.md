@@ -13,5 +13,5 @@ gjelder, og hvordan tabellene henger sammen.
 > KURS_CORTEX_2026.MART.TRANSACTIONS
 
 Cortex Code leser det som tekst. Den vil _sannsynligvis_ forstå at det
-er tabellnavn og slå dem opp i Horizon Catalog — men det er en **inferens
+er tabellnavn og slå dem opp i Horizon Catalog - men det er en **inferens
 den gjør**, ikke faktagrunnlag den får servert.

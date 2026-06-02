@@ -1,4 +1,4 @@
-"""Wrapper for modul 6: Individuell oppgave — @-mentions.
+"""Wrapper for modul 6: Individuell oppgave - @-mentions.
 
 Tynn pass-through til `modules.individuell_oppgave_at_mentions.app_logic.main`.
 """

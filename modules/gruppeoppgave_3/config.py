@@ -1,4 +1,4 @@
-"""Sentral konfigurasjon for Gruppeoppgave 3 — memory.md.
+"""Sentral konfigurasjon for Gruppeoppgave 3 - memory.md.
 
 Implementerer PRD §FR-3.1 (spørsmål) og §FR-3.5 (stopwords/ikke-svar).
 """
@@ -28,8 +28,8 @@ QUESTIONS = {
     },
     4: {
         "type": "text",
-        "text": "Skriv én linje du faktisk ville lagt i din egen memory etter denne uken.",
-        "placeholder": "Konkret — ikke abstrakt prinsipp.",
+        "text": "Skriv en linje du faktisk ville lagt i din egen memory etter denne uken.",
+        "placeholder": "Konkret - ikke abstrakt prinsipp.",
     },
 }
 
@@ -54,7 +54,7 @@ NON_ANSWERS = {
     "???",
 }
 
-# Norske + engelske stopwords. Bevisst kort liste — vi vil heller beholde
+# Norske + engelske stopwords. Bevisst kort liste - vi vil heller beholde
 # litt støy enn å filtrere bort meningsbærende ord.
 STOPWORDS = {
     # Norsk

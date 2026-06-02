@@ -1,7 +1,7 @@
 <!-- Beste praksis for pålitelige custom skills. Splittes på "## " → numbered_steps. -->
 
-## Gi den én klar jobb
-En skill skal gjøre én ting godt — ikke favne for bredt.
+## Gi den en klar jobb
+En skill skal gjøre en ting godt - ikke favne for bredt.
 
 ## Gjør output-strukturen repeterbar
 Samme oppgave bør alltid gi samme form på resultatet.

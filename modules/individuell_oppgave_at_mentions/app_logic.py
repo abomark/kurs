@@ -1,4 +1,4 @@
-"""Individuell oppgave: @-mentions – modul 6.
+"""Individuell oppgave: @-mentions - modul 6.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Hands-on i @-mentions-seksjonen:
@@ -13,13 +13,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
     crumb(["Kursmoduler", "09 · Individuell oppgave: @-mentions"])
-    st.title("Individuell oppgave: @-mentions")
-    st.caption("Modul 9 · Hands-on: prøv samme prompt med og uten `@`.")
+    module_header("Individuell oppgave: @-mentions", subtitle="Hands-on: prøv samme prompt med og uten `@`.")
     st.divider()
 
     callout(

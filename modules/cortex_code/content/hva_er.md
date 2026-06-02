@@ -1,0 +1,4 @@
+- Cortex Code er Snowflakes AI-kodeagent.
+- Integrert direkte i Snowflake og laget for å forstå Snowflake-roller, schemaer og beste praksis.
+- Kan hjelpe deg å generere, endre, optimalisere og forklare SQL og Python.
+- Bruker det aktive workspacet som kontekst.

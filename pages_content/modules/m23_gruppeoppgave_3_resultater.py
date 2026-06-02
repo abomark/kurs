@@ -1,4 +1,4 @@
-"""Wrapper for modul 10: Resultater Gruppeoppgave 3 — memory.md.
+"""Wrapper for modul 10: Resultater Gruppeoppgave 3 - memory.md.
 
 Tynn pass-through til `modules.gruppeoppgave_3_resultater.app_logic.main`.
 """

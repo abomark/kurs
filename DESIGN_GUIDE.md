@@ -1,6 +1,8 @@
 # DESIGN GUIDE v2 — Cortex Code Kursplattform
 
-> **Til AI-agenten som leser denne fila:** Dette er den eneste sannheten for visuell stil. Versjon 2 prioriterer *visuelt hierarki* og *container-struktur* over ren brand-disiplin. Når du må velge mellom "merkevarekonsistens" og "ser profesjonelt ut", velg sistnevnte. Konkret betyr det: bruk ikke Fjell som heldekkende bakgrunn, pakk alt i kort, og gi tall sin egen plass.
+> **Til AI-agenten som leser denne fila:** Dette er den eneste sannheten for visuell stil. Versjon 2 prioriterer *visuelt hierarki* og *container-struktur* over ren brand-disiplin. Når du må velge mellom "merkevarekonsistens" og "ser profesjonelt ut", velg sistnevnte. Konkret betyr det: pakk alt i kort, og gi tall sin egen plass.
+
+> **⟳ Tema: lyst «Bankbrief» (Designsystem v1).** Appen kjører et **lyst** marine + fersken-uttrykk (hvit canvas, marine `#0A2C72` primær, azur `#1F6FC4` lenker) avledet fra PowerPoint-malen. Token-mappingen ligger i [`theme-light/THEME_PATCH.md`](theme-light/THEME_PATCH.md); den opprinnelige `Designsystem.html`-mockupen er ekstern og ligger ikke i repoet. Fargeverdiene i denne guiden (§0/§2/§5/§7/§9/§10/§11) er avstemt mot Bankbrief-paletten. **SVG-ikoner er adoptert** (eier-beslutning 2026-05-31): appen bruker SVG-linjeikoner via `svg_icon()` (callout-badger, funksjonskort-disker, knapper) — se §1.7 og §7. Emojis er fortsatt aldri tillatt. **Ett åpent avvik mot Designsystem.html, avventer eier:** **Font** — spec'en bruker Libre Franklin + IBM Plex Mono (Google-webfonter), men appen beholder **Arial** (PRD §8 v0.32, bankenes skrifttype-policy). Ikke endret.
 
 ---
 
@@ -10,7 +12,7 @@ v1 var en brand-disiplinguide. v2 er en *produkt*-design guide. Forskjellen:
 
 | Aspekt | v1 (feil) | v2 (riktig) |
 |---|---|---|
-| Sidebakgrunn | Fjell `#002776` heldekkende | Nær-svart `#0A0F1F` |
+| Sidebakgrunn | Fjell `#002776` heldekkende | Hvit `#FFFFFF` (lyst Bankbrief-tema) |
 | Brand-bruk | Mest dominant farge | Aksent og container |
 | Komponenter | Custom HTML inline | Kort med tydelig struktur |
 | Tall i diagrammer | Y-akse 0–1 med decimalticks | Heltallsticks, snitt visualisert |
@@ -28,7 +30,10 @@ v1 var en brand-disiplinguide. v2 er en *produkt*-design guide. Forskjellen:
 4. **Tilbakeholdenhet i farge.** En side skal ha ett dominerende farget element, ikke fem.
 5. **Tall fortjener sin egen plass.** Antall svar, snitt, prosent — disse er kongene, ikke fotnoter.
 6. **Norsk språk, men engelske tekniske termer.**
-7. **Ingen emojis eller ikoner.** Overskrifter (H1/H2/H3), `st.subheader`, `st.expander`-labels, callout-titler, crumbs og brødtekst skal være ren tekst — ingen 📌🎯⚠️-dekorasjon. Eneste tillatte unntak er den kvadratiske callout-badgen (`i` / `!` / `✓` / `·`, se §7) og typografiske piler (`→`, `←`) der de bærer mening i prosa. Hvorfor: emojier renders inkonsistent på tvers av OS-er (Apple vs Windows vs Linux) og trekker tonen i en uønsket retning for et bank-publikum.
+7. **Ingen emojis - bruk SVG-linjeikoner.** Overskrifter (H1/H2/H3), `st.subheader`, `st.expander`-labels, callout-titler, crumbs og brødtekst skal aldri ha emoji-dekorasjon (📌🎯⚠️). Hvorfor: emojier renders inkonsistent på tvers av OS-er (Apple vs Windows vs Linux) og trekker tonen i en uønsket retning for et bank-publikum. Ikon-språket er i stedet **SVG-linjeikoner** (Designsystem v1) via `svg_icon()` i `modules/shared/ui.py` - brukt i callout-badger (se §7), funksjonskort-disker og knapper. Typografiske piler (`→`, `←`) er ok i prosa. Kort: aldri emoji, men SVG-ikon er den sanksjonerte ikon-formen. **Ett emoji-unntak:** nettleserfanens favicon (`page_icon` i `st.set_page_config`, [`app.py`](app.py)) - der er `❄` (Snowflake-nikk) bevisst beholdt, fordi det er fane-metadata og ikke side-innhold (eier-beslutning 2026-05-31).
+8. **Ingen em-dash (`—`) eller en-dash (`–`).** Verken den lange tankestreken (`—`, U+2014) eller den mellomlange (`–`, U+2013) skal brukes noe sted i appen - heller ikke i overskrifter, brødtekst, captions, kode-strenger, docstrings eller kommentarer. Bruk vanlig bindestrek `-`, komma eller kolon i stedet. Gjelder tegnene `—` (U+2014) og `–` (U+2013); vanlig bindestrek `-` og markdown-skillelinjer (`---`) er uberørt. (Eier-beslutning 2026-05-31: en-dash lagt til; tidligere kun em-dash.)
+9. **PowerPoint-nært.** Kurset gjennomgås som en presentasjon - hver modul-side leses som ett (eller få) lysbilde i plenum, ikke som en tett dokumentasjons-side. Konsekvenser: en tydelig ide per "skjerm", stor og luftig typografi, korte punkter framfor lange avsnitt, og visuelle elementer (kort, hero, callout, diagram) framfor vegger av tekst. Presentatør-rettet metainnhold (snakkepunkter, forventet varighet o.l.) hører IKKE hjemme på sidene - de er for presentatørens egne notater, ikke lysbildet.
+10. **Ingen `é`/`É`.** Bokstaven `é` (U+00E9) og `É` (U+00C9) skal aldri brukes noe sted i appen - heller ikke i overskrifter, brødtekst, captions, kode-strenger, docstrings eller kommentarer. Bruk alltid vanlig `e`/`E` i stedet. Det desidert vanligste tilfellet er ordet for tallet 1, som skal skrives «en» (uten aksent); regelen gjelder alle ord (skriv «ide», «validere», «komite», «kafe»). (Eier-beslutning 2026-05-31.)
 
 ---
 
@@ -37,48 +42,48 @@ v1 var en brand-disiplinguide. v2 er en *produkt*-design guide. Forskjellen:
 ### Canvas og overflater (NY hierarki)
 
 ```
---canvas:      #0A0F1F   /* Sidens bakgrunn - nær-svart, ikke Fjell */
---surface-1:   #0F1729   /* Kort, sidebar - ett trinn lysere enn canvas */
---surface-2:   #131C33   /* Nestede elementer (chart-stats inni kort) */
---surface-3:   #1A2542   /* Code-block headers, tooltip-bakgrunner */
+--canvas:      #FFFFFF   /* Sidens bakgrunn - hvit */
+--surface-1:   #FFFFFF   /* Kort, sidebar */
+--surface-2:   #F7F8FB   /* Dempet flate / hover */
+--surface-3:   #EAF1FB   /* Azur tint (aktiv-fyll, Q-badge) */
 ```
 
-**Hvorfor:** Profesjonelle dark mode-design (Linear, Vercel, Datadog) bruker nær-svart canvas og elevation-trinn med subtile lysere overflater. Fjell `#002776` som hele lerretet ble for tungt og fikk produktet til å se utdatert ut.
+**Hvorfor:** Det lyse «Bankbrief»-uttrykket er avledet fra PowerPoint-malen og leser rent på projektor i et kursrom. Hvit canvas med azur-tintede aktiv-flater og en marine primærfarge gir et nøkternt, bank-passende preg.
 
-### Brand-farger (samme paletten, ny bruk)
+### Brand-farger (lyst Bankbrief-tema)
 
-| Navn | HEX | Bruk |
+| Navn (konstant) | HEX | Bruk |
 |---|---|---|
-| **Vann** | `#005AA4` | Primær aksent: knapper, lenker, venstre-kant på aktiv sidebar-item, info-callouts |
-| **Fjell** | `#002776` | Subtil gradient i logo/header, *aldri* heldekkende bakgrunn |
-| **Frost** | `#7EB5D2` | Suksess-callouts, sekundære lenker, snitt-linje i diagrammer, frostige aksenter |
-| **Sand** | `#F8E9DD` | *Tekst* primært (på mørk bakgrunn), kode-tekst |
-| **Syrin** | `#D3D3EA` | Advarsel-callouts, sekundærtekst-aksent |
+| **Vann** (Marine) | `#0A2C72` | Primær aksent: knapper, ikon-disker, venstre-kant på aktiv sidebar-item, info-callouts |
+| **Fjell** (Marine dyp) | `#071E50` | Hover på primær, dype aksenter |
+| **Frost** (Azur) | `#1F6FC4` | Lenker, sekundær aksent, snitt-linje i diagrammer |
+| **Sand** (Fersken) | `#F8E6D5` | Signaturflate / varm aksentflate |
+| **Syrin** (Amber) | `#C9821B` | Advarsel-callouts (warn) |
 
-### Tekst-hierarki (NY — manglet i v1)
+### Tekst-hierarki
 
 ```
---text-primary:    #F4F6FB   /* Hovedtekst */
---text-secondary:  #A8B3C7   /* Brødtekst, beskrivelser */
---text-tertiary:   #6B7691   /* Captions, metadata, akse-labels */
+--text-primary:    #16203A   /* Blekk - hovedtekst */
+--text-secondary:  #3B4256   /* Brødtekst, beskrivelser */
+--text-tertiary:   #6B7280   /* Captions, metadata, akse-labels */
 ```
 
-Bruk *aldri* Sand `#F8E9DD` som hovedtekstfarge. Sand er for varmt — gir et nostalgisk preg som motvirker det profesjonelle uttrykket. Bruk det for kode (på Fjell-bakgrunn) der det fungerer.
+På hvit canvas er hovedteksten blekk `#16203A`. Sand/Fersken er en *flate*-farge, ikke tekstfarge.
 
 ### Borders og dividers
 
 ```
---border:         rgba(126, 181, 210, 0.10)   /* Standard kort-border */
---border-strong:  rgba(126, 181, 210, 0.20)   /* Mer synlig avgrensning */
---divider:        rgba(255, 255, 255, 0.06)   /* Subtle horisontale linjer */
+--border:         #E3E8F1   /* Standard kort-border */
+--border-strong:  #D5DEEA   /* Mer synlig avgrensning */
+--divider:        #E3E8F1   /* Subtile horisontale linjer */
 ```
 
 ### Forbudt
 
-- Heldekkende Fjell `#002776` som canvas
-- Rødt, grønt, oransje, gult, lilla, rosa
+- Mørk/«nær-svart» canvas (temaet er lyst)
+- Tilfeldige hue-er utenfor paletten + de fem kategorifargene (§11)
 - Gradienter mellom forskjellige hue-er (purple→pink, blue→green osv.)
-- Sand som hovedtekstfarge
+- Fersken/Sand som hovedtekstfarge
 
 ---
 
@@ -184,12 +189,12 @@ fig.add_trace(go.Bar(
     x=[1, 2, 3, 4, 5],
     y=counts,
     marker=dict(
-        color="#005AA4",
+        color="#0A2C72",
         line=dict(width=0),
     ),
     text=[str(c) if c > 0 else "" for c in counts],  # Skjul "0"-labels
     textposition="outside",
-    textfont=dict(size=13, color="#F4F6FB"),
+    textfont=dict(size=13, color="#16203A"),
 ))
 
 # Y-akse: heltall, ikke decimaler
@@ -198,7 +203,7 @@ fig.update_yaxes(
     dtick=1,
     range=[0, max_y + 0.5],
     showgrid=True,
-    gridcolor="rgba(126, 181, 210, 0.1)",
+    gridcolor="#E3E8F1",
     zeroline=False,
     title_text="",
 )
@@ -207,26 +212,26 @@ fig.update_yaxes(
 fig.update_xaxes(
     tickmode="array",
     tickvals=[1, 2, 3, 4, 5],
-    ticktext=["1<br><span style='font-size:10px;color:#6B7691'>uenig</span>",
+    ticktext=["1<br><span style='font-size:10px;color:#6B7280'>uenig</span>",
               "2", "3", "4",
-              "5<br><span style='font-size:10px;color:#6B7691'>enig</span>"],
+              "5<br><span style='font-size:10px;color:#6B7280'>enig</span>"],
     showgrid=False,
 )
 
 # Snitt som vertikal linje
 fig.add_vline(
     x=mean_value,
-    line=dict(color="#D3D3EA", width=1, dash="dash"),
+    line=dict(color="#C9821B", width=1, dash="dash"),
     annotation_text=f"snitt {mean_value:.1f}",
     annotation_position="top",
-    annotation_font=dict(color="#D3D3EA", size=11),
+    annotation_font=dict(color="#C9821B", size=11),
 )
 
 # Layout
 fig.update_layout(
     plot_bgcolor="rgba(0,0,0,0)",
     paper_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Arial, Helvetica, sans-serif", color="#F4F6FB"),
+    font=dict(family="Arial, Helvetica, sans-serif", color="#16203A"),
     margin=dict(l=40, r=20, t=40, b=40),
     height=280,
     showlegend=False,
@@ -304,88 +309,74 @@ Hvorfor: emojier renders inkonsistent på tvers av OS-er (Apple vs Windows vs Li
 
 ### Streamlit-implementering
 
-```python
-# Bruk st.navigation() med ikoner, ikke radio
-pages = {
-    "Oversikt": [
-        st.Page("pages/00_forside.py", title="Forside"),
-        st.Page("pages/01_oppvarming.py", title="Oppvarming"),
-        st.Page("pages/02_resultater.py", title="Resultater"),
-    ],
-    "Kursmoduler": [
-        st.Page("pages/m01_cortex_code.py", title="01 · Cortex Code"),
-        st.Page("pages/m02_snowsight_vs_cli.py", title="02 · Snowsight vs CLI"),
-        # ...
-    ],
-}
-pg = st.navigation(pages)
-pg.run()
-```
-
-`st.navigation()` med dict-input gir seksjons-headers gratis.
+Appen bruker **IKKE** `st.navigation()`. Sidebaren er en custom komponent
+([`components/sidebar.py`](components/sidebar.py)) som leser den kanoniske
+modul-lista fra [`data/moduler.py`](data/moduler.py) (`MODULER` + `SECTIONS`)
+og rendrer kategori-prikker, seksjons-headere og «Du er her»-markering selv.
+Navigasjon skjer via `?page=<slug>` (lest i [`app.py`](app.py)). Se §11 for
+hvorfor vi unngår `st.navigation()`-dict (det ville sprette modulnumrene
+mellom grupper).
 
 ---
 
 ## 7. Callout-mønstre (forbedret)
 
-### Tre typer, klar semantikk
+### Tre typer + en dempet — klar semantikk
 
-| Type | Bakgrunn | Venstrekant | Ikon-bg | Bruk |
-|---|---|---|---|---|
-| **Info** | `rgba(0,90,164,0.12)` | Vann | Vann | Definisjoner, fakta, nøkkelpunkter |
-| **Advarsel** | `rgba(211,211,234,0.12)` | Syrin | Syrin | Risiko, fallgruver, "uten dette skjer X" |
-| **Suksess** | `rgba(126,181,210,0.15)` | Frost | Frost | Beste praksis, anbefalt mønster |
+Matcher Designsystemet (INFO / TIPS / ADVARSEL). `kind`-argumentet til `callout()` er den kanoniske nøkkelen:
 
-### Ikon: kvadratisk, ikke emoji
+| Type | `kind` | Bakgrunn | Aksent | Ikon (`svg_icon`) | Bruk |
+|---|---|---|---|---|---|
+| **Info** | `"info"` | `#EAF1FB` (azur tint) | Marine `#0A2C72` | `info` (sirkel-i) | Definisjoner, fakta, nøkkelpunkter |
+| **Tips** | `"tip"` | `#E7F5EE` (grønn tint) | Grønn `#1E9E6A` | `tip` (lyspære) | Råd, anbefaling, beste praksis |
+| **Advarsel** | `"warn"` | `#FBF1DF` (amber tint) | Amber `#C9821B` | `warn` (trekant) | Risiko, fallgruver, "uten dette skjer X" |
+| _Dempet_ | `"subtle"` | `#F2F5FA` (grå) | Tertiær `#6B7280` | `info` | Tomme tilstander / "venter på svar" — intern bruk, ikke en av de tre primære |
 
-```html
-<div class="callout callout-info">
-  <div class="callout-icon">i</div>
-  <div class="callout-body">
-    <div class="callout-title">Tittel her</div>
-    <div class="callout-content">Innhold her.</div>
-  </div>
-</div>
+**Deprecated alias-navn** (virker fortsatt, men ikke bruk i ny kode): `"success"`/`"highlight"` → `"tip"`, `"warning"` → `"warn"`.
+
+### Ikon: SVG-linjeikon i kvadratisk disc
+
+Callout-badgen er en 28×28px avrundet (radius 7px) disc med aksentfarge-bakgrunn og et **hvitt SVG-linjeikon** (Designsystem v1). Den settes automatisk av `callout()`-helperen ut fra `kind` — `title`-argumentet skal være ren tekst uten emoji.
+
+Ikoner hentes fra `svg_icon(name, *, size, color, stroke)` i `modules/shared/ui.py`. Tilgjengelige navn: `info`, `warn`, `success`, `tip`, `code`, `dbt`, `chart`. Bruk samme helper til funksjonskort-disker og knapp-ikoner.
+
+```python
+from modules.shared.ui import svg_icon
+# Hvitt kode-ikon på marine disc:
+st.markdown(
+    f'<div style="width:52px;height:52px;border-radius:50%;background:#0A2C72;'
+    f'display:grid;place-items:center;">{svg_icon("code", size=24, color="#FFFFFF")}</div>',
+    unsafe_allow_html=True,
+)
 ```
 
-Ikon-spec: 28×28px kvadrat, border-radius 6px, brand-farge bakgrunn, hvit eller Fjell-farget tekst.
-
-**Dette er det eneste tillatte "ikonet" i appen** (jf. §1.7). Bokstav-/tegn-badgen (`i` / `!` / `✓` / `·`) settes av `callout()`-helperen selv ut fra `kind` — `title`-argumentet skal være ren tekst uten emoji.
+**Emojis er aldri tillatt** (§1.7) — SVG-linjeikon er den sanksjonerte ikon-formen.
 
 ### Streamlit-implementasjon
 
-Lag en `components.py` med helpers:
+Bruk den ferdige helperen `callout()` i [`modules/shared/ui.py`](modules/shared/ui.py) — ikke lag din egen. Den eier paletten, SVG-badgen og CSS-resetene. Signatur:
 
 ```python
-from streamlit_extras.stylable_container import stylable_container
-import streamlit as st
-
-def callout(kind: str, title: str, content: str):
-    """kind: 'info' | 'warn' | 'success'"""
-    config = {
-        "info":    ("#005AA4", "rgba(0,90,164,0.12)",   "i"),
-        "warn":    ("#D3D3EA", "rgba(211,211,234,0.12)", "!"),
-        "success": ("#7EB5D2", "rgba(126,181,210,0.15)", "✓"),
-    }
-    color, bg, icon = config[kind]
-    with stylable_container(
-        key=f"callout_{kind}_{hash(title)}",
-        css_styles=f"""
-            {{
-                background: {bg};
-                border-left: 3px solid {color};
-                border-radius: 10px;
-                padding: 20px 24px;
-            }}
-        """,
-    ):
-        st.markdown(f"**{icon}  {title}**")
-        st.markdown(content)
+def callout(body: str, *, kind: str = "info", title: str | None = None, key: str | None = None) -> None
 ```
+
+- `body` — markdown (rendres med `st.markdown`).
+- `kind` — `"info"` | `"tip"` | `"warn"` | `"subtle"` (kanonisk). Aksentfarge, bakgrunn og SVG-ikon settes automatisk ut fra denne.
+- `title` — valgfri fet overskrift, **ren tekst uten emoji** (§1.7).
+- `key` — unik nøkkel for `stylable_container`; auto-avledet hvis utelatt.
 
 Bruk:
 ```python
-callout("info", "Hva er AGENTS.md?", "1. Plasseres i prosjektrot...")
+from modules.shared.ui import callout
+
+callout("**Plasseres i prosjektrot.** Leses automatisk av agenten.",
+        kind="info", title="Hva er AGENTS.md?")
+
+callout("Be Cortex forklare spørringen i klartekst før du endrer noe.",
+        kind="tip", title="Tips")
+
+callout("Cortex respekterer RBAC — men sjekk alltid diff før produksjon.",
+        kind="warn", title="Vær oppmerksom")
 ```
 
 ---
@@ -393,13 +384,50 @@ callout("info", "Hva er AGENTS.md?", "1. Plasseres i prosjektrot...")
 ## 8. Modul-sidens struktur
 
 ```
-1. Crumb (navigasjonskontekst)
-2. H1 (modul-tittel)
-3. Subtittel (metadata: nr, lesetid, vanskelighetsgrad)
-4. Kort introsetning (1-3 setninger prosa)
-5. Innholdsseksjoner (callouts, code, ev. video)
-6. CTA-kort "Til neste modul"
+1. crumb([...])                         (navigasjonskontekst)
+2. module_header(title, subtitle=…)     (modul-hero: eyebrow + display-H1 + azur sub)
+3. st.divider()
+4. Innholdsseksjoner (callouts, feature_hero/feature_card, code, ev. video)
+5. CTA-kort "Til neste modul" via next_module_cta_for(slug)
 ```
+
+### Modul-hero: `module_header()`
+
+Bruk `module_header(title, *, subtitle=None, eyebrow="For analytikere i bank")` fra
+`modules/shared/ui.py` — IKKE `st.title()` + `st.caption()`. Den rendrer:
+
+- **eyebrow** — azur (`#1F6FC4`), 13px, versaler, sperring `.18em`. Default er audience-
+  taglinen «For analytikere i bank» (sett `eyebrow=None` for å skru av).
+- **H1** — tung marine display (`#0A2C72`, 42px, vekt 800, sperring `-.02em`).
+- **subtitle** — azur, 18px (typisk modulens tidligere `Modul N · …`-beskrivelse, uten
+  «Modul N ·»-prefikset; modulnummeret står i crumb).
+
+Interaktive gate-skjermer (deltakerkode) beholder vanlig `st.title()`.
+
+**Arial-note:** Designsystem v1 bruker Libre Franklin 900. Arial topper på 700 (bold); vi
+bruker 800 + stor størrelse + stram sperring som tilnærming. Font-bytte avventes.
+
+### Funksjonskort: `feature_hero()` / `feature_card()` / `dotlist()`
+
+Designsystemets funksjonskort er helpere i `modules/shared/ui.py`:
+
+- `feature_hero(title, items, *, icon="code")` — fersken signaturflate, 52px marine disc-
+  ikon, tittel + prikkliste. For den fremhevede hovedfunksjonen.
+- `feature_card(title, body, *, icon="info")` — hvitt kort, 40px disc, tittel + brødtekst.
+- `signature_card(number=None)` — **context manager**: fersken signaturflate + azur
+  venstrekant (samme varme språk som `feature_hero`), valgfritt marine nummer-badge
+  (1/2/3 …) øverst. I motsetning til `feature_card` (ferdig HTML-streng) rendres innholdet
+  med `st.markdown` inni `with`-blokken, så markdown (kursiv, lister, kvotering) bevares.
+  Bruk for ordnede, prosa-tunge kort-sekvenser (epoker, faser, steg) der den hvite `card()`
+  blir for kjølig. Eksempel: de tre epoke-kortene i Evolusjon (modul 1).
+- `dotlist(items)` — frittstående marine prikkliste.
+
+Disc-ikoner via `svg_icon()` (`code`/`dbt`/`chart` m.fl.). Legg flere kort i `st.columns`
+for grid-oppsett (mockup bruker 1.4fr / 1fr).
+
+**Velg flate bevisst:** hvit `card()` for nøytrale beholdere (diagrammer, seksjoner);
+fersken `feature_hero`/`signature_card` for *fremhevede* eller fortellende flater. Bland
+sparsomt - fersken er en signaturflate, ikke standard kortbakgrunn.
 
 ### CTA-kort til neste (erstatter "---" + tekstlinje)
 
@@ -422,22 +450,23 @@ callout("info", "Hva er AGENTS.md?", "1. Plasseres i prosjektrot...")
 
 ```toml
 [theme]
-base = "dark"
-primaryColor = "#005AA4"
-backgroundColor = "#0A0F1F"            # ← NY: nær-svart, ikke Fjell
-secondaryBackgroundColor = "#0F1729"   # ← NY: surface-1
-textColor = "#F4F6FB"                  # ← NY: text-primary, ikke Sand
-linkColor = "#7EB5D2"
-codeBackgroundColor = "#131C33"
+base = "light"
+primaryColor = "#0A2C72"               # Marine
+backgroundColor = "#FFFFFF"            # Hvit canvas
+secondaryBackgroundColor = "#F7F8FB"   # Surface: side / dempet flate
+textColor = "#16203A"                  # Blekk
+linkColor = "#1F6FC4"                  # Azur
+codeBackgroundColor = "#EEF2F8"        # Lys kode-flate
 font = "Arial, Helvetica, sans-serif"
 baseFontSize = 16
 baseRadius = "10px"
-borderColor = "rgba(126, 181, 210, 0.10)"
+borderColor = "#E3E8F1"
 
 [theme.sidebar]
-backgroundColor = "#0F1729"
-secondaryBackgroundColor = "#131C33"
-textColor = "#A8B3C7"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F8FB"
+textColor = "#3B4256"
+borderColor = "#E3E8F1"
 ```
 
 ### Påkrevde biblioteker
@@ -452,7 +481,7 @@ plotly>=5.18
 
 - ✅ `streamlit-extras.stylable_container` for alle callouts og kort
 - ✅ Plotly for alle diagrammer
-- ✅ `st.navigation()` med dict for sidebar
+- ✅ Custom sidebar (`components/sidebar.py`) som leser `data/moduler.py` — IKKE `st.navigation()` (se §6/§11)
 - ✅ `st.columns()` for metric-rader
 
 ### Unngå
@@ -468,11 +497,11 @@ plotly>=5.18
 ## 10. Sjekkliste før release av en modul
 
 Visuelt:
-- [ ] Canvas er nær-svart, ikke Fjell
+- [ ] Canvas er hvit (lyst Bankbrief-tema), ikke mørk
 - [ ] Alle komponenter er inni kort
-- [ ] Ingen emojis/ikoner noe sted (jf. §1.7) — eneste unntak er callout-badgen (`i`/`!`/`✓`/`·`) og typografiske piler i prosa
+- [ ] Ingen emojis noe sted (jf. §1.7) — eneste tegn-element er callout-badgen (`i`/`!`/`✓`/`·`) og typografiske piler i prosa
 - [ ] Arial gjennomgående — ingen andre fonter (ingen Inter/webfonter)
-- [ ] Tre callout-typer brukt korrekt (info/warn/success)
+- [ ] Callout-typer brukt korrekt (info/tip/warn; `subtle` for empty-states) - jf. §7
 
 Hierarki:
 - [ ] H1 er øverst, største skriftstørrelse
@@ -505,7 +534,7 @@ Innhold:
 
 ### Hvorfor
 
-Kurset har 22 moduler hvor noen typer (individuelle oppgaver, demoer) er flettet inn i sekvensen, ikke samlet i blokker. Ren tematisk gruppering ville sprett nummereringen rundt innenfor hver gruppe og ødelagt sekvensfølelsen. Vi løser det ved å beholde én sekvensiell liste (01–22) og legge til en farget prikk foran hver modul som angir kategori.
+Kurset har mange moduler hvor noen typer (individuelle oppgaver, demoer) er flettet inn i sekvensen, ikke samlet i blokker. Ren tematisk gruppering ville sprett nummereringen rundt innenfor hver gruppe og ødelagt sekvensfølelsen. Vi løser det ved å beholde en sekvensiell liste (nummerert fortløpende fra 01) og legge til en farget prikk foran hver modul som angir kategori.
 
 ### Kategorier
 
@@ -513,20 +542,20 @@ Fem kategorier, hver med en dedikert farge. Disse fargene brukes KUN til prikker
 
 | Kode | Navn | Hex | Bruk |
 |---|---|---|---|
-| I | Innføring | `#7EB5D2` | Frost — teori, konseptmoduler, intro-demoer |
-| K | Konfigurasjon | `#B197FC` | Lavendel — AGENTS.md, skills.md, tilgjengelige modeller |
-| P | Praksis | `#66D9A8` | Mynt — individuelle oppgaver, hands-on |
-| G | Gruppe | `#FFAD80` | Korall — gruppeoppgaver, plenum-gjennomganger |
-| F | Fordypning | `#94A3B8` | Sky — avanserte demoer, dypdykk, avslutning |
+| I | Innføring | `#1F6FC4` | Azur — teori, konseptmoduler, intro-demoer |
+| K | Konfigurasjon | `#6B5BD2` | Violett — AGENTS.md, skills.md, tilgjengelige modeller |
+| P | Praksis | `#1E9E6A` | Grønn — individuelle oppgaver, hands-on |
+| G | Gruppe | `#E08A3C` | Oransje — gruppeoppgaver, plenum-gjennomganger |
+| F | Fordypning | `#8A93A6` | Grå — avanserte demoer, dypdykk, avslutning |
 
 ### Visuell spec
 
 - Prikk: 7×7px sirkel i sidebaren, 10×10px i forsidens grid
 - Plassering: 16px fra venstre, 10px før modul-nummer
-- Modul-nummer: 2 siffer, mono-font, `#6B7691` (active: `#7EB5D2`)
-- Tittel: 13px, Arial/system-sans, `#F4F6FB`
-- Aktiv tilstand: bakgrunn `rgba(0, 90, 164, 0.18)`, venstrekant `#005AA4` 3px
-- Hover: bakgrunn `rgba(0, 90, 164, 0.10)`
+- Modul-nummer: 2 siffer, mono-font, `#6B7280` (active: `#1F6FC4`)
+- Tittel: 13px, Arial/system-sans, `#3B4256` (active: marine `#0A2C72`)
+- Aktiv tilstand: bakgrunn azur tint `#EAF1FB`, tekst marine `#0A2C72`
+- Hover: bakgrunn `#F2F5FA`
 - Tooltip på prikk: viser kategorinavnet (via `title`-attributt)
 
 ### Kanonisk datakilde
@@ -534,7 +563,7 @@ Fem kategorier, hver med en dedikert farge. Disse fargene brukes KUN til prikker
 [`data/moduler.py`](data/moduler.py) er det eneste stedet modul-listen defineres. Endringer i rekkefølge, tittel eller kategori gjøres KUN der. Alle andre komponenter (sidebar, forside-grid, framtidige breadcrumbs, "neste modul"-CTA) importerer fra denne fila.
 
 ```python
-# Korrekt — én datakilde
+# Korrekt - en datakilde
 from data.moduler import MODULER, KATEGORI_FARGE
 
 for modul in MODULER:
@@ -579,11 +608,11 @@ Hver `pages_content/`-fil eksponerer en `render()`-callable. For modul-wrappers 
 
 Hvis kursinnholdet vokser med en sjette kategori-type:
 
-1. Velg en farge som (a) skiller seg tydelig fra de fem eksisterende og (b) fungerer på `#0A0F1F` bakgrunn (kontrast ≥ 3:1).
+1. Velg en farge som (a) skiller seg tydelig fra de fem eksisterende og (b) fungerer på hvit `#FFFFFF` bakgrunn (kontrast ≥ 3:1).
 2. Legg til i `KATEGORI_NAVN`, `KATEGORI_FARGE`, og som CSS-var i `components/sidebar.py`.
 3. Oppdater tabellen og legenden i denne seksjonen.
 4. Vurder om vi har for mange — over 6 kategorier blir prikker forvirrende, og du bør i stedet bruke filter-chips eller view-toggle.
 
 ---
 
-*Når i tvil: åpne `design_preview.html` og sammenlign visuelt. Designet skal være umulig å skille fra mockupen.*
+*Når i tvil: følg token-verdiene i §2 og [`theme-light/THEME_PATCH.md`](theme-light/THEME_PATCH.md). (Den originale `Designsystem.html`-mockupen ligger ikke i repoet.)*

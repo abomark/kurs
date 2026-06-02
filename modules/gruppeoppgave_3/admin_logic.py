@@ -40,7 +40,7 @@ def _check_password() -> bool:
             st.session_state.admin_ok = True
             st.rerun()
         else:
-            callout("Feil passord.", kind="warning", key="g3_admin_login_error")
+            callout("Feil passord.", kind="warn", key="g3_admin_login_error")
     return False
 
 
@@ -98,7 +98,7 @@ def _render_danger_zone() -> None:
     st.subheader("Nullstill runde")
     callout(
         "Sletter ALLE svar. Bruk før ny kurssesjon.",
-        kind="warning",
+        kind="warn",
         key="g3_admin_danger_notice",
     )
     confirm = st.text_input("Skriv 'SLETT' for å bekrefte")
@@ -107,7 +107,7 @@ def _render_danger_zone() -> None:
         st.cache_data.clear()
         callout(
             "Alle svar slettet.",
-            kind="success",
+            kind="tip",
             key="g3_admin_danger_done",
         )
 
@@ -117,7 +117,7 @@ def main() -> None:
         return
 
     crumb(["Administrasjon", "Gruppeoppgave 3"])
-    st.title("Presentatør · Gruppeoppgave 3 — memory.md")
+    st.title("Presentatør · Gruppeoppgave 3 - memory.md")
 
     tab_results, tab_mod, tab_export, tab_danger = st.tabs(
         ["Resultater", "Moderering", "Eksport", "Nullstill"]

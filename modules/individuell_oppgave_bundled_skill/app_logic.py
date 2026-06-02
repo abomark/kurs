@@ -1,4 +1,4 @@
-"""Individuell oppgave: Bundled skill – modul 19.
+"""Individuell oppgave: Bundled skill - modul 19.
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
 markdown-filer under `content/`). Hands-on i skills.md-seksjonen: deltaker
@@ -13,13 +13,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, crumb, load_markdown, next_module_cta_for
+from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
     crumb(["Kursmoduler", "19 · Individuell oppgave: Bundled skill"])
-    st.title("Individuell oppgave: Bundled skill")
-    st.caption("Modul 19 · Hands-on: forstå en bundled skill, så anvend den selv.")
+    module_header("Individuell oppgave: Bundled skill", subtitle="Hands-on: forstå en bundled skill, så anvend den selv.")
     st.divider()
 
     callout(

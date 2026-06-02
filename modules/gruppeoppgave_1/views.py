@@ -2,13 +2,13 @@
 
 Implementerer PRD §FR-3.13 (offentlig resultatvisning): rendering-logikk
 som er trygg å eksponere uten passord-gate. Bruker `service_client()`
-server-side for å hente aggregerte data — service_role-keyen lekker
+server-side for å hente aggregerte data - service_role-keyen lekker
 aldri til nettleseren, og brukerne ser kun ferdig-renderte grafer.
 
 `admin_logic.py` (passordbeskyttet) og `gruppeoppgave_1_resultater`
 (modul 13, offentlig) deler disse funksjonene for å unngå duplisering.
 
-IKKE legg moderering, eksport eller sletting her — det hører hjemme i
+IKKE legg moderering, eksport eller sletting her - det hører hjemme i
 `admin_logic.py`.
 """
 

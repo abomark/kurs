@@ -1,7 +1,7 @@
-"""Gruppeoppgave 2 — lag en skill (datakvalitets-sjekk).
+"""Gruppeoppgave 2 - lag en skill (datakvalitets-sjekk).
 
 Implementerer PRD §FR-3.11 (presentasjons-modul) og §FR-3.12 (innhold i
-markdown-filer under `content/`). Ren presentasjon — ingen datainnsamling.
+markdown-filer under `content/`). Ren presentasjon - ingen datainnsamling.
 Refleksjon skjer muntlig i plenum etterpå.
 
 Eksponerer `main()` som kalles fra `pages_content/modules/m12_gruppeoppgave_2.py`.
@@ -11,12 +11,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from modules.shared.ui import callout, load_markdown
+from modules.shared.ui import callout, crumb, load_markdown, module_header, next_module_cta_for
 
 
 def main() -> None:
-    st.title("Gruppeoppgave 2")
-    st.caption("Modul 20 · Lag en skill: datakvalitets-sjekk")
+    crumb(["Kursmoduler", "20 · Gruppeoppgave 2"])
+    module_header("Gruppeoppgave 2", subtitle="Lag en skill: datakvalitets-sjekk")
     st.divider()
 
     callout(
@@ -35,3 +35,6 @@ def main() -> None:
 
     st.subheader("Forventet resultat")
     st.markdown(load_markdown(__file__, "forventet"))
+
+    st.divider()
+    next_module_cta_for("memory_md")
