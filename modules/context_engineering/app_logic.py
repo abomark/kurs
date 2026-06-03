@@ -28,7 +28,7 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "24 · Context engineering"])
+    crumb(["Kursmoduler", "21 · Context engineering"])
 
     # --- Hva er det (intro under H1) ---
     title, intro_body = load_titled_markdown(__file__, "intro")

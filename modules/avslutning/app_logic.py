@@ -15,7 +15,7 @@ from modules.shared.ui import crumb, load_markdown, module_header
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "27 · Avslutning"])
+    crumb(["Kursmoduler", "24 · Avslutning"])
     module_header("Avslutning", subtitle="Hva nå? - veien videre.")
     st.divider()
 

@@ -27,6 +27,8 @@ from modules.shared.ui import callout, crumb
 from .reducer import reduce_answers
 from .views import cached_text_answers, render_results
 from .viz import render_wordcloud
+from modules.oppvarming.db import delete_all_responses as delete_oppvarming_responses
+from modules.gruppeoppgave_3.db import delete_all_responses as delete_go3_responses
 
 
 def _check_password() -> bool:
@@ -139,16 +141,19 @@ def _render_export() -> None:
 def _render_danger_zone() -> None:
     st.subheader("Nullstill runde")
     callout(
-        "Sletter ALLE svar. Bruk før ny kurssesjon.",
+        "Sletter ALLE svar fra alle moduler (Bli kjent, Agents, Gruppeoppgave 1). "
+        "Bruk før ny kurssesjon.",
         kind="warn",
         key="admin_danger_notice",
     )
     confirm = st.text_input("Skriv 'SLETT' for å bekrefte")
     if st.button("Slett alle svar", type="primary", disabled=(confirm != "SLETT")):
+        delete_oppvarming_responses()
+        delete_go3_responses()
         delete_all_responses()
         st.cache_data.clear()
         callout(
-            "Alle svar slettet.",
+            "Alle svar fra alle moduler slettet.",
             kind="tip",
             key="admin_danger_done",
         )

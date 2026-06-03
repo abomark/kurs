@@ -1,6 +1,0 @@
-- Når er en bundled skill bedre enn en vanlig prompt?
-- Hvor kan lineage brukes i vår hverdag?
-  - regulatorisk sporing
-  - konsekvensanalyse før endring
-  - dokumentasjon
-- Når bør vi kreve Plan Mode før agenten får handle?

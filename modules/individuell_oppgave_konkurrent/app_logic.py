@@ -16,7 +16,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "26 · Gruppeoppgave: Konkurrent-signaler"])
+    crumb(["Kursmoduler", "23 · Gruppeoppgave: Konkurrent-signaler"])
     module_header(
         "Gruppeoppgave: Konkurrent-signaler",
         subtitle="Hands-on: kan agenten flagge utgående transaksjoner til konkurrenter?",

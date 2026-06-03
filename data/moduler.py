@@ -1,7 +1,7 @@
 """Kanonisk modul-liste for Cortex Code-kurset.
 
 Hver modul er en dict med felt:
-- nr:       int, 1-28. Sekvensnummer i kurset.
+- nr:       int, 1-24. Sekvensnummer i kurset.
 - slug:     str, matcher mappenavn under `modules/<slug>/` slik at
             wrapper-importene i `pages_content/modules/` finner riktig
             `main()` å aliasere som `render()`.
@@ -38,13 +38,10 @@ MODULER = [
     {"nr": 18, "slug": "demo_bundled_skill",         "tittel": "Demo: Bundled skill",        "kategori": "I"},
     {"nr": 19, "slug": "individuell_oppgave_bundled_skill", "tittel": "Individuell oppgave: Bundled skill", "kategori": "P"},
     {"nr": 20, "slug": "gruppeoppgave_2",            "tittel": "Gruppeoppgave 2",            "kategori": "G"},
-    {"nr": 21, "slug": "memory_md",                  "tittel": "memory.md",                  "kategori": "K"},
-    {"nr": 22, "slug": "gruppeoppgave_3",            "tittel": "Gruppeoppgave 3",            "kategori": "G"},
-    {"nr": 23, "slug": "gruppeoppgave_3_resultater", "tittel": "Resultater Gruppeoppgave 3", "kategori": "G"},
-    {"nr": 24, "slug": "context_engineering",        "tittel": "Context engineering",        "kategori": "K"},
-    {"nr": 25, "slug": "individuell_oppgave_kohort", "tittel": "Individuell oppgave: Kohortanalyse", "kategori": "P"},
-    {"nr": 26, "slug": "individuell_oppgave_konkurrent", "tittel": "Gruppeoppgave: Konkurrent-signaler", "kategori": "G"},
-    {"nr": 27, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
+    {"nr": 21, "slug": "context_engineering",        "tittel": "Context engineering",        "kategori": "K"},
+    {"nr": 22, "slug": "individuell_oppgave_kohort", "tittel": "Individuell oppgave: Kohortanalyse", "kategori": "P"},
+    {"nr": 23, "slug": "individuell_oppgave_konkurrent", "tittel": "Gruppeoppgave: Konkurrent-signaler", "kategori": "G"},
+    {"nr": 24, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
 ]
 
 KATEGORI_NAVN = {
@@ -149,34 +146,25 @@ SECTIONS = [
         ],
     },
     {
-        "id": "memory_md",
-        "label": "memory.md",
-        "modules": [
-            "m21_memory_md",
-            "m22_gruppeoppgave_3",
-            "m23_gruppeoppgave_3_resultater",
-        ],
-    },
-    {
         "id": "context_engineering",
         "label": "Context engineering",
         "modules": [
-            "m24_context_engineering",
+            "m21_context_engineering",
         ],
     },
     {
         "id": "kurs_data",
         "label": "Anvendt praksis: KURS-data",
         "modules": [
-            "m25_individuell_oppgave_kohort",
-            "m26_individuell_oppgave_konkurrent",
+            "m22_individuell_oppgave_kohort",
+            "m23_individuell_oppgave_konkurrent",
         ],
     },
     {
         "id": "avslutning",
         "label": "Avslutning",
         "modules": [
-            "m27_avslutning",
+            "m24_avslutning",
         ],
     },
 ]

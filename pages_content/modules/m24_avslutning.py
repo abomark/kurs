@@ -1,4 +1,4 @@
-"""Wrapper for modul 17: Avslutning.
+"""Wrapper for modul 24: Avslutning.
 
 Tynn pass-through til `modules.avslutning.app_logic.main` slik at
 all eksisterende logikk (content/*.md, callouts, db-koblinger) bevares.

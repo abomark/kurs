@@ -6,6 +6,26 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-06-03 - memory.md-seksjonen skjult fra kurset
+
+Eier-beslutning: hele memory.md-seksjonen skal ikke med på kurset.
+
+- **Skjult (ikke slettet):** memory.md + Gruppeoppgave 3 + Resultater Gruppeoppgave 3 (var nr 21-23) fjernet fra `MODULER` og «memory.md»-seksjonen i `data/moduler.py`. Modulmappene (`modules/memory_md/`, `modules/gruppeoppgave_3/`, `modules/gruppeoppgave_3_resultater/`) og DB-tabellen `kurs.gruppeoppgave_3_responses` er beholdt urørt. De tre wrapperne flyttet til `pages_content/modules/_skjult/` (ut av aktiv ruting).
+- **Renummerert** de fire påfølgende modulene 24-27 -> 21-24 (context_engineering, kohort, konkurrent, avslutning): wrapper-rename + crumb-justering (crumb-nr == MODULER-nr).
+- **CTA rekoblet:** `gruppeoppgave_2` pekte til `memory_md`, peker nå til `context_engineering`.
+- 24 moduler igjen. **Gjenåpning:** legg de tre radene tilbake i MODULER + memory.md-seksjonen, flytt wrapperne ut av `_skjult/`, og rekoble CTA-en. Ingen ny FR/NFR. Verifisert: wrapper-integritet (24 moduler, 0 orphans), crumb==nr, smoke-import 0 feil.
+
+---
+
+## 2026-06-03 - Demo: Bundled skill forenklet
+
+- **Fjernet segment 3** ("Kombiner med Plan Mode") - demoen skal ikke handle om Plan Mode. Slettet `content/segment_3.md` og tatt ut av `DEMO_FILES` i `app_logic.py`.
+- **Fjernet Diskusjon-seksjonen** (subheader + `content/diskusjon.md` slettet).
+- **Fjernet `BASELINE_ACTIVE_KUNDE_TRUST`** og Plan Mode-punktet fra `content/formaal.md`; ryddet Plan Mode-referansen i app_logic-docstringen.
+- Ren content/layout-endring i eksisterende §FR-3.11/§FR-3.12-modul, ingen ny FR/NFR. Verifisert: py_compile + smoke-import, 0 stale referanser.
+
+---
+
 ## 2026-06-02 - Fjernet Forside og Test-skills-siden
 
 - **Test: Skills (HTML)** (var modul 28, siste) fjernet helt: MODULER-entry + «Test»-seksjonen i `data/moduler.py`, wrapper `pages_content/modules/m28_test_skills_html.py`, modulmappa `modules/test_skills_html/`, og `test_skills_html` ut av `_WIDE_LAYOUT_SLUGS` i `app.py`. Var siste modul, så ingen renummerering. **27 moduler igjen.**

@@ -17,7 +17,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "25 · Individuell oppgave: Kohortanalyse"])
+    crumb(["Kursmoduler", "22 · Individuell oppgave: Kohortanalyse"])
     module_header(
         "Individuell oppgave: Kohortanalyse",
         subtitle="Hands-on: kohortanalyse mot @KURS_TRANSAKSJON, visualisert som heatmap.",

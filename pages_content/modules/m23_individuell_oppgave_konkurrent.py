@@ -1,4 +1,4 @@
-"""Wrapper for modul 33: Individuell oppgave: Konkurrent-signaler.
+"""Wrapper for modul 23: Gruppeoppgave: Konkurrent-signaler.
 
 Tynn pass-through til `modules.individuell_oppgave_konkurrent.app_logic.main`.
 """

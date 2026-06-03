@@ -1,4 +1,4 @@
-"""Wrapper for modul 24: Context engineering.
+"""Wrapper for modul 21: Context engineering.
 
 Tynn pass-through til `modules.context_engineering.app_logic.main`.
 """

@@ -1,4 +1,4 @@
-"""Wrapper for modul 31: Individuell oppgave: Kohortanalyse.
+"""Wrapper for modul 22: Individuell oppgave: Kohortanalyse.
 
 Tynn pass-through til `modules.individuell_oppgave_kohort.app_logic.main`.
 """

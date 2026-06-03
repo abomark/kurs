@@ -37,4 +37,4 @@ def main() -> None:
     st.markdown(load_markdown(__file__, "forventet"))
 
     st.divider()
-    next_module_cta_for("memory_md")
+    next_module_cta_for("context_engineering")
