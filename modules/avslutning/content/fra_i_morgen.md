@@ -3,10 +3,9 @@
 - Bruk Plan Mode før endringer i viktige objekter
 - Bruk @-mentions for tabeller, filer og skills
 - Legg faste prosjektregler i AGENTS.md
-- Legg repeterbare arbeidsflyter i skills.md
-- Legg konkret oppgavekontekst i prompten
-- Vær tydelig på mål, data, grain, begrensninger og ønsket output
+- Legg repeterbare arbeidsflyter/prompts i skills.md
+- Vær tydelig på mål, data, begrensninger og ønsket output
 - Start read-only når du er usikker
 - Be agenten forklare antakelser og konsekvenser
 - Be agenten spørre ved uklarheter, ikke gjette
-- Iterer med agenten - første svar er sjelden siste svar
+- Iterer med agenten, første svar er sjelden siste svar

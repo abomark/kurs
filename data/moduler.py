@@ -1,7 +1,7 @@
 """Kanonisk modul-liste for Cortex Code-kurset.
 
 Hver modul er en dict med felt:
-- nr:       int, 1-24. Sekvensnummer i kurset.
+- nr:       int, 1-25. Sekvensnummer i kurset.
 - slug:     str, matcher mappenavn under `modules/<slug>/` slik at
             wrapper-importene i `pages_content/modules/` finner riktig
             `main()` å aliasere som `render()`.
@@ -19,29 +19,30 @@ from __future__ import annotations
 
 MODULER = [
     {"nr":  1, "slug": "evolusjon",                  "tittel": "Evolusjon",                  "kategori": "I"},
-    {"nr":  2, "slug": "cortex_code",                "tittel": "Cortex Code",                "kategori": "I"},
-    {"nr":  3, "slug": "cortex_interaction",         "tittel": "Snowsight vs CLI",           "kategori": "I"},
-    {"nr":  4, "slug": "arkitektur",                 "tittel": "Under panseret",             "kategori": "I"},
-    {"nr":  5, "slug": "demo_1",                     "tittel": "Første demo",                "kategori": "I"},
-    {"nr":  6, "slug": "individuell_oppgave_1",      "tittel": "Individuell oppgave 1",      "kategori": "P"},
-    {"nr":  7, "slug": "at_mentions",                "tittel": "@-mentions",                 "kategori": "I"},
-    {"nr":  8, "slug": "individuell_oppgave_at_mentions", "tittel": "Individuell oppgave: @-mentions", "kategori": "P"},
-    {"nr":  9, "slug": "plan_mode",                   "tittel": "Plan Mode",                  "kategori": "I"},
-    {"nr": 10, "slug": "individuell_oppgave_plan_mode", "tittel": "Individuell oppgave: Plan Mode", "kategori": "P"},
-    {"nr": 11, "slug": "kostnader",                  "tittel": "Kostnader",                  "kategori": "F"},
-    {"nr": 12, "slug": "agents_md",                  "tittel": "AGENTS.md",                  "kategori": "K"},
-    {"nr": 13, "slug": "gruppeoppgave_1",            "tittel": "Gruppeoppgave 1",            "kategori": "G"},
-    {"nr": 14, "slug": "gruppeoppgave_1_resultater", "tittel": "Resultater Gruppeoppgave 1", "kategori": "G"},
-    {"nr": 15, "slug": "tilgjengelige_modeller",     "tittel": "Tilgjengelige modeller",     "kategori": "K"},
-    {"nr": 16, "slug": "individuell_oppgave_modellvalg", "tittel": "Individuell oppgave: Modellvalg", "kategori": "P"},
-    {"nr": 17, "slug": "skills_md",                  "tittel": "skills.md",                  "kategori": "K"},
-    {"nr": 18, "slug": "demo_bundled_skill",         "tittel": "Demo: Bundled skill",        "kategori": "I"},
-    {"nr": 19, "slug": "individuell_oppgave_bundled_skill", "tittel": "Individuell oppgave: Bundled skill", "kategori": "P"},
-    {"nr": 20, "slug": "gruppeoppgave_2",            "tittel": "Gruppeoppgave 2",            "kategori": "G"},
-    {"nr": 21, "slug": "context_engineering",        "tittel": "Context engineering",        "kategori": "K"},
-    {"nr": 22, "slug": "individuell_oppgave_kohort", "tittel": "Individuell oppgave: Kohortanalyse", "kategori": "P"},
-    {"nr": 23, "slug": "individuell_oppgave_konkurrent", "tittel": "Gruppeoppgave: Konkurrent-signaler", "kategori": "G"},
-    {"nr": 24, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
+    {"nr":  2, "slug": "kodeassistenter",            "tittel": "Kode-assistenter",           "kategori": "I"},
+    {"nr":  3, "slug": "cortex_code",                "tittel": "Cortex Code",                "kategori": "I"},
+    {"nr":  4, "slug": "cortex_interaction",         "tittel": "Snowsight vs CLI",           "kategori": "I"},
+    {"nr":  5, "slug": "arkitektur",                 "tittel": "Under panseret",             "kategori": "I"},
+    {"nr":  6, "slug": "demo_1",                     "tittel": "Første demo",                "kategori": "I"},
+    {"nr":  7, "slug": "individuell_oppgave_1",      "tittel": "Individuell oppgave 1",      "kategori": "P"},
+    {"nr":  8, "slug": "at_mentions",                "tittel": "@-mentions",                 "kategori": "I"},
+    {"nr":  9, "slug": "individuell_oppgave_at_mentions", "tittel": "Individuell oppgave: @-mentions", "kategori": "P"},
+    {"nr": 10, "slug": "plan_mode",                   "tittel": "Plan Mode",                  "kategori": "I"},
+    {"nr": 11, "slug": "individuell_oppgave_plan_mode", "tittel": "Individuell oppgave: Plan Mode", "kategori": "P"},
+    {"nr": 12, "slug": "kostnader",                  "tittel": "Kostnader",                  "kategori": "F"},
+    {"nr": 13, "slug": "agents_md",                  "tittel": "AGENTS.md",                  "kategori": "K"},
+    {"nr": 14, "slug": "gruppeoppgave_1",            "tittel": "Gruppeoppgave 1",            "kategori": "G"},
+    {"nr": 15, "slug": "gruppeoppgave_1_resultater", "tittel": "Resultater Gruppeoppgave 1", "kategori": "G"},
+    {"nr": 16, "slug": "tilgjengelige_modeller",     "tittel": "Tilgjengelige modeller",     "kategori": "K"},
+    {"nr": 17, "slug": "individuell_oppgave_modellvalg", "tittel": "Individuell oppgave: Modellvalg", "kategori": "P"},
+    {"nr": 18, "slug": "skills_md",                  "tittel": "skills.md",                  "kategori": "K"},
+    {"nr": 19, "slug": "demo_bundled_skill",         "tittel": "Demo: Bundled skill",        "kategori": "I"},
+    {"nr": 20, "slug": "individuell_oppgave_bundled_skill", "tittel": "Individuell oppgave: Bundled skill", "kategori": "P"},
+    {"nr": 21, "slug": "gruppeoppgave_2",            "tittel": "Gruppeoppgave 2",            "kategori": "G"},
+    {"nr": 22, "slug": "context_engineering",        "tittel": "Context engineering",        "kategori": "K"},
+    {"nr": 23, "slug": "individuell_oppgave_kohort", "tittel": "Individuell oppgave: Kohortanalyse", "kategori": "P"},
+    {"nr": 24, "slug": "individuell_oppgave_konkurrent", "tittel": "Gruppeoppgave: Konkurrent-signaler", "kategori": "G"},
+    {"nr": 25, "slug": "avslutning",                 "tittel": "Avslutning",                 "kategori": "F"},
 ]
 
 KATEGORI_NAVN = {
@@ -82,89 +83,90 @@ SECTIONS = [
         "label": "Introduksjon",
         "modules": [
             "m01_evolusjon",
-            "m02_cortex_code",
-            "m03_cortex_interaction",
-            "m04_arkitektur",
+            "m02_kodeassistenter",
+            "m03_cortex_code",
+            "m04_cortex_interaction",
+            "m05_arkitektur",
         ],
     },
     {
         "id": "komme_i_gang",
         "label": "Komme i gang",
         "modules": [
-            "m05_demo_1",
-            "m06_individuell_oppgave_1",
+            "m06_demo_1",
+            "m07_individuell_oppgave_1",
         ],
     },
     {
         "id": "at_mentions",
         "label": "@-mentions",
         "modules": [
-            "m07_at_mentions",
-            "m08_individuell_oppgave_at_mentions",
+            "m08_at_mentions",
+            "m09_individuell_oppgave_at_mentions",
         ],
     },
     {
         "id": "plan_mode",
         "label": "Plan Mode",
         "modules": [
-            "m09_plan_mode",
-            "m10_individuell_oppgave_plan_mode",
+            "m10_plan_mode",
+            "m11_individuell_oppgave_plan_mode",
         ],
     },
     {
         "id": "kostnader",
         "label": "Kostnader",
         "modules": [
-            "m11_kostnader",
+            "m12_kostnader",
         ],
     },
     {
         "id": "agents_md",
         "label": "AGENTS.md",
         "modules": [
-            "m12_agents_md",
-            "m13_gruppeoppgave_1",
-            "m14_gruppeoppgave_1_resultater",
+            "m13_agents_md",
+            "m14_gruppeoppgave_1",
+            "m15_gruppeoppgave_1_resultater",
         ],
     },
     {
         "id": "modellvalg",
         "label": "Modellvalg",
         "modules": [
-            "m15_tilgjengelige_modeller",
-            "m16_individuell_oppgave_modellvalg",
+            "m16_tilgjengelige_modeller",
+            "m17_individuell_oppgave_modellvalg",
         ],
     },
     {
         "id": "skills_md",
         "label": "skills.md",
         "modules": [
-            "m17_skills_md",
-            "m18_demo_bundled_skill",
-            "m19_individuell_oppgave_bundled_skill",
-            "m20_gruppeoppgave_2",
+            "m18_skills_md",
+            "m19_demo_bundled_skill",
+            "m20_individuell_oppgave_bundled_skill",
+            "m21_gruppeoppgave_2",
         ],
     },
     {
         "id": "context_engineering",
         "label": "Context engineering",
         "modules": [
-            "m21_context_engineering",
+            "m22_context_engineering",
         ],
     },
     {
         "id": "kurs_data",
         "label": "Anvendt praksis: KURS-data",
         "modules": [
-            "m22_individuell_oppgave_kohort",
-            "m23_individuell_oppgave_konkurrent",
+            "m23_individuell_oppgave_kohort",
+            "m24_individuell_oppgave_konkurrent",
         ],
     },
     {
         "id": "avslutning",
         "label": "Avslutning",
         "modules": [
-            "m24_avslutning",
+            "m25_avslutning",
         ],
     },
 ]

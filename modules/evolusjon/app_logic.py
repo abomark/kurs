@@ -101,4 +101,4 @@ def main() -> None:
     )
 
     st.divider()
-    next_module_cta_for("cortex_code")
+    next_module_cta_for("kodeassistenter")

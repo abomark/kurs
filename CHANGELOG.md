@@ -6,6 +6,50 @@ For detaljerte krav-endringer, se PRD.md §8.
 
 ---
 
+## 2026-06-08 - Kode-assistenter (modul 02): strukturert rundt essensen
+
+- Siden gikk fra tre stablede diagrammer uten overskrifter til en 4-takts fortelling med `st.subheader`: **Fra oppgave til handling** -> **En modell alene kan bare skrive** -> **Løsningen: en dialog av verktøykall** -> **Dette kalles Tool Use**.
+- De to steg-sekvensene rendres nå som `numbered_steps()`-kort (de tre stegene kontekst/plan/handling med beskrivelse; de fire leddene i verktøy-løkka som titler), matet fra `## `-splittet content via `load_split_markdown` (samme mønster som `skills_md`). Diagrammene `assistant.png`/`llm.png`/`flyt.png` beholdt som visuell støtte; `assistant.png` flyttet opp som lead-bilde.
+- Ny avsluttende **Tool Use**-seksjon: `callout(info, "Tool Use")` som navngir mekanismen + `callout(tip)` kort bro om at Claude-modellene er sterke på verktøybruk -> Cortex Code.
+- Nye/omformatterte content-filer: `steg_oppgave.md`, `steg_note.md`, `overgang_sporsmaal.md`, `steg_lokke.md`, `tool_use.md`, `claude_bro.md`; `bilde_assistant.md` omgjort til kort lead-bildetekst. Tekst flyttet/omformattert fra Andres eksisterende bildetekster + hans essens - ordlyd til bekreftelse. Dekkes av FR-3.11 + FR-3.12; ingen ny FR/NFR. PRD §8 v0.67.
+
+---
+
+## 2026-06-08 - Cortex Code: fjernet to begreper
+
+- Tatt bort to oppslag fra «Begrep for begrep» (modul 03 · Cortex Code): **«Agent-building tasks»** (`term_agent_building`) og **«Consistent»** (`term_consistent`). Fjernet fra `TERM_FILES` i `modules/cortex_code/app_logic.py`; de to nå foreldreløse `content/*.md`-filene slettet (git-sporet). 5 begrep igjen. PRD §8 v0.66. Ingen ny FR/NFR. Verifisert: py_compile + ingen gjenværende referanser.
+
+---
+
+## 2026-06-08 - "Hvordan kode assistenter fungerer" skilt ut som egen modul (nr 02)
+
+- **Ny modul** `modules/kodeassistenter/` (slug `kodeassistenter`, tittel "Kode-assistenter", kategori I), plassert rett etter Evolusjon og før Cortex Code. Den generelle, produkt-uavhengige forklaringen (språkmodell alene -> assistent med verktøy + loop -> meldingsflyt) læres nå før det Cortex Code-spesifikke. De tre diagrammene + bildetekstene (`assistant.png`/`llm.png`/`flyt.png` + `bilde_*.md`) flyttet fra `modules/arkitektur/content/`; `_image_or_placeholder`-helper kopiert inn.
+- **"Under panseret"** (nå nr 05) trimmet til intro + "Lagene" + demo; den nå ubrukte `_image_or_placeholder`-helperen + `os`/`_HERE` fjernet.
+- **Renummerering:** ny modul på plass 2 skjøv gamle nr 2-24 -> 3-25 (25 moduler totalt). 23 wrapper-filer renamet, 22 crumb-nr bumpet (+ arkitektur 04->05), SECTIONS-page_ids oppdatert i `data/moduler.py`. CTA-kjede: `evolusjon` -> `kodeassistenter` -> `cortex_code` (resten slug-basert, uberørt).
+- Subtittel/sidebar-tittel for nye modul er placeholder/forslag - Andre fyller ut endelig ordlyd. Ingen ny FR/NFR. PRD §8 v0.65.
+
+---
+
+## 2026-06-08 - Under panseret: ny seksjon "Hvordan kode assistenter fungerer"
+
+- Ny seksjon lagt inn mellom intro og «Lagene» i modul 04 · Under panseret (`modules/arkitektur/`). Viser tre diagrammer stablet i full bredde: `assistant.png` (kode-assistent = språkmodell + verktøy i en iterasjons-løkke), `llm.png` (språkmodell alene, uten assistent, kan ikke lese filer) og `flyt.png` (sekvensdiagram for et `ReadFile`-verktøykall med assistent), hver med kort norsk bildetekst. Rekkefølgen forteller en progresjon: oversikt -> problem -> løsning.
+- Bildene flyttet fra repo-rot til `modules/arkitektur/content/`. Bildetekstene ligger i `content/bilde_assistant.md` + `content/bilde_llm.md` + `content/bilde_flyt.md` (eier-bedt draft). `app_logic.py` fikk lokal `_image_or_placeholder`-helper (samme mønster som `evolusjon`/`cortex_interaction`).
+- Bildegrafikken er på engelsk; bildetekstene er norske og bygger bro. PRD §8 v0.64. Ingen ny FR/NFR. Verifisert: AppTest (m04), 3 bilder + 3 bildetekster, ny subheader før «Lagene», 0 feil.
+
+---
+
+## 2026-06-08 - Cortex Code: fjernet lytteklipp
+
+- Tatt ut «Lytteklipp: Snowflake RBAC»-seksjonen (`st.audio`) fra modul 02 · Cortex Code. Fjernet seksjonen + den foreldreløse `RBAC_AUDIO`-konstanten, ubrukte `Path`-importen og fallback-callouten i `modules/cortex_code/app_logic.py`; gjenværende seksjoner renummerert (2-4). Lydfila `Snowflake RBAC.mp3` i repo-rot er nå urefererert (ikke slettet). Ingen ny FR/NFR (var dekket av generell FR-3.11). PRD §8.
+
+---
+
+## 2026-06-08 - Cortex Code: begrep "Intelligent agent" -> "AI agent"
+
+- I "Begrep for begrep" (modul 02 · Cortex Code) er oppslaget "Intelligent agent" byttet til **"AI agent"** med ny definisjon ("AI som tar handling for å fullføre mål", kilde Anthropic). Endret kun `content/term_intelligent_agent.md`; filnavn og `TERM_FILES` beholdt. Ren content-endring, ingen ny FR/NFR.
+
+---
+
 ## 2026-06-03 - memory.md-seksjonen skjult fra kurset
 
 Eier-beslutning: hele memory.md-seksjonen skal ikke med på kurset.

@@ -17,7 +17,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "10 · Individuell oppgave: Plan Mode"])
+    crumb(["Kursmoduler", "11 · Individuell oppgave: Plan Mode"])
     module_header("Individuell oppgave: Plan Mode", subtitle="Hands-on: skru på Plan Mode og les planen før utførelse.")
     st.divider()
 

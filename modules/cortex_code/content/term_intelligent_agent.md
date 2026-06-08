@@ -1,3 +1,3 @@
-# Intelligent agent
+# AI agent
 
-Programvare som **oppfatter omgivelsene sine, resonnerer rundt dem og utfører handlinger mot et mål**. Tre ledd: persepsjon → resonnement → handling.
+**AI som tar handling for å fullføre mål.** Begrepet slik Anthropic bruker det.

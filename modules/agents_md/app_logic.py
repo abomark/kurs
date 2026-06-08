@@ -17,7 +17,7 @@ from modules.shared.ui import callout, card, crumb, load_markdown, module_header
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "12 · AGENTS.md"])
+    crumb(["Kursmoduler", "13 · AGENTS.md"])
     module_header("AGENTS.md", subtitle="Hva er AGENTS.md, og hvorfor trenger vi det?")
     st.divider()
 

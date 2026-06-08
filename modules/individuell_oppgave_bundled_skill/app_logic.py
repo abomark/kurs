@@ -17,7 +17,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "19 · Individuell oppgave: Bundled skill"])
+    crumb(["Kursmoduler", "20 · Individuell oppgave: Bundled skill"])
     module_header("Individuell oppgave: Bundled skill", subtitle="Hands-on: forstå en bundled skill, så anvend den selv.")
     st.divider()
 

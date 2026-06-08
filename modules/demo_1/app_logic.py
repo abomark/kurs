@@ -25,7 +25,7 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "05 · Første demo"])
+    crumb(["Kursmoduler", "06 · Første demo"])
     module_header(
         "Første demo",
         subtitle="Workspace, Cortex Code og kostnad",

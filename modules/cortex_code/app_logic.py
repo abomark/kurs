@@ -9,8 +9,6 @@ Eksponerer `main()` som kalles fra `pages/cortex_code.py`.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import streamlit as st
 
 from modules.shared.ui import (
@@ -25,20 +23,14 @@ from modules.shared.ui import (
 TERM_FILES = [
     "term_intelligent",
     "term_intelligent_agent",
-    "term_agent_building",
     "term_autonomous",
     "term_best_practices",
-    "term_consistent",
     "term_context_aware",
 ]
 
-# Lydklipp som lyttes til underveis. Lagret i repo-rot.
-_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-RBAC_AUDIO = _REPO_ROOT / "Snowflake RBAC.mp3"
-
 
 def main() -> None:
-    crumb(["Kursmoduler", "02 · Cortex Code"])
+    crumb(["Kursmoduler", "03 · Cortex Code"])
     module_header("Cortex Code", subtitle="Hva er Cortex Code egentlig?")
     st.divider()
 
@@ -68,20 +60,7 @@ def main() -> None:
 
     st.divider()
 
-    # --- Seksjon 2: Lydklipp om RBAC (rett under dokumentasjonen) ---
-    st.subheader("Lytteklipp: Snowflake RBAC")
-    if RBAC_AUDIO.exists():
-        st.audio(str(RBAC_AUDIO), format="audio/mp3")
-    else:
-        callout(
-            f"Mangler lydfil: {RBAC_AUDIO.name}",
-            kind="warn",
-            key="cortex_audio_missing",
-        )
-
-    st.divider()
-
-    # --- Seksjon 3: Begrep for begrep ---
+    # --- Seksjon 2: Begrep for begrep ---
     st.subheader("Begrep for begrep")
     for name in TERM_FILES:
         title, body = load_titled_markdown(__file__, name)
@@ -90,7 +69,7 @@ def main() -> None:
 
     st.divider()
 
-    # --- Seksjon 4: Klartekst ---
+    # --- Seksjon 3: Klartekst ---
     callout(
         load_markdown(__file__, "summary"),
         kind="tip",
@@ -100,7 +79,7 @@ def main() -> None:
 
     st.divider()
 
-    # --- Seksjon 5: Konkret eksempel ---
+    # --- Seksjon 4: Konkret eksempel ---
     st.subheader("Et konkret eksempel")
     with st.container(border=True):
         st.markdown(load_markdown(__file__, "example"))

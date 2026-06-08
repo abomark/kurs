@@ -24,7 +24,7 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "09 · Plan Mode"])
+    crumb(["Kursmoduler", "10 · Plan Mode"])
     module_header(
         "Plan Mode",
         subtitle="Kjøremodusen som holder seg read-only mens den tenker, "

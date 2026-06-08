@@ -1,0 +1,1 @@
+Slik flyter en forespørsel: du spør assistenten, som sender spørsmålet videre til språkmodellen. Modellen leser ikke filer selv, den ber assistenten om å gjøre det (`ReadFile`), får innholdet tilbake og formulerer svaret. Verktøybruk er altså en dialog mellom modell og assistent.

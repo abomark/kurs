@@ -30,7 +30,7 @@ DEMO_FILES = [
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "18 · Demo: Bundled skill"])
+    crumb(["Kursmoduler", "19 · Demo: Bundled skill"])
     module_header("Demo: Bundled skill - lineage", subtitle="Live-demo: forstå en bundled skill, så anvend den på et objekt.")
     st.divider()
 

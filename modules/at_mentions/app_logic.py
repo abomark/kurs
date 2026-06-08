@@ -18,7 +18,7 @@ from modules.shared.ui import callout, card, crumb, load_markdown, module_header
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "07 · @-mentions"])
+    crumb(["Kursmoduler", "08 · @-mentions"])
     module_header("@-mentions", subtitle="Hvordan @-tegnet endrer hva agenten faktisk ser.")
     st.divider()
 

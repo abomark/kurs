@@ -16,7 +16,7 @@ from modules.shared.ui import callout, crumb, module_header, next_module_cta_for
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "11 · Kostnader"])
+    crumb(["Kursmoduler", "12 · Kostnader"])
     module_header("Kostnader")
     st.divider()
 
