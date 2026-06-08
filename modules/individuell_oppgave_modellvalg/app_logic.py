@@ -24,7 +24,7 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "16 · Individuell oppgave: Modellvalg"])
+    crumb(["Kursmoduler", "17 · Individuell oppgave: Modellvalg"])
     module_header(
         "Individuell oppgave: Modellvalg",
         subtitle="Hands-on: kjør samme oppgave med Sonnet og Opus, og sammenlign.",

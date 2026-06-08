@@ -31,7 +31,7 @@ from modules.shared.ui import (
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "17 · skills.md"])
+    crumb(["Kursmoduler", "18 · skills.md"])
 
     title, intro_body = load_titled_markdown(__file__, "intro")
     module_header(

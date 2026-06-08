@@ -15,7 +15,7 @@ from modules.shared.ui import callout, crumb, load_markdown, module_header, next
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "20 · Gruppeoppgave 2"])
+    crumb(["Kursmoduler", "21 · Gruppeoppgave 2"])
     module_header("Gruppeoppgave 2", subtitle="Lag en skill: datakvalitets-sjekk")
     st.divider()
 

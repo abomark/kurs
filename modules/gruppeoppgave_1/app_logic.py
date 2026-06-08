@@ -109,7 +109,7 @@ def main() -> None:
     if not _participant_gate():
         return
 
-    crumb(["Kursmoduler", "13 · Gruppeoppgave 1"])
+    crumb(["Kursmoduler", "14 · Gruppeoppgave 1"])
     module_header("Gruppeoppgave 1 - AGENTS.md")
     # PRD §NFR-4.1: eksplisitt påminnelse om at deltakere ikke skal lekke PII.
     st.caption(

@@ -1,6 +1,10 @@
 # Streamlit secrets
 **/.streamlit/secrets.toml
 
+# Deltaker-svar-eksporter (anonyme, men hoerer ikke hjemme i git-historikk)
+*_responses.csv
+*_responses.json
+
 # Python
 __pycache__/
 *.py[cod]

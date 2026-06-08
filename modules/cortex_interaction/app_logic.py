@@ -36,7 +36,7 @@ def _image_or_placeholder(filename: str, label: str) -> None:
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "03 · Snowsight vs CLI"])
+    crumb(["Kursmoduler", "04 · Snowsight vs CLI"])
     module_header("Snowsight vs CLI", subtitle="To måter å samhandle med Cortex Code på")
     st.divider()
 

@@ -1,0 +1,1 @@
+Systemet for å gi språkmodellen et ekstra sett av instruksjoner og verktøy kalles **Tool Use**. Verktøy gir modellene ekstra kapabiliteter: de kan lese filer, kjøre kommandoer og handle i omverdenen, ikke bare generere tekst.

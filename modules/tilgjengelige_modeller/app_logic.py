@@ -15,7 +15,7 @@ from modules.shared.ui import crumb, load_markdown, module_header, next_module_c
 
 
 def main() -> None:
-    crumb(["Kursmoduler", "15 · Tilgjengelige modeller"])
+    crumb(["Kursmoduler", "16 · Tilgjengelige modeller"])
     module_header("Tilgjengelige modeller", subtitle="Hvilke modeller står til rådighet, og når velger du hvilken?")
     st.divider()
 
